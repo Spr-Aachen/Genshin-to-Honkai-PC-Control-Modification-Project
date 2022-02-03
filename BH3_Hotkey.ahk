@@ -34,7 +34,6 @@ RButton:: ; 点按鼠标右键以发动闪避/冲刺
 Send, {k Down}
 KeyWait, RButton
 Send, {k Up}
-SendEvent, MButton
 return
 
 LShift:: ; 按下键盘左侧Shift键以发动闪避/冲刺
