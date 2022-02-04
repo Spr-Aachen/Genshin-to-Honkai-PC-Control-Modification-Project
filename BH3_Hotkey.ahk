@@ -9,7 +9,7 @@ Gui, Start:+Theme
 Gui, Start:Add, Text, x+3, ; 集体缩进
 Gui, Start:Add, Text,, F1:                     停用/启用
 Gui, Start:Add, Text,, F2:                     重启
-Gui, Start:Add, Text,, F3:                     说明
+Gui, Start:Add, Text,, F3:                     退出
 Gui, Start:Add, Text,, 左Alt+左键:             正常左键
 Gui, Start:Add, Text,, 左Shift/右键:           闪避/冲刺
 Gui, Start:Add, Text,, 左Ctrl:                 人偶技
@@ -17,7 +17,7 @@ Gui, Start:Add, Text,, Q:                      必杀技
 Gui, Start:Add, Text,, E:                      武器技/后崩必杀技
 Gui, Start:Add, Text,, 方向键:                 准心控制
 Gui, Start:Add, Text,, 中键:                   视角跟随
-Gui, Start:Add, Text,, 左键:                   普攻
+Gui, Start:Add, Text,, 左键:                   普攻/吼姆跳
 Gui, Start:Add, Link,, 源码查看:               <a href="">传送门</a>
 Gui, Start:Add, Text,,
 Gui, Start:Add, Button, xn w333, 关闭
@@ -59,7 +59,7 @@ Suspend Off
 Reload 
 return
 
-F3::ExitApp ; 结束程序
+F3::ExitApp ; 退出程序
 
 ;--------------------------------------------------------------------------------------------------
 
@@ -153,7 +153,5 @@ if WinActive("ahk_class UnityWndClass")
 return
 
 ;--------------------------------------------------------------------------------------------------
-
 ;目前就这些，可根据需要自行修改
-
 ;--------------------------------------------------------------------------------------------------
