@@ -22,7 +22,6 @@ Gui, Start:Add, Link,, 源码查看:               <a href="https://github.com/S
 Gui, Start:Add, Text,,
 Gui, Start:Add, Button, xn w333, 关闭
 Gui, Start:Show, xCenter yCenter, 设置说明
-WinSet, Transparent, 250, A
 Return
 
 StartButton关闭:
