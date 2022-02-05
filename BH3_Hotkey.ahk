@@ -2,14 +2,14 @@
 ;Version 0.1.0
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Disable( )
+Disable( ) ; 该段用于设置界面状态栏，请勿删改
 {
-    WinGet, id ,ID, A
-    menu:=DLLCall("user32\GetSystemMenu","UInt",id,"UInt",0)
-    DLLCall("user32\DeleteMenu","UInt",menu,"UInt",0xF060,"UInt",0x0)
-    WinGetPos,x,y,w,h,ahk_id %id%
-    WinMove,ahk_id %id%,,%x%,%y%,%w%,% h-1
-    WinMove,ahk_id %id%,,%x%,%y%,%w%,% h+1
+    WinGet, id, ID, A
+    menu := DLLCall( "user32\GetSystemMenu", "UInt", id, "UInt", 0)
+    DLLCall( "user32\DeleteMenu", "UInt", menu, "UInt", 0xF060, "UInt", 0x0)
+    WinGetPos ,x, y, w, h, ahk_id %id%
+    WinMove, ahk_id %id%,, %x%, %y%, %w%, % h-1
+    WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
 }
 
 Gui, Start: Font, s12, 新宋体
@@ -17,8 +17,7 @@ Gui, Start: Margin , X, Y
 Gui, Start: + Theme
 Gui, Start: Add, Text, x+3, ; 集体缩进
 Gui, Start: Add, Text,, F1:                     暂停/启用
-Gui, Start: Add, Text,, F2:                     重启
-Gui, Start: Add, Text,, F3:                     退出
+Gui, Start: Add, Text,, F3:                     重启
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
 Gui, Start: Add, Text,, 左Shift/右键:           闪避/冲刺
 Gui, Start: Add, Text,, 左Ctrl:                 人偶技
@@ -35,44 +34,49 @@ Disable( )
 Return
 
 StartButton开启:
-Gui, Start:Destroy
-Suspend    
-WinSet AlwaysOnTop, 0, A
-Send, {Click, Up}{Click, Up Middle}
-ToolTip, 暂停中, 0, 999
+Gui, Start: Destroy
+SetTimer, AutoFadeMsgbox, -1200
+MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以禁用）
+SetTimer, AutoFadeMsgbox, Off
+Return
+
+AutoFadeMsgbox:
+DLLCall( "AnimateWindow", UInt, WinExist( "提示 ahk_class #32770"), Int, 500, UInt, 0x90000)
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#IfWinActive ahk_class UnityWndClass ; 【宏条件】用于检测3D游戏窗口的指令，使程序仅在游戏运行时生效
+#IfWinActive ahk_class UnityWndClass ; 【宏条件】检测3D游戏窗口，使程序仅在游戏运行时生效
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-F1:: ; 停用/ 启用所有热键——若想正常使用鼠标请按该键或按住ALT键
-Suspend    
-WinSet AlwaysOnTop, Off, A
+SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
+{
+    HKL := DllCall( "LoadKeyboardLayout", Str, dwLayout, UInt, 1)
+    ControlGetFocus, ctl, A
+    SendMessage, 0x50, 0, HKL, %ctl%, A
+}
+
+F1:: ; 暂停/ 启用程序——若想正常使用鼠标请按该键或按住ALT键
+Suspend, Toggle    
+WinSet, AlwaysOnTop, Off, A
 Send, {Click, Up}{Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{space} ; [未启用命令行] 微软拼音用户可用该命令
 if (A_IsSuspended=1)
     ToolTip, 暂停中, 0, 999 ; 可调校数值
 else if (A_IsSuspended=0)
+{
+    ToolTip, 已启用, 0, 999 ; 可调校数值
+    Sleep 210 ; 可调校数值
     ToolTip
+}
 Return
 
-SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
-{
-    HKL:=DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
-    ControlGetFocus,ctl,A
-    SendMessage,0x50,0,HKL,%ctl%,A
-}
-
-F2:: ; 重启所有热键
-Suspend Off
+F3:: ; 重启程序以呼出操作说明界面
+Suspend, Off
 Reload 
 Return
-
-F3::ExitApp ; 退出程序
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -160,6 +164,7 @@ ViewControl:
 if WinActive("ahk_class UnityWndClass")
 {
     SendInput, {Click, Down Middle}
+    CoordMode, Window
     WinGetPos, X, Y, Width, Height, ahk_class UnityWndClass
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值]
 }
