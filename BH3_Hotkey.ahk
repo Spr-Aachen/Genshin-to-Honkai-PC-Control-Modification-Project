@@ -17,7 +17,7 @@ Gui, Start: Margin , X, Y
 Gui, Start: + Theme
 Gui, Start: Add, Text, x+3, ; 集体缩进
 Gui, Start: Add, Text,, F1:                     暂停/启用
-Gui, Start: Add, Text,, F3:                     重启
+Gui, Start: Add, Text,, F3:                     查看说明
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
 Gui, Start: Add, Text,, 左Shift/右键:           闪避/冲刺
 Gui, Start: Add, Text,, 左Ctrl:                 人偶技
@@ -31,12 +31,14 @@ Gui, Start: Add, Text,,
 Gui, Start: Add, Button, xn w333, 开启
 Gui, Start: Show, xCenter yCenter, 设置说明
 Disable( )
+Suspend, On
 Return
 
 StartButton开启:
+Suspend, Off
 Gui, Start: Destroy
 SetTimer, AutoFadeMsgbox, -1200
-MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以禁用）
+MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以停用）
 SetTimer, AutoFadeMsgbox, Off
 Return
 
