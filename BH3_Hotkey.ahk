@@ -124,22 +124,7 @@ Send, {u Up}
 SendEvent, MButton
 Return
 
-q:: ; 按下键盘Q键以发动必杀技（若设置视角跟随会唤醒U键，目前尝试各种block禁用指令无果）
-GetKeyState, State, q, T
-Send, {i Down}
-KeyWait, q
-Send, {i Up}
-if (State="U")
-{
-    GetKeyState, State, e, P
-    if (State="U")
-    {
-        *u::return
-    }
-    else
-        SendEvent, MButton
-}
-Return
+q::i ; 按下键盘Q键以发动必杀技（若设置视角跟随会唤醒U键，目前尝试各种block禁用指令无果）
 
 z::l ; 按下键盘Z键以发动人偶技
 
