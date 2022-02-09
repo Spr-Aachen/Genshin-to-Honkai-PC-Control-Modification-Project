@@ -20,7 +20,7 @@ Gui, Start: Add, Text,, F1:                     暂停/启用
 Gui, Start: Add, Text,, F3:                     查看说明
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
 Gui, Start: Add, Text,, 左Shift/右键:           闪避/冲刺
-Gui, Start: Add, Text,, 左Ctrl:                 人偶技
+Gui, Start: Add, Text,, Z:                      人偶技
 Gui, Start: Add, Text,, Q:                      必杀技
 Gui, Start: Add, Text,, E:                      武器技/后崩必杀技
 Gui, Start: Add, Text,, 方向键:                 准心控制
@@ -141,7 +141,7 @@ if (State="U")
 }
 Return
 
-LCtrl::l ; 按下键盘左侧Ctrl键以发动人偶技（若设置视角跟随会唤醒U键，同上）
+z::l ; 按下键盘Z键以发动人偶技
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
