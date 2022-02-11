@@ -97,25 +97,25 @@ SendEvent, {k Up}
 Return
 
 e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
-GetKeyState, State, e, T
+GetKeyState, State, e, P
 Send, {u Down}
 KeyWait, e
-if (State="D")
+if (State=1)
 {
     up::w
     return
 }
-if (State="D")
+if (State=1)
 {
     down::s
     return
 }
-if (State="D")
+if (State=1)
 {
     left::a
     return
 }
-if (State="D")
+if (State=1)
 {
     right::d
     return
