@@ -77,6 +77,30 @@ Suspend, Off
 Reload 
 Return
 
+#Tab::
+Suspend, On    
+WinSet, AlwaysOnTop, Off, A
+Send, {Click, Up}{Click, Up Middle}
+SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+if (A_IsSuspended=1)
+    ToolTip, 暂停中, 0, 999 ; 可调校数值
+Sleep 99 ; 可调校数值
+SendEvent, #{Tab}
+Return
+
+!Tab::
+Suspend, On    
+WinSet, AlwaysOnTop, Off, A
+Send, {Click, Up}{Click, Up Middle}
+SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+if (A_IsSuspended=1)
+    ToolTip, 暂停中, 0, 999 ; 可调校数值
+Sleep 99 ; 可调校数值
+SendEvent, !{Tab}
+Return
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 *!LButton::LButton ; 按住ALT以正常使用鼠标左键
