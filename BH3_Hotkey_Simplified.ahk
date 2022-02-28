@@ -45,7 +45,7 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#IfWinActive ahk_class UnityWndClass ; 【宏条件】检测3D游戏窗口，使程序仅在游戏运行时生效
+#IfWinActive ahk_exe BH3.exe ; 【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -125,11 +125,11 @@ SetTimer, ViewControl, -99 ; [可调校数值] 设定视角跟随命令的每执
 Return
 
 ViewControl:
-if WinActive("ahk_class UnityWndClass")
+if WinActive("ahk_exe BH3.exe")
 {
     SendInput, {Click, Down Middle}
     CoordMode, Window
-    WinGetPos, X, Y, Width, Height, ahk_class UnityWndClass
+    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值]
 }
 Return
