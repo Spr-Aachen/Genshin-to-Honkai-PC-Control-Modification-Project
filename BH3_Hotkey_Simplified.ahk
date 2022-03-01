@@ -78,27 +78,39 @@ Reload
 Return
 
 #Tab::
-Suspend, On    
-WinSet, AlwaysOnTop, Off, A
-Send, {Click, Up}{Click, Up Middle}
-SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-if (A_IsSuspended=1)
-    ToolTip, 暂停中, 0, 999 ; 可调校数值
-Sleep 99 ; 可调校数值
-SendEvent, #{Tab}
+if (A_IsSuspended=0)
+{
+    Suspend, On    
+    WinSet, AlwaysOnTop, Off, A
+    Send, {Click, Up}{Click, Up Middle}
+    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+    ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+    if (A_IsSuspended=1)
+        ToolTip, 暂停中, 0, 999 ; 可调校数值
+    Sleep 99 ; 可调校数值
+    Send, #{Tab}
+    Return
+}
+else
+    Send, #{Tab}
 Return
 
 !Tab::
-Suspend, On    
-WinSet, AlwaysOnTop, Off, A
-Send, {Click, Up}{Click, Up Middle}
-SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-if (A_IsSuspended=1)
-    ToolTip, 暂停中, 0, 999 ; 可调校数值
-Sleep 99 ; 可调校数值
-SendEvent, !{Tab}
+if (A_IsSuspended=0)
+{
+    Suspend, On    
+    WinSet, AlwaysOnTop, Off, A
+    Send, {Click, Up}{Click, Up Middle}
+    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+    ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+    if (A_IsSuspended=1)
+        ToolTip, 暂停中, 0, 999 ; 可调校数值
+    Sleep 99 ; 可调校数值
+    Send, !{Tab}
+    Return
+}
+else
+    Send, !{Tab}
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,8 +141,8 @@ if WinActive("ahk_exe BH3.exe")
 {
     SendInput, {Click, Down Middle}
     CoordMode, Window
-    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe
-    MouseMove, Width/2, Height/2, 0 ; [建议保持数值]
+    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+    MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
 }
 Return
 

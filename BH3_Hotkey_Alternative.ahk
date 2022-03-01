@@ -120,6 +120,8 @@ Return
 
 *!LButton::LButton ; 按住ALT以正常使用鼠标左键
 
+LButton::j ; 点按鼠标左键以发动普攻
+
 RButton:: ; 点按鼠标右键以发动闪避/冲刺
 SendEvent, {k Down}
 KeyWait, RButton
@@ -133,31 +135,46 @@ SendEvent, {k Up}
 Return
 
 e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
-GetKeyState, State, e, P
+CoordMode, Window
+WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
 Send, {u Down}
 KeyWait, e
-if (State=1)
-{
-    up::w
-    return
-}
-if (State=1)
-{
-    down::s
-    return
-}
-if (State=1)
-{
-    left::a
-    return
-}
-if (State=1)
-{
-    right::d
-    return
-}
 Send, {u Up}
-SendEvent, MButton
+While GetKeyState("e", "P")
+{
+    MouseGetPos, xa, ya
+    Sleep, 1
+    MouseGetPos, xb, yb
+    if (xa<xb)
+    {
+        SendEvent, {d Down}
+        Sleep, 1
+        SendEvent, {d Up}
+        Return
+    }
+    if (xa>xb)
+    {
+        SendEvent, {a Down}
+        Sleep, 1
+        SendEvent, {a Up}
+        Return
+    }
+    if (ya<yb)
+    {
+        SendEvent, {s Down}
+        Sleep, 1
+        SendEvent, {s Up}
+        Return
+    }
+    if (ya>yb)
+    {
+        SendEvent, {w Down}
+        Sleep, 1
+        SendEvent, {w Up}
+        Return
+    }
+}
 Return
 
 q::i ; 按下键盘Q键以发动必杀技（若设置视角跟随会唤醒U键，目前尝试各种block禁用指令无果）
@@ -167,29 +184,47 @@ z::l ; 按下键盘Z键以发动人偶技
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 MButton:: ; 点击鼠标中键以激活视角跟随
-SendInput, {Click, Up Middle}
-Return
-
-MButton Up:: 
-SendInput, {Click, Down}
-Return
-
-LButton:: ; 点按鼠标左键以发动普攻
-Send, {j Down}
-KeyWait, LButton
-Send, {j Up}
-SendInput, {Click, Up Middle}
-Loop := True
-SetTimer, ViewControl, -99 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
+CoordMode, Window
+WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
 Return
 
 ViewControl:
 if WinActive("ahk_exe BH3.exe")
 {
-    SendInput, {Click, Down Middle}
-    CoordMode, Window
-    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
-    MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+    MouseGetPos, x1, y1
+    Sleep, 1
+    MouseGetPos, x2, y2
+
+    if (x1<x2)
+    {
+        SendInput, {e Down}
+        Sleep, 33
+        SendInput, {e Up}
+        Return
+    }
+    if (x1>x2)
+    {
+        SendInput, {q Down}
+        Sleep, 33
+        SendInput, {q Up}
+        Return
+    }
+    if (y1<y2)
+    {
+        SendInput, {m Down}
+        Sleep, 33
+        SendInput, {m Up}
+        Return
+    }
+    if (y1>y2)
+    {
+        SendInput, {n Down}
+        Sleep, 33
+        SendInput, {n Up}
+        Return
+    }
 }
 Return
 
