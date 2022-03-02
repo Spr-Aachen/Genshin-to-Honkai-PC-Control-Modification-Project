@@ -37,7 +37,7 @@ Return
 StartButton开启:
 Suspend, Off
 Gui, Start: Destroy
-SetTimer, AutoFadeMsgbox, -1200
+SetTimer, AutoFadeMsgbox, -1200 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以停用）
 SetTimer, AutoFadeMsgbox, Off
 Return
@@ -66,11 +66,11 @@ Send, {Click, Up}{Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 if (A_IsSuspended=1)
-    ToolTip, 暂停中, 0, 999 ; 可调校数值
+    ToolTip, 暂停中, 0, 999 ; [可调校数值]
 else if (A_IsSuspended=0)
 {
-    ToolTip, 已启用, 0, 999 ; 可调校数值
-    Sleep 210 ; 可调校数值
+    ToolTip, 已启用, 0, 999 ; [可调校数值]
+    Sleep 210 ; [可调校数值]
     ToolTip
 }
 Return
@@ -89,8 +89,8 @@ if (A_IsSuspended=0)
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     if (A_IsSuspended=1)
-        ToolTip, 暂停中, 0, 999 ; 可调校数值
-    Sleep 99 ; 可调校数值
+        ToolTip, 暂停中, 0, 999 ; [可调校数值]
+    Sleep 99 ; [可调校数值]
     Send, #{Tab}
     Return
 }
@@ -107,8 +107,8 @@ if (A_IsSuspended=0)
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     if (A_IsSuspended=1)
-        ToolTip, 暂停中, 0, 999 ; 可调校数值
-    Sleep 99 ; 可调校数值
+        ToolTip, 暂停中, 0, 999 ; [可调校数值]
+    Sleep 99 ; [可调校数值]
     Send, !{Tab}
     Return
 }
@@ -180,7 +180,7 @@ KeyWait, LButton
 Send, {j Up}
 SendInput, {Click, Up Middle}
 Loop := True
-SetTimer, ViewControl, -99 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
+SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
 Return
 
 ViewControl:
