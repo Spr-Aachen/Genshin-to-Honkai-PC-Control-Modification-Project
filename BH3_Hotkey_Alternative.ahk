@@ -196,7 +196,6 @@ if WinActive("ahk_exe BH3.exe")
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
-
     if (x1<x2)
     {
         SendInput, {e Down}
