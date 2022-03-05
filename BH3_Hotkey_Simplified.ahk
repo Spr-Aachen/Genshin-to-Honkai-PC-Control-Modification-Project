@@ -1,5 +1,5 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-;Version 0.1.0 精简版
+;Version 0.1.0
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Disable( ) ; 该段用于设置界面状态栏，请勿删改
@@ -11,7 +11,6 @@ Disable( ) ; 该段用于设置界面状态栏，请勿删改
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h-1
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
 }
-
 Gui, Start: Font, s12, 新宋体
 Gui, Start: Margin , X, Y
 Gui, Start: + Theme
@@ -34,7 +33,7 @@ Return
 StartButton开启:
 Suspend, Off
 Gui, Start: Destroy
-SetTimer, AutoFadeMsgbox, -1200 ; [[可调校数值]] 使消息弹窗仅存在一段时间(ms)
+SetTimer, AutoFadeMsgbox, -1200 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以停用）
 SetTimer, AutoFadeMsgbox, Off
 Return
@@ -61,7 +60,7 @@ Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
 Send, {Click, Up}{Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-;Send, #{space} ; [未启用命令行] 微软拼音用户可用该命令
+;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 if (A_IsSuspended=1)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
 else if (A_IsSuspended=0)
@@ -115,27 +114,6 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-*!LButton::LButton ; 按住ALT以正常使用鼠标左键
-
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-MButton:: ; 点击鼠标中键以激活视角跟随
-SendInput, {Click, Up Middle}
-Return
-
-MButton Up:: 
-SendInput, {Click, Down}
-Return
-
-LButton:: ; 点按鼠标左键以发动普攻
-Send, {j Down}
-KeyWait, LButton
-Send, {j Up}
-SendInput, {Click, Up Middle}
-Loop := True
-SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
-Return
-
 ViewControl:
 if WinActive("ahk_exe BH3.exe")
 {
@@ -145,6 +123,84 @@ if WinActive("ahk_exe BH3.exe")
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
 }
 Return
+
+ViewControlTemp:
+if WinActive("ahk_exe BH3.exe")
+{
+    MouseGetPos, x1, y1
+    Sleep, 1
+    MouseGetPos, x2, y2
+    if (x1<x2)
+    {
+        SendInput, {e Down}
+        Sleep, 1
+        SendInput, {e Up}
+        Return
+    }
+    if (x1>x2)
+    {
+        SendInput, {q Down}
+        Sleep, 1
+        SendInput, {q Up}
+        Return
+    }
+    if (y1<y2)
+    {
+        SendInput, {m Down}
+        Sleep, 1
+        SendInput, {m Up}
+        Return
+    }
+    if (y1>y2)
+    {
+        SendInput, {n Down}
+        Sleep, 1
+        SendInput, {n Up}
+        Return
+    }
+}
+Return
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+M_Toggle=0
+
+MButton:: ; 点击鼠标中键以激活视角跟随
+M_Toggle:=!M_Toggle
+If (M_Toggle)
+{
+    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
+    ToolTip, 视角跟随已启用, 0, 999 ; [可调校数值]
+    Sleep 999 ; [可调校数值]
+    ToolTip
+}
+else
+{
+    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, Off
+    SendInput, {Click, Up Middle}
+    ToolTip, 视角跟随已停用, 0, 999 ; [可调校数值]
+    Sleep 999 ; [可调校数值]
+    ToolTip
+}
+Return
+
+LButton:: ; 点按鼠标左键以发动普攻
+Send, {j Down}
+If (M_Toggle)
+{
+    While GetKeyState("LButton", "P")
+    {
+	SetTimer, ViewControl, Off
+        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, LButton
+Send, {j Up}
+Return
+
+*!LButton::LButton ; 按住ALT以正常使用鼠标左键
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;目前就这些，可根据需要自行修改

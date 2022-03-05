@@ -118,71 +118,6 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-*!LButton::LButton ; 按住ALT以正常使用鼠标左键
-
-RButton:: ; 点按鼠标右键以发动闪避/冲刺
-SendEvent, {k Down}
-KeyWait, RButton
-SendEvent, {k Up}
-Return
-
-LShift:: ; 按下键盘左侧Shift键以发动闪避/冲刺
-SendEvent, {k Down}
-KeyWait, LShift
-SendEvent, {k Up}
-Return
-
-e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
-GetKeyState, State, e, P
-Send, {u Down}
-KeyWait, e
-if (State=1)
-{
-    up::w
-    return
-}
-if (State=1)
-{
-    down::s
-    return
-}
-if (State=1)
-{
-    left::a
-    return
-}
-if (State=1)
-{
-    right::d
-    return
-}
-Send, {u Up}
-SendEvent, MButton
-Return
-
-q::i ; 按下键盘Q键以发动必杀技（若设置视角跟随会唤醒U键，目前尝试各种block禁用指令无果）
-
-z::l ; 按下键盘Z键以发动人偶技
-
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-MButton:: ; 点击鼠标中键以激活视角跟随
-SendInput, {Click, Up Middle}
-Return
-
-MButton Up:: 
-SendInput, {Click, Down}
-Return
-
-LButton:: ; 点按鼠标左键以发动普攻
-Send, {j Down}
-KeyWait, LButton
-Send, {j Up}
-SendInput, {Click, Up Middle}
-Loop := True
-SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
-Return
-
 ViewControl:
 if WinActive("ahk_exe BH3.exe")
 {
@@ -192,6 +127,126 @@ if WinActive("ahk_exe BH3.exe")
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
 }
 Return
+
+ViewControlTemp:
+if WinActive("ahk_exe BH3.exe")
+{
+    MouseGetPos, x1, y1
+    Sleep, 1
+    MouseGetPos, x2, y2
+    if (x1<x2)
+    {
+        SendInput, {e Down}
+        Sleep, 1
+        SendInput, {e Up}
+        Return
+    }
+    if (x1>x2)
+    {
+        SendInput, {q Down}
+        Sleep, 1
+        SendInput, {q Up}
+        Return
+    }
+    if (y1<y2)
+    {
+        SendInput, {m Down}
+        Sleep, 1
+        SendInput, {m Up}
+        Return
+    }
+    if (y1>y2)
+    {
+        SendInput, {n Down}
+        Sleep, 1
+        SendInput, {n Up}
+        Return
+    }
+}
+Return
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+M_Toggle=0
+
+MButton:: ; 点击鼠标中键以激活视角跟随
+M_Toggle:=!M_Toggle
+If (M_Toggle)
+{
+    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
+    ToolTip, 视角跟随已启用, 0, 999 ; [可调校数值]
+    Sleep 999 ; [可调校数值]
+    ToolTip
+}
+else
+{
+    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, Off
+    SendInput, {Click, Up Middle}
+    ToolTip, 视角跟随已停用, 0, 999 ; [可调校数值]
+    Sleep 999 ; [可调校数值]
+    ToolTip
+}
+Return
+
+LButton:: ; 点按鼠标左键以发动普攻
+Send, {j Down}
+If (M_Toggle)
+{
+    While GetKeyState("LButton", "P")
+    {
+	SetTimer, ViewControl, Off
+        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, LButton
+Send, {j Up}
+Return
+
+q:: ; 按下键盘Q键以发动必杀技
+Send, {i Down}
+If (M_Toggle)
+{
+    While GetKeyState("q", "P")
+    {
+	SetTimer, ViewControl, Off
+        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, q
+Send, {i Up}
+Return
+
+
+e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
+GetKeyState, State, e, P
+Send, {u Down}
+if (State=1)
+{
+    up::w
+    down::s
+    left::a
+    right::d
+}
+If (M_Toggle)
+{
+    While GetKeyState("e", "P")
+    {
+        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, e
+Send, {u Up}
+Return
+
+z::l ; 按下键盘Z键以发动人偶技
+
+LShift::k ; 按下键盘左侧Shift键以发动闪避/冲刺
+
+RButton::k ; 点按鼠标右键以发动闪避/冲刺
+
+*!LButton::LButton ; 按住ALT以正常使用鼠标左键
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;目前就这些，可根据需要自行修改
