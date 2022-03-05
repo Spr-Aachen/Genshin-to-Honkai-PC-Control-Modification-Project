@@ -175,7 +175,7 @@ If (M_Toggle)
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
-    ToolTip, 视角跟随已启用, 0, 999 ; [可调校数值]
+    ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
 }
@@ -184,7 +184,7 @@ else
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, Off
     SendInput, {Click, Up Middle}
-    ToolTip, 视角跟随已停用, 0, 999 ; [可调校数值]
+    ToolTip, 视角跟随已关闭, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
 }
