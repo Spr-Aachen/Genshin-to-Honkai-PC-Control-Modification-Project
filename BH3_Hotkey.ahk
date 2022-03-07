@@ -19,7 +19,7 @@ Gui, Start: Add, Text, x+3, ; 集体缩进
 Gui, Start: Add, Text,, F1:                     暂停/启用
 Gui, Start: Add, Text,, F3:                     查看说明
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
-Gui, Start: Add, Text,, 左Shift/右键:           闪避/冲刺
+Gui, Start: Add, Text,, 左ShIft/右键:           闪避/冲刺
 Gui, Start: Add, Text,, Z:                      人偶技
 Gui, Start: Add, Text,, Q:                      必杀技
 Gui, Start: Add, Text,, E:                      武器技/后崩必杀技
@@ -60,15 +60,17 @@ SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
 }
 
 F1:: ; 暂停/ 启用程序——若想正常使用鼠标请按该键或按住ALT键
-Suspend, Toggle    
+Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
-Send, {Click, Up}{Click, Up Middle}
+SetTimer, ViewControlTemp, Off
+SendInput, {Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-if (A_IsSuspended=1)
+If (A_IsSuspended=1)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
-else if (A_IsSuspended=0)
+Else If (A_IsSuspended=0)
 {
+    M_Toggle:=!M_Toggle
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -77,49 +79,53 @@ Return
 
 F3:: ; 重启程序以呼出操作说明界面
 Suspend, Off
+SetTimer, ViewControlTemp, Off
+SendInput, {Click, Up Middle}
 Reload 
 Return
 
 #Tab::
-if (A_IsSuspended=0)
+If (A_IsSuspended=0)
 {
-    Suspend, On    
+    Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    Send, {Click, Up}{Click, Up Middle}
+    SetTimer, ViewControlTemp, Off
+    Send, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    if (A_IsSuspended=1)
+    If (A_IsSuspended=1)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, #{Tab}
     Return
 }
-else
+Else
     Send, #{Tab}
 Return
 
 !Tab::
-if (A_IsSuspended=0)
+If (A_IsSuspended=0)
 {
-    Suspend, On    
+    Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    Send, {Click, Up}{Click, Up Middle}
+    SetTimer, ViewControlTemp, Off
+    SendInput, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    if (A_IsSuspended=1)
+    If (A_IsSuspended=1)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, !{Tab}
     Return
 }
-else
+Else
     Send, !{Tab}
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ViewControl:
-if WinActive("ahk_exe BH3.exe")
+If WinActive("ahk_exe BH3.exe")
 {
     SendInput, {Click, Down Middle}
     CoordMode, Window
@@ -129,33 +135,33 @@ if WinActive("ahk_exe BH3.exe")
 Return
 
 ViewControlTemp:
-if WinActive("ahk_exe BH3.exe")
+If WinActive("ahk_exe BH3.exe")
 {
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
-    if (x1<x2)
+    If (x1<x2)
     {
         SendInput, {e Down}
         Sleep, 1
         SendInput, {e Up}
         Return
     }
-    if (x1>x2)
+    If (x1>x2)
     {
         SendInput, {q Down}
         Sleep, 1
         SendInput, {q Up}
         Return
     }
-    if (y1<y2)
+    If (y1<y2)
     {
         SendInput, {m Down}
         Sleep, 1
         SendInput, {m Up}
         Return
     }
-    if (y1>y2)
+    If (y1>y2)
     {
         SendInput, {n Down}
         Sleep, 1
@@ -179,7 +185,7 @@ If (M_Toggle)
     Sleep 999 ; [可调校数值]
     ToolTip
 }
-else
+Else
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, Off
@@ -194,7 +200,7 @@ LButton:: ; 点按鼠标左键以发动普攻
 Send, {j Down}
 If (M_Toggle)
 {
-    While GetKeyState("LButton", "P")
+    If GetKeyState("LButton", "P")
     {
 	SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
@@ -208,7 +214,7 @@ q:: ; 按下键盘Q键以发动必杀技
 Send, {i Down}
 If (M_Toggle)
 {
-    While GetKeyState("q", "P")
+    If GetKeyState("q", "P")
     {
 	SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
@@ -222,7 +228,7 @@ Return
 e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
 GetKeyState, State, e, P
 Send, {u Down}
-if (State=1)
+If (State=1)
 {
     up::w
     down::s
@@ -231,8 +237,9 @@ if (State=1)
 }
 If (M_Toggle)
 {
-    While GetKeyState("e", "P")
+    If GetKeyState("e", "P")
     {
+	SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
@@ -242,7 +249,7 @@ Return
 
 z::l ; 按下键盘Z键以发动人偶技
 
-LShift::k ; 按下键盘左侧Shift键以发动闪避/冲刺
+LShIft::k ; 按下键盘左侧ShIft键以发动闪避/冲刺
 
 RButton::k ; 点按鼠标右键以发动闪避/冲刺
 
