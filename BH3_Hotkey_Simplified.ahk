@@ -55,16 +55,19 @@ SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
     SendMessage, 0x50, 0, HKL, %ctl%, A
 }
 
+
 F1:: ; 暂停/ 启用程序——若想正常使用鼠标请按该键或按住ALT键
-Suspend, Toggle    
+Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
-Send, {Click, Up}{Click, Up Middle}
+SetTimer, ViewControlTemp, Off
+SendInput, {Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-if (A_IsSuspended=1)
+If (A_IsSuspended=1)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
-else if (A_IsSuspended=0)
+Else If (A_IsSuspended=0)
 {
+    M_Toggle:=!M_Toggle
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -73,42 +76,46 @@ Return
 
 F3:: ; 重启程序以呼出操作说明界面
 Suspend, Off
+SetTimer, ViewControlTemp, Off
+SendInput, {Click, Up Middle}
 Reload 
 Return
 
 #Tab::
-if (A_IsSuspended=0)
+If (A_IsSuspended=0)
 {
-    Suspend, On    
+    Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    Send, {Click, Up}{Click, Up Middle}
+    SetTimer, ViewControlTemp, Off
+    Send, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    if (A_IsSuspended=1)
+    If (A_IsSuspended=1)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, #{Tab}
     Return
 }
-else
+Else
     Send, #{Tab}
 Return
 
 !Tab::
-if (A_IsSuspended=0)
+If (A_IsSuspended=0)
 {
-    Suspend, On    
+    Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    Send, {Click, Up}{Click, Up Middle}
+    SetTimer, ViewControlTemp, Off
+    SendInput, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    if (A_IsSuspended=1)
+    If (A_IsSuspended=1)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, !{Tab}
     Return
 }
-else
+Else
     Send, !{Tab}
 Return
 
