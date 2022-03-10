@@ -50,6 +50,8 @@ Return
 
 #IfWinActive ahk_exe BH3.exe ; 【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 
+Global M_Toggle=0
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
@@ -66,11 +68,12 @@ SetTimer, ViewControlTemp, Off
 SendInput, {Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-If (A_IsSuspended=1)
+If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
 Else If (A_IsSuspended=0)
 {
-    M_Toggle:=!M_Toggle
+    If (M_Toggle)
+        M_Toggle:=!M_Toggle
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -93,7 +96,7 @@ If (A_IsSuspended=0)
     Send, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    If (A_IsSuspended=1)
+    If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, #{Tab}
@@ -112,7 +115,7 @@ If (A_IsSuspended=0)
     SendInput, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    If (A_IsSuspended=1)
+    If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, !{Tab}
@@ -127,10 +130,10 @@ Return
 ViewControl:
 If WinActive("ahk_exe BH3.exe")
 {
-    SendInput, {Click, Down Middle}
     CoordMode, Window
     WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+    SendInput, {Click, Down Middle}
 }
 Return
 
@@ -173,8 +176,6 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-M_Toggle=0
-
 MButton:: ; 点击鼠标中键以激活视角跟随
 M_Toggle:=!M_Toggle
 If (M_Toggle)
@@ -202,7 +203,7 @@ If (M_Toggle)
 {
     If GetKeyState("LButton", "P")
     {
-	SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
@@ -216,7 +217,7 @@ If (M_Toggle)
 {
     If GetKeyState("q", "P")
     {
-	SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
@@ -239,7 +240,7 @@ If (M_Toggle)
 {
     If GetKeyState("e", "P")
     {
-	SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
