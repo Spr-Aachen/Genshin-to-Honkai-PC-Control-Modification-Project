@@ -150,26 +150,87 @@ If WinActive("ahk_exe BH3.exe")
         SendInput, {e Up}
         Return
     }
-    If (x1>x2)
+    Else If (x1>x2)
     {
         SendInput, {q Down}
         Sleep, 1
         SendInput, {q Up}
         Return
     }
-    If (y1<y2)
+    Else If (y1<y2)
     {
         SendInput, {m Down}
         Sleep, 1
         SendInput, {m Up}
         Return
     }
-    If (y1>y2)
+    Else If (y1>y2)
     {
         SendInput, {n Down}
         Sleep, 1
         SendInput, {n Up}
         Return
+    }
+    Else If (x1<x2 and y1<y2)
+    {
+        SendInput, {e Down}{m Down}
+        Sleep, 1
+        SendInput, {e Up}{m Up}
+        Return
+    }
+    Else If (x1<x2 and y1>y2)
+    {
+        SendInput, {e Down}{n Down}
+        Sleep, 1
+        SendInput, {e Up}{n Up}
+        Return
+    }
+    Else If (x1>x2 and y1<y2)
+    {
+        SendInput, {q Down}{m Down}
+        Sleep, 1
+        SendInput, {q Up}{m Up}
+        Return
+    }
+    Else If (x1>x2 and y1>y2)
+    {
+        SendInput, {q Down}{n Down}
+        Sleep, 1
+        SendInput, {q Up}{n Up}
+        Return
+    }
+}
+Return
+
+AimControlTemp:
+If WinActive("ahk_exe BH3.exe")
+{
+    MouseGetPos, x1, y1
+    Sleep, 1
+    MouseGetPos, x2, y2
+    If (x1<x2)
+    {
+        SendInput, {d Down}{a Up}{s Up}{w Up}
+        KeyWait, e, U
+        SendInput, {d Up}
+    }
+    Else If (x1>x2)
+    {
+        SendInput, {a Down}{d Up}{s Up}{w Up}
+        KeyWait, e, U
+        SendInput, {a Up}
+    }
+    Else If (y1<y2)
+    {
+        SendInput, {s Down}{a Up}{w Up}{d Up}
+        KeyWait, e, U
+        SendInput, {s Up}
+    }
+    Else If (y1>y2)
+    {
+        SendInput, {w Down}{a Up}{s Up}{d Up}
+        KeyWait, e, U
+        SendInput, {w Up}
     }
 }
 Return
@@ -207,8 +268,9 @@ If (M_Toggle)
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
-KeyWait, LButton
+KeyWait, LButton, U
 Send, {j Up}
+SetTimer, ViewControlTemp, Off
 Return
 
 q:: ; 按下键盘Q键以发动必杀技
@@ -221,36 +283,42 @@ If (M_Toggle)
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
-KeyWait, q
+KeyWait, q, U
 Send, {i Up}
+SetTimer, ViewControlTemp, Off
 Return
 
-
-e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可通过键盘右侧方向键操控准心
-GetKeyState, State, e, P
+e:: ; 按下键盘E键以发动武器技/ 后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
 Send, {u Down}
-If (State=1)
-{
-    up::w
-    down::s
-    left::a
-    right::d
-}
 If (M_Toggle)
 {
     If GetKeyState("e", "P")
     {
         SetTimer, ViewControl, Off
-        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+        SetTimer, AimControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
-KeyWait, e
+KeyWait, e, U
 Send, {u Up}
+SetTimer, AimControlTemp, Off
 Return
 
 z::l ; 按下键盘Z键以发动人偶技
 
-LShIft::k ; 按下键盘左侧ShIft键以发动闪避/冲刺
+LShIft:: ; 按下键盘左侧ShIft键以发动闪避/冲刺
+Send, {k Down}
+If (M_Toggle)
+{
+    If GetKeyState("q", "P")
+    {
+        SetTimer, ViewControl, Off
+        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, LShIft, U
+Send, {k Up}
+SetTimer, ViewControlTemp, Off
+Return
 
 RButton::k ; 点按鼠标右键以发动闪避/冲刺
 

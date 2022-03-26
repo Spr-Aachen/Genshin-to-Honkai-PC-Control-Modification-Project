@@ -46,6 +46,8 @@ Return
 
 #IfWinActive ahk_exe BH3.exe ; 【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 
+Global M_Toggle=0
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
@@ -132,45 +134,71 @@ If WinActive("ahk_exe BH3.exe")
 Return
 
 ViewControlTemp:
-if WinActive("ahk_exe BH3.exe")
+If WinActive("ahk_exe BH3.exe")
 {
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
-    if (x1<x2)
+    If (x1<x2)
     {
         SendInput, {e Down}
         Sleep, 1
         SendInput, {e Up}
         Return
     }
-    if (x1>x2)
+    Else If (x1>x2)
     {
         SendInput, {q Down}
         Sleep, 1
         SendInput, {q Up}
         Return
     }
-    if (y1<y2)
+    Else If (y1<y2)
     {
         SendInput, {m Down}
         Sleep, 1
         SendInput, {m Up}
         Return
     }
-    if (y1>y2)
+    Else If (y1>y2)
     {
         SendInput, {n Down}
         Sleep, 1
         SendInput, {n Up}
         Return
     }
+    Else If (x1<x2 and y1<y2)
+    {
+        SendInput, {e Down}{m Down}
+        Sleep, 1
+        SendInput, {e Up}{m Up}
+        Return
+    }
+    Else If (x1<x2 and y1>y2)
+    {
+        SendInput, {e Down}{n Down}
+        Sleep, 1
+        SendInput, {e Up}{n Up}
+        Return
+    }
+    Else If (x1>x2 and y1<y2)
+    {
+        SendInput, {q Down}{m Down}
+        Sleep, 1
+        SendInput, {q Up}{m Up}
+        Return
+    }
+    Else If (x1>x2 and y1>y2)
+    {
+        SendInput, {q Down}{n Down}
+        Sleep, 1
+        SendInput, {q Up}{n Up}
+        Return
+    }
 }
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-M_Toggle=0
 
 MButton:: ; 点击鼠标中键以激活视角跟随
 M_Toggle:=!M_Toggle
@@ -203,7 +231,7 @@ If (M_Toggle)
         SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
-KeyWait, LButton
+KeyWait, LButton, U
 Send, {j Up}
 Return
 
