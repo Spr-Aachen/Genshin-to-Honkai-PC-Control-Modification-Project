@@ -60,7 +60,7 @@ SwitchIME(dwLayout) ; 该段用于管理输入法，请勿删改
 F1:: ; 暂停/ 启用程序——若想正常使用鼠标请按该键或按住ALT键
 Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
-SetTimer, ViewControlTemp, Off
+SetTimer, ViewControl, Off
 SendInput, {Click, Up Middle}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
@@ -78,7 +78,7 @@ Return
 
 F3:: ; 重启程序以呼出操作说明界面
 Suspend, Off
-SetTimer, ViewControlTemp, Off
+SetTimer, ViewControl, Off
 SendInput, {Click, Up Middle}
 Reload 
 Return
@@ -88,11 +88,11 @@ If (A_IsSuspended=0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, Off
     Send, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    If (A_IsSuspended=1)
+    If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, #{Tab}
@@ -107,11 +107,11 @@ If (A_IsSuspended=0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, Off
     SendInput, {Click, Up Middle}
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    If (A_IsSuspended=1)
+    If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
     Send, !{Tab}
@@ -126,20 +126,13 @@ Return
 ViewControl:
 If WinActive("ahk_exe BH3.exe")
 {
-    CoordMode, Window
-    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
-    MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
-    SendInput, {Click, Down Middle}
-}
-Return
-
-ViewControlTemp:
-If WinActive("ahk_exe BH3.exe")
-{
+    Threshold = 1
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
-    If (x1<x2)
+    If (abs(x1-x2)>Threshold or abs(y1-y2)>Threshold)
+        SendInput, {Click, Down Middle}
+    Else If (x1<x2)
     {
         SendInput, {e Down}
         Sleep, 1
@@ -195,6 +188,8 @@ If WinActive("ahk_exe BH3.exe")
         SendInput, {q Up}{n Up}
         Return
     }
+    Else
+        SendInput, {Click, Up Middle}
 }
 Return
 
@@ -204,15 +199,16 @@ MButton:: ; 点击鼠标中键以激活视角跟随
 M_Toggle:=!M_Toggle
 If (M_Toggle)
 {
-    SetTimer, ViewControlTemp, Off
-    SetTimer, ViewControl, -99 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
+    CoordMode, Window
+    WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+    MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+    SetTimer, ViewControl, 0, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
 }
-else
+Else
 {
-    SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, Off
     SendInput, {Click, Up Middle}
     ToolTip, 视角跟随已关闭, 0, 999 ; [可调校数值]
@@ -221,19 +217,7 @@ else
 }
 Return
 
-LButton:: ; 点按鼠标左键以发动普攻
-Send, {j Down}
-If (M_Toggle)
-{
-    If GetKeyState("LButton", "P")
-    {
-        SetTimer, ViewControl, Off
-        SetTimer, ViewControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
-    }
-}
-KeyWait, LButton, U
-Send, {j Up}
-Return
+LButton::j ; 点按鼠标左键以发动普攻
 
 *!LButton::LButton ; 按住ALT以正常使用鼠标左键
 
