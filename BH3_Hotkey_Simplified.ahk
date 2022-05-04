@@ -126,7 +126,7 @@ Return
 ViewControl:
 If WinActive("ahk_exe BH3.exe")
 {
-    Threshold = 1
+    Threshold = 21
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2

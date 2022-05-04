@@ -130,7 +130,7 @@ Return
 ViewControl:
 If WinActive("ahk_exe BH3.exe")
 {
-    Threshold = 1
+    Threshold = 21
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
@@ -264,15 +264,15 @@ If (M_Toggle)
 {
     If GetKeyState("e", "P")
     {
-        SetTimer, AimControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
         SetTimer, ViewControl, Off
+        SetTimer, AimControlTemp, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms)
     }
 }
 KeyWait, e, U
 Send, {u Up}
 If (M_Toggle)
 {
-    SetTimer, AimControlTemp, Delete
+    SetTimer, AimControlTemp, Off
     SetTimer, ViewControl, On
 }
 Return
