@@ -126,7 +126,7 @@ Return
 ViewControl:
 If WinActive("ahk_exe BH3.exe")
 {
-    Threshold = 21
+    Threshold = 21; [可调校数值] 设定切换两种视角跟随模式的像素阈值
     MouseGetPos, x1, y1
     Sleep, 1
     MouseGetPos, x2, y2
@@ -202,7 +202,7 @@ If (M_Toggle)
     CoordMode, Window
     WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
     MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
-    SetTimer, ViewControl, 0, 0 ; [[可调校数值]] 设定视角跟随命令的每执行间隔时间(ms) 
+    SetTimer, ViewControl, 0, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms) 
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
