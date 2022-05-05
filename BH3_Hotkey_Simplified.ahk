@@ -20,8 +20,9 @@ Gui, Start: Add, Text, x+3, ; 集体缩进
 Gui, Start: Add, Text,, F1:                     暂停/启用
 Gui, Start: Add, Text,, F3:                     查看说明
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
-Gui, Start: Add, Text,, 中键:                   视角跟随
 Gui, Start: Add, Text,, 左键:                   普攻/吼姆跳
+Gui, Start: Add, Text,, 中键:                   管理视角跟随
+Gui, Start: Add, Text,, 鼠标:                   视角控制
 Gui, Start: Add, Link,, 源码查看:               <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/blob/main/BH3_Hotkey.ahk">传送门</a>
 Gui, Start: Add, Text,, 
 Gui, Start: Add, Text,, 其它键位请在游戏设置界面内自行更改
@@ -52,14 +53,14 @@ Return
 #IfWinActive ahk_exe BH3.exe
 
 ;【常量】对管理视角跟随命令的全局常量进行赋值
-Global M_Toggle=0
+Global M_Toggle := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【函数】该段用于管理输入法，请勿删改
 SwitchIME(dwLayout)
 {
-    HKL := DllCall( "LoadKeyboardLayout", Str, dwLayout, UInt, 1)
+    HKL := DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
     ControlGetFocus, ctl, A
     SendMessage, 0x50, 0, HKL, %ctl%, A
 }
@@ -69,14 +70,15 @@ F1::
 Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
 SetTimer, ViewControl, Off
+InputReset()
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
-Else If (A_IsSuspended=0)
+Else If (A_IsSuspended = 0)
 {
     If (M_Toggle)
-        M_Toggle:=!M_Toggle
+        M_Toggle := !M_Toggle
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -87,16 +89,18 @@ Return
 F3::
 Suspend, Off
 SetTimer, ViewControl, Off
+InputReset()
 Reload 
 Return
 
 ;【热键】对Win+Tab快捷键的支持命令
 #Tab::
-If (A_IsSuspended=0)
+If (A_IsSuspended = 0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
     SetTimer, ViewControl, Off
+    InputReset()
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
@@ -111,11 +115,12 @@ Return
 
 ;【热键】对Alt+Tab快捷键的支持命令
 !Tab::
-If (A_IsSuspended=0)
+If (A_IsSuspended = 0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
     SetTimer, ViewControl, Off
+    InputReset()
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
@@ -146,62 +151,62 @@ ViewControl()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        Threshold = 21 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
+        Threshold := 21 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
         Sleep, 1
         MouseGetPos, x2, y2
-        If (abs(x1-x2)>Threshold or abs(y1-y2)>Threshold)
+        If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
             SendInput, {Click, Down Middle}
-        Else If (x1<x2)
+        Else If (x1 < x2)
         {
             SendInput, {e Down}
             Sleep, 1
             SendInput, {e Up}
             Return
         }
-        Else If (x1>x2)
+        Else If (x1 > x2)
         {
             SendInput, {q Down}
             Sleep, 1
             SendInput, {q Up}
             Return
         }
-        Else If (y1<y2)
+        Else If (y1 < y2)
         {
             SendInput, {m Down}
             Sleep, 1
             SendInput, {m Up}
             Return
         }
-        Else If (y1>y2)
+        Else If (y1 > y2)
         {
             SendInput, {n Down}
             Sleep, 1
             SendInput, {n Up}
             Return
         }
-        Else If (x1<x2 and y1<y2)
+        Else If (x1 < x2 and y1 < y2)
         {
             SendInput, {e Down}{m Down}
             Sleep, 1
             SendInput, {e Up}{m Up}
             Return
         }
-        Else If (x1<x2 and y1>y2)
+        Else If (x1 < x2 and y1 > y2)
         {
             SendInput, {e Down}{n Down}
             Sleep, 1
             SendInput, {e Up}{n Up}
             Return
         }
-        Else If (x1>x2 and y1<y2)
+        Else If (x1 > x2 and y1 < y2)
         {
             SendInput, {q Down}{m Down}
             Sleep, 1
             SendInput, {q Up}{m Up}
             Return
         }
-        Else If (x1>x2 and y1>y2)
+        Else If (x1 > x2 and y1 > y2)
         {
             SendInput, {q Down}{n Down}
             Sleep, 1
@@ -213,15 +218,21 @@ ViewControl()
     }
 }
 
+;【函数】输入重置
+InputReset()
+{
+    SendInput, {Click, Up Middle}
+}
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【热键】点击鼠标中键以激活视角跟随
 MButton::
-M_Toggle:=!M_Toggle
+M_Toggle := !M_Toggle
 If (M_Toggle)
 {
-    SetTimer, CoordReset, -1
-    SetTimer, ViewControl, 0, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms) 
+    CoordReset()
+    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms) 
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
