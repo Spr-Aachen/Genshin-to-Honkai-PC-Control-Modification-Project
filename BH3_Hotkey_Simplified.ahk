@@ -2,7 +2,7 @@
 ;Version 0.1.0
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
- ; 该段用于设置界面状态栏，请勿删改
+;【函数】该段用于设置界面状态栏，请勿删改
 Disable( )
 {
     WinGet, id, ID, A
@@ -13,6 +13,7 @@ Disable( )
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
 }
 
+;【GUI】说明界面
 Gui, Start: Font, s12, 新宋体
 Gui, Start: Margin , X, Y
 Gui, Start: + Theme
@@ -35,10 +36,21 @@ Return
 
 ;【标签】“开启”按钮的执行语句，注意其特殊的命名格式
 StartButton开启:
+MsgBox, 4,, 是否以管理员身份运行该程序？
+IfMsgBox, Yes
+{
+    RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+    RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+} 
+Else
+{
+    RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+    RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+}
 Suspend, Off
 Gui, Start: Destroy
-SetTimer, AutoFadeMsgbox, -1200 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
-MsgBox, 0, 提示, 程序已开始运行（在游戏内按F1以停用）
+SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
+MsgBox, 0, 提示, 程序进入运行状态,可在游戏内按F1键停用`n（PS：当前对话框将于3秒后自动消失）
 SetTimer, AutoFadeMsgbox, Off
 Return
 
@@ -151,7 +163,25 @@ ViewControl()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        Threshold := 21 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
+        MouseGetPos, x1, y1
+        Sleep, 1
+        MouseGetPos, x2, y2
+        If (x1 != x2 or y1 != y2)
+            SendInput, {Click, Down Middle}
+        Else
+        {
+            SendInput, {Click, Up Middle}
+            Return true
+        }
+    }
+}
+
+;【函数】临时视角跟随
+ViewControlTemp()
+{
+    If WinActive("ahk_exe BH3.exe")
+    {
+        Threshold := 33 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
         Sleep, 1
         MouseGetPos, x2, y2
@@ -162,56 +192,48 @@ ViewControl()
             SendInput, {e Down}
             Sleep, 1
             SendInput, {e Up}
-            Return
         }
         Else If (x1 > x2)
         {
             SendInput, {q Down}
             Sleep, 1
             SendInput, {q Up}
-            Return
         }
         Else If (y1 < y2)
         {
             SendInput, {m Down}
             Sleep, 1
             SendInput, {m Up}
-            Return
         }
         Else If (y1 > y2)
         {
             SendInput, {n Down}
             Sleep, 1
             SendInput, {n Up}
-            Return
         }
         Else If (x1 < x2 and y1 < y2)
         {
             SendInput, {e Down}{m Down}
             Sleep, 1
             SendInput, {e Up}{m Up}
-            Return
         }
         Else If (x1 < x2 and y1 > y2)
         {
             SendInput, {e Down}{n Down}
             Sleep, 1
             SendInput, {e Up}{n Up}
-            Return
         }
         Else If (x1 > x2 and y1 < y2)
         {
             SendInput, {q Down}{m Down}
             Sleep, 1
             SendInput, {q Up}{m Up}
-            Return
         }
         Else If (x1 > x2 and y1 > y2)
         {
             SendInput, {q Down}{n Down}
             Sleep, 1
             SendInput, {q Up}{n Up}
-            Return
         }
         Else
             SendInput, {Click, Up Middle}
@@ -221,7 +243,8 @@ ViewControl()
 ;【函数】输入重置
 InputReset()
 {
-    SendInput, {Click, Up Middle}
+    If (!ViewControl)
+        SendInput, {Click, Up Middle}
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -232,7 +255,7 @@ M_Toggle := !M_Toggle
 If (M_Toggle)
 {
     CoordReset()
-    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms) 
+    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
@@ -247,7 +270,24 @@ Else
 Return
 
 ;【热键】点按鼠标左键以发动普攻
-LButton::j
+LButton::
+Send, {j Down}
+If (M_Toggle)
+{
+    If GetKeyState("LButton", "P")
+    {
+        SetTimer, ViewControl, Off
+        SetTimer, ViewControlTemp, 0 ; [可调校数值] 设定临时视角跟随命令的每执行间隔时间(ms)
+    }
+}
+KeyWait, LButton
+Send, {j Up}
+If (M_Toggle)
+{
+    SetTimer, ViewControlTemp, Off
+    SetTimer, ViewControl, On
+}
+Return
 
 ;【热键】按住ALT以正常使用鼠标左键
 *!LButton::LButton
