@@ -64,7 +64,7 @@ Return
 ;【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
 
-;【常量】对管理视角跟随命令的全局常量进行赋值
+;【常量】对管理视角跟随功能的全局常量进行赋值
 Global M_Toggle := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ WinSet, AlwaysOnTop, Off, A
 SetTimer, ViewControl, Off
 InputReset()
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
 Else If (A_IsSuspended = 0)
@@ -114,15 +114,15 @@ If (A_IsSuspended = 0)
     SetTimer, ViewControl, Off
     InputReset()
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-    ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
-    Send, #{Tab}
+    SendInput, #{Tab}
     Return
 }
 Else
-    Send, #{Tab}
+    SendInput, #{Tab}
 Return
 
 ;【热键】对Alt+Tab快捷键的支持命令
@@ -134,15 +134,15 @@ If (A_IsSuspended = 0)
     SetTimer, ViewControl, Off
     InputReset()
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-    ;Send, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
         ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
-    Send, !{Tab}
+    SendInput, !{Tab}
     Return
 }
 Else
-    Send, !{Tab}
+    SendInput, !{Tab}
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -164,10 +164,13 @@ ViewControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
-        Sleep, 1
+        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
+        {
             SendInput, {Click, Down Middle}
+            Return false
+        }
         Else
         {
             SendInput, {Click, Up Middle}
@@ -183,7 +186,7 @@ ViewControlTemp()
     {
         Threshold := 33 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
-        Sleep, 1
+        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
             SendInput, {Click, Down Middle}
@@ -255,7 +258,7 @@ M_Toggle := !M_Toggle
 If (M_Toggle)
 {
     CoordReset()
-    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
+    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
@@ -271,17 +274,17 @@ Return
 
 ;【热键】点按鼠标左键以发动普攻
 LButton::
-Send, {j Down}
+SendInput, {j Down}
 If (M_Toggle)
 {
     If GetKeyState("LButton", "P")
     {
         SetTimer, ViewControl, Off
-        SetTimer, ViewControlTemp, 0 ; [可调校数值] 设定临时视角跟随命令的每执行间隔时间(ms)
+        SetTimer, ViewControlTemp, 0
     }
 }
 KeyWait, LButton
-Send, {j Up}
+SendInput, {j Up}
 If (M_Toggle)
 {
     SetTimer, ViewControlTemp, Off

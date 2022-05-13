@@ -66,7 +66,7 @@ Return
 ;【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
 
-;【常量】对管理视角跟随命令的全局常量进行赋值
+;【常量】对管理视角跟随功能的全局常量进行赋值
 Global M_Toggle := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,10 +166,13 @@ ViewControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
-        Sleep, 1
+        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
+        {
             SendInput, {Click, Down Middle}
+            Return false
+        }
         Else
         {
             SendInput, {Click, Up Middle}
@@ -185,7 +188,7 @@ ViewControlTemp()
     {
         Threshold := 33 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
-        Sleep, 1
+        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
             SendInput, {Click, Down Middle}
@@ -248,7 +251,7 @@ AimControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
-        Sleep, 1
+        Sleep, 33 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
@@ -260,6 +263,7 @@ AimControl()
                 SendInput, {s Down}{w Up}{a Up}{d Up}
             If (y1 > y2)
                 SendInput, {w Down}{a Up}{s Up}{d Up}
+            Return false
         }
         Else
         {
@@ -275,7 +279,7 @@ InputReset()
     If (!ViewControl)
         SendInput, {Click, Up Middle}
     If (!AimControl)
-    	SendInput, {Click, Up Middle}{w Up}{a Up}{s Up}{d Up}
+        SendInput, {w Up}{a Up}{s Up}{d Up}
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -286,7 +290,7 @@ M_Toggle := !M_Toggle
 If (M_Toggle)
 {
     CoordReset()
-    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行间隔时间(ms)
+    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
     ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
