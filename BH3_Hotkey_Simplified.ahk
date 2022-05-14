@@ -246,7 +246,7 @@ ViewControlTemp()
 ;【函数】输入重置
 InputReset()
 {
-    If (!ViewControl)
+    If (!ViewControl())
         SendInput, {Click, Up Middle}
 }
 

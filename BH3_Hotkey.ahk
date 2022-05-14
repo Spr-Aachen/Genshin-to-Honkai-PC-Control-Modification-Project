@@ -276,9 +276,9 @@ AimControl()
 ;【函数】输入重置
 InputReset()
 {
-    If (!ViewControl)
+    If (!ViewControl())
         SendInput, {Click, Up Middle}
-    If (!AimControl)
+    If (!AimControl())
         SendInput, {w Up}{a Up}{s Up}{d Up}
 }
 
