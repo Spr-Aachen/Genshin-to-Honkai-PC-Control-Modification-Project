@@ -69,6 +69,18 @@ Return
 ;【常量】对管理视角跟随功能的全局常量进行赋值
 Global M_Toggle := 0
 
+;【常量】对管理准星跟随功能的全局常量进行赋值
+Global status_w := 0
+
+;【常量】对管理准星跟随功能的全局常量进行赋值
+Global status_a := 0
+
+;【常量】对管理准星跟随功能的全局常量进行赋值
+Global status_s := 0
+
+;【常量】对管理准星跟随功能的全局常量进行赋值
+Global status_d := 0
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【函数】该段用于管理输入法，请勿删改
@@ -251,24 +263,135 @@ AimControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
-        Sleep, 33 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
+        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
             If (x1 < x2)
-                SendInput, {d Down}{w Up}{a Up}{s Up}
+            {
+                If (status_a)
+                {
+                    SendInput, {a Up}
+                    status_a := !status_a
+                }
+                If (status_s)
+                {
+                    SendInput, {s Up}
+                    status_s := !status_s
+                }
+                If (status_w)
+                {
+                    SendInput, {w Up}
+                    status_w := !status_w
+                }
+                If (status_d)
+                    Return false
+                Else
+                {
+                    SendInput, {d Down}
+                    status_d := !status_d
+                }
+            }
             If (x1 > x2)
-                SendInput, {a Down}{w Up}{s Up}{d Up}
+            {
+                If (status_d)
+                {
+                    SendInput, {d Up}
+                    status_d := !status_d
+                }
+                If (status_s)
+                {
+                    SendInput, {s Up}
+                    status_s := !status_s
+                }
+                If (status_w)
+                {
+                    SendInput, {w Up}
+                    status_w := !status_w
+                }
+                If (status_a)
+                    Return false
+                Else
+                {
+                    SendInput, {a Down}
+                    status_a := !status_a
+                }
+            }
             If (y1 < y2)
-                SendInput, {s Down}{w Up}{a Up}{d Up}
+            {
+                If (status_d)
+                {
+                    SendInput, {d Up}
+                    status_d := !status_d
+                }
+                If (status_a)
+                {
+                    SendInput, {a Up}
+                    status_a := !status_a
+                }
+                If (status_w)
+                {
+                    SendInput, {w Up}
+                    status_w := !status_w
+                }
+                If (status_s)
+                    Return false
+                Else
+                {
+                    SendInput, {s Down}
+                    status_s := !status_s
+                }
+            }
             If (y1 > y2)
-                SendInput, {w Down}{a Up}{s Up}{d Up}
+            {
+                If (status_d)
+                {
+                    SendInput, {d Up}
+                    status_d := !status_d
+                }
+                If (status_a)
+                {
+                    SendInput, {a Up}
+                    status_a := !status_a
+                }
+                If (status_s)
+                {
+                    SendInput, {s Up}
+                    status_s := !status_s
+                }
+                If (status_w)
+                    Return false
+                Else
+                {
+                    SendInput, {w Down}
+                    status_w := !status_w
+                }
+            }
             Return false
         }
         Else
         {
-            SendInput, {w Up}{a Up}{s Up}{d Up}
-            Return true
+            If (status_w)
+            {
+                SendInput, {w Up}
+                status_w := !status_w
+            }
+            If (status_d)
+            {
+                SendInput, {d Up}
+                status_d := !status_d
+            }
+            If (status_a)
+            {
+                SendInput, {a Up}
+                status_a := !status_a
+            }
+            If (status_s)
+            {
+                SendInput, {s Up}
+                status_s := !status_s
+            }
+        Return true
         }  
     }
 }
@@ -352,7 +475,7 @@ If (M_Toggle)
     If GetKeyState("e", "P")
     {
         SetTimer, ViewControl, Off
-        SetTimer, AimControl, 0 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
+        SetTimer, AimControl, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
     }
 }
 KeyWait, e
