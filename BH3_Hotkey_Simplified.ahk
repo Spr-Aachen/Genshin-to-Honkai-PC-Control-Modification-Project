@@ -65,7 +65,7 @@ Return
 #IfWinActive ahk_exe BH3.exe
 
 ;【常量】对管理视角跟随功能的全局常量进行赋值
-Global M_Toggle := 0
+Global Toggle_MButton := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -89,8 +89,8 @@ If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
 Else If (A_IsSuspended = 0)
 {
-    If (M_Toggle)
-        M_Toggle := !M_Toggle
+    If (Toggle_MButton)
+        Toggle_MButton := !Toggle_MButton
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -254,8 +254,8 @@ InputReset()
 
 ;【热键】点击鼠标中键以激活视角跟随
 MButton::
-M_Toggle := !M_Toggle
-If (M_Toggle)
+Toggle_MButton := !Toggle_MButton
+If (Toggle_MButton)
 {
     CoordReset()
     SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
@@ -276,17 +276,18 @@ Return
 ;【热键】点按鼠标左键以发动普攻
 LButton::
 SendInput, {j Down}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     If GetKeyState("LButton", "P")
     {
         SetTimer, ViewControl, Off
+        InputReset()
         SetTimer, ViewControlTemp, 0
     }
 }
 KeyWait, LButton
 SendInput, {j Up}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, On
