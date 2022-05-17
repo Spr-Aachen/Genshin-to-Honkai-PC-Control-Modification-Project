@@ -67,19 +67,22 @@ Return
 #IfWinActive ahk_exe BH3.exe
 
 ;【常量】对管理视角跟随功能的全局常量进行赋值
-Global M_Toggle := 0
+Global Toggle_MButton := 0
+
+;【常量】对实现视角跟随功能的全局常量进行赋值
+Global Status_MButton := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
-Global status_w := 0
+Global Status_w := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
-Global status_a := 0
+Global Status_a := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
-Global status_s := 0
+Global Status_s := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
-Global status_d := 0
+Global Status_d := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -103,8 +106,8 @@ If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
 Else If (A_IsSuspended = 0)
 {
-    If (M_Toggle)
-        M_Toggle := !M_Toggle
+    If (Toggle_MButton)
+        Toggle_MButton := !Toggle_MButton
     ToolTip, 已启用, 0, 999 ; [可调校数值]
     Sleep 210 ; [可调校数值]
     ToolTip
@@ -269,127 +272,127 @@ AimControl()
         {
             If (x1 < x2)
             {
-                If (status_a)
+                If (Status_a)
                 {
                     SendInput, {a Up}
-                    status_a := !status_a
+                    Status_a := !Status_a
                 }
-                If (status_s)
+                If (Status_s)
                 {
                     SendInput, {s Up}
-                    status_s := !status_s
+                    Status_s := !Status_s
                 }
-                If (status_w)
+                If (Status_w)
                 {
                     SendInput, {w Up}
-                    status_w := !status_w
+                    Status_w := !Status_w
                 }
-                If (status_d)
+                If (Status_d)
                     Return false
                 Else
                 {
                     SendInput, {d Down}
-                    status_d := !status_d
+                    Status_d := !Status_d
                 }
             }
             If (x1 > x2)
             {
-                If (status_d)
+                If (Status_d)
                 {
                     SendInput, {d Up}
-                    status_d := !status_d
+                    Status_d := !Status_d
                 }
-                If (status_s)
+                If (Status_s)
                 {
                     SendInput, {s Up}
-                    status_s := !status_s
+                    Status_s := !Status_s
                 }
-                If (status_w)
+                If (Status_w)
                 {
                     SendInput, {w Up}
-                    status_w := !status_w
+                    Status_w := !Status_w
                 }
-                If (status_a)
+                If (Status_a)
                     Return false
                 Else
                 {
                     SendInput, {a Down}
-                    status_a := !status_a
+                    Status_a := !Status_a
                 }
             }
             If (y1 < y2)
             {
-                If (status_d)
+                If (Status_d)
                 {
                     SendInput, {d Up}
-                    status_d := !status_d
+                    Status_d := !Status_d
                 }
-                If (status_a)
+                If (Status_a)
                 {
                     SendInput, {a Up}
-                    status_a := !status_a
+                    Status_a := !Status_a
                 }
-                If (status_w)
+                If (Status_w)
                 {
                     SendInput, {w Up}
-                    status_w := !status_w
+                    Status_w := !Status_w
                 }
-                If (status_s)
+                If (Status_s)
                     Return false
                 Else
                 {
                     SendInput, {s Down}
-                    status_s := !status_s
+                    Status_s := !Status_s
                 }
             }
             If (y1 > y2)
             {
-                If (status_d)
+                If (Status_d)
                 {
                     SendInput, {d Up}
-                    status_d := !status_d
+                    Status_d := !Status_d
                 }
-                If (status_a)
+                If (Status_a)
                 {
                     SendInput, {a Up}
-                    status_a := !status_a
+                    Status_a := !Status_a
                 }
-                If (status_s)
+                If (Status_s)
                 {
                     SendInput, {s Up}
-                    status_s := !status_s
+                    Status_s := !Status_s
                 }
-                If (status_w)
+                If (Status_w)
                     Return false
                 Else
                 {
                     SendInput, {w Down}
-                    status_w := !status_w
+                    Status_w := !Status_w
                 }
             }
             Return false
         }
         Else
         {
-            If (status_w)
+            If (Status_w)
             {
                 SendInput, {w Up}
-                status_w := !status_w
+                Status_w := !Status_w
             }
-            If (status_d)
+            If (Status_d)
             {
                 SendInput, {d Up}
-                status_d := !status_d
+                Status_d := !Status_d
             }
-            If (status_a)
+            If (Status_a)
             {
                 SendInput, {a Up}
-                status_a := !status_a
+                Status_a := !Status_a
             }
-            If (status_s)
+            If (Status_s)
             {
                 SendInput, {s Up}
-                status_s := !status_s
+                Status_s := !Status_s
             }
         Return true
         }  
@@ -402,15 +405,36 @@ InputReset()
     If (!ViewControl())
         SendInput, {Click, Up Middle}
     If (!AimControl())
-        SendInput, {w Up}{a Up}{s Up}{d Up}
+    {
+        If (Status_w)
+        {
+            SendInput, {w Up}
+            Status_w := !Status_w
+        }
+        If (Status_d)
+        {
+            SendInput, {d Up}
+            Status_d := !Status_d
+        }
+        If (Status_a)
+        {
+            SendInput, {a Up}
+            Status_a := !Status_a
+        }
+        If (Status_s)
+        {
+            SendInput, {s Up}
+            Status_s := !Status_s
+        }
+    }
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【热键】点击鼠标中键以激活视角跟随
 MButton::
-M_Toggle := !M_Toggle
-If (M_Toggle)
+Toggle_MButton := !Toggle_MButton
+If (Toggle_MButton)
 {
     CoordReset()
     SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
@@ -431,17 +455,18 @@ Return
 ;【热键】点按鼠标左键以发动普攻
 LButton::
 SendInput, {j Down}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     If GetKeyState("LButton", "P")
     {
         SetTimer, ViewControl, Off
+        InputReset()
         SetTimer, ViewControlTemp, 0
     }
 }
 KeyWait, LButton
 SendInput, {j Up}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, On
@@ -451,17 +476,18 @@ Return
 ;【热键】按下键盘Q键以发动必杀技
 q::
 SendInput, {i Down}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     If GetKeyState("q", "P")
     {
         SetTimer, ViewControl, Off
+        InputReset()
         SetTimer, ViewControlTemp, 0 ; [可调校数值] 设定临时视角跟随命令的每执行间隔时间(ms)
     }
 }
 KeyWait, q
 SendInput, {i Up}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, On
@@ -471,21 +497,17 @@ Return
 ;【热键】按下键盘E键以发动武器技/后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
 e::
 SendInput, {u Down}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     If GetKeyState("e", "P")
-    {
-        SetTimer, ViewControl, Off
         SetTimer, AimControl, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
-    }
 }
 KeyWait, e
 SendInput, {u Up}
-If (M_Toggle)
+If (Toggle_MButton)
 {
     SetTimer, AimControl, Off
     InputReset()
-    SetTimer, ViewControl, On
 }
 Return
 
