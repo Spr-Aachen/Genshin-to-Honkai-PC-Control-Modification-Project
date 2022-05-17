@@ -266,6 +266,7 @@ If (M_Toggle)
 Else
 {
     SetTimer, ViewControl, Off
+    InputReset()
     ToolTip, 视角跟随已关闭, 0, 999 ; [可调校数值]
     Sleep 999 ; [可调校数值]
     ToolTip
