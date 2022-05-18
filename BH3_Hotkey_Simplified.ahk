@@ -81,8 +81,11 @@ SwitchIME(dwLayout)
 F1::
 Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
-SetTimer, ViewControl, Off
-InputReset()
+If (Toggle_MButton)
+{
+    SetTimer, ViewControl, Off
+    InputReset()
+}
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 If (A_IsSuspended)
@@ -100,8 +103,11 @@ Return
 ;【热键】重启程序以呼出操作说明界面
 F3::
 Suspend, Off
-SetTimer, ViewControl, Off
-InputReset()
+If (Toggle_MButton)
+{
+    SetTimer, ViewControl, Off
+    InputReset()
+}
 Reload 
 Return
 
@@ -111,8 +117,11 @@ If (A_IsSuspended = 0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    SetTimer, ViewControl, Off
-    InputReset()
+    If (Toggle_MButton)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+    }
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
@@ -131,8 +140,11 @@ If (A_IsSuspended = 0)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    SetTimer, ViewControl, Off
-    InputReset()
+    If (Toggle_MButton)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+    }
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
     ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
     If (A_IsSuspended)
