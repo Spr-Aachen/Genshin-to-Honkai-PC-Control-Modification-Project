@@ -109,7 +109,7 @@ SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
 ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 If (A_IsSuspended)
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
-Else If (A_IsSuspended = 0)
+Else
 {
     If (Toggle_MButton)
         Toggle_MButton := !Toggle_MButton
@@ -134,7 +134,7 @@ Return
 
 ;【热键】对Win+Tab快捷键的支持命令
 #Tab::
-If (A_IsSuspended = 0)
+If (!A_IsSuspended)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
@@ -159,7 +159,7 @@ Return
 
 ;【热键】对Alt+Tab快捷键的支持命令
 !Tab::
-If (A_IsSuspended = 0)
+If (!A_IsSuspended)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
@@ -531,6 +531,9 @@ If (Toggle_MButton)
 }
 Return
 
+;【热键】按下键盘Z键以发动人偶技
+z::l
+
 ;【热键】按下键盘左侧ShIft键以发动闪避/冲刺
 LShIft::
 SendInput, {k Down}
@@ -538,14 +541,26 @@ KeyWait, LShIft
 SendInput, {k Up}
 Return
 
-;【热键】按下键盘Z键以发动人偶技
-z::l
-
 ;【热键】点按鼠标右键以发动闪避/冲刺
-RButton::k
+RButton::
+SendInput, {k Down}
+KeyWait, RButton
+SendInput, {k Up}
+Return
 
-;【热键】按住ALT以正常使用鼠标左键
-*!LButton::LButton
+;【热键】按住键盘左侧ALT以正常使用鼠标左键
+LAlt:: ; *!LButton::LButton
+Hotkey, LButton, Off
+If (Toggle_MButton)
+{
+    SetTimer, ViewControl, Off
+    InputReset()
+}
+KeyWait, LAlt
+Hotkey, LButton, On
+If (Toggle_MButton)
+    SetTimer, ViewControl, On
+Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;目前就这些，可根据需要自行修改
