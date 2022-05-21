@@ -495,39 +495,45 @@ Return
 
 ;【热键】按下键盘Q键以发动必杀技
 q::
-SendInput, {i Down}
-If (Toggle_MButton)
+If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
 {
-    If GetKeyState("q", "P")
+    SendInput, {i Down}
+    If (Toggle_MButton)
     {
         SetTimer, ViewControl, Off
         InputReset()
-        SetTimer, ViewControlTemp, 0 ; [可调校数值] 设定临时视角跟随命令的每执行间隔时间(ms)
+        Loop
+        {
+            ViewControlTemp()
+        }Until Not GetKeyState("q", "P")
+        SetTimer, ViewControl, On
     }
-}
-KeyWait, q
-SendInput, {i Up}
-If (Toggle_MButton)
-{
-    SetTimer, ViewControlTemp, Off
-    SetTimer, ViewControl, On
+    Else
+        KeyWait, q
+    SendInput, {i Up}
 }
 Return
 
 ;【热键】按下键盘E键以发动武器技/后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
 e::
-SendInput, {u Down}
-If (Toggle_MButton)
+If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
 {
-    If GetKeyState("e", "P")
-        SetTimer, AimControl, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
-}
-KeyWait, e
-SendInput, {u Up}
-If (Toggle_MButton)
-{
-    SetTimer, AimControl, Off
-    InputReset()
+    SendInput, {u Down}
+    If (Toggle_MButton)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+        Loop
+        {
+            AimControl()
+            Sleep, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
+        }Until Not GetKeyState("e", "P")
+        InputReset()
+        SetTimer, ViewControl, On
+    }
+    Else
+        KeyWait, e
+    SendInput, {u Up}
 }
 Return
 
