@@ -66,22 +66,16 @@ Return
 ;【宏条件】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
 
-;【常量】对管理视角跟随功能的全局常量进行赋值
+;【常量】对管理鼠标控制功能的全局常量进行赋值
 Global Toggle_MButton := 0
 
-;【常量】对实现视角跟随功能的全局常量进行赋值
+;【常量】对管理视角跟随功能的全局常量进行赋值
 Global Status_MButton := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
 Global Status_w := 0
-
-;【常量】对管理准星跟随功能的全局常量进行赋值
 Global Status_a := 0
-
-;【常量】对管理准星跟随功能的全局常量进行赋值
 Global Status_s := 0
-
-;【常量】对管理准星跟随功能的全局常量进行赋值
 Global Status_d := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -288,106 +282,110 @@ AimControl()
         MouseGetPos, x1, y1
         Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
-        If (x1 != x2 or y1 != y2)
+        If (x1 != x2 or y1 != y2) ; 采用层级指令覆盖结构
         {
             If (x1 < x2)
             {
-                If (Status_a)
+                If (!Status_d)
                 {
-                    SendInput, {a Up}
-                    Status_a := !Status_a
+                    Status_d := !Status_d
+                    SendInput, {d Down}
                 }
-                If (Status_s)
-                {
-                    SendInput, {s Up}
-                    Status_s := !Status_s
-                }
-                If (Status_w)
-                {
-                    SendInput, {w Up}
-                    Status_w := !Status_w
-                }
-                If (Status_d)
-                    Return false
                 Else
                 {
-                    SendInput, {d Down}
-                    Status_d := !Status_d
+                    If (Status_a)
+                    {
+                        SendInput, {a Up}
+                        Status_a := !Status_a
+                    }
+                    If (Status_s)
+                    {
+                        SendInput, {s Up}
+                        Status_s := !Status_s
+                    }
+                    If (Status_w)
+                    {
+                        SendInput, {w Up}
+                        Status_w := !Status_w
+                    }
                 }
             }
             If (x1 > x2)
             {
-                If (Status_d)
+                If (!Status_a)
                 {
-                    SendInput, {d Up}
-                    Status_d := !Status_d
+                    Status_a := !Status_a
+                    SendInput, {a Down}
                 }
-                If (Status_s)
-                {
-                    SendInput, {s Up}
-                    Status_s := !Status_s
-                }
-                If (Status_w)
-                {
-                    SendInput, {w Up}
-                    Status_w := !Status_w
-                }
-                If (Status_a)
-                    Return false
                 Else
                 {
-                    SendInput, {a Down}
-                    Status_a := !Status_a
+                    If (Status_d)
+                    {
+                        SendInput, {d Up}
+                        Status_d := !Status_d
+                    }
+                    If (Status_s)
+                    {
+                        SendInput, {s Up}
+                        Status_s := !Status_s
+                    }
+                    If (Status_w)
+                    {
+                       SendInput, {w Up}
+                       Status_w := !Status_w
+                    }
                 }
             }
             If (y1 < y2)
             {
-                If (Status_d)
+                If (!Status_s)
                 {
-                    SendInput, {d Up}
-                    Status_d := !Status_d
+                    Status_s := !Status_s
+                    SendInput, {s Down}
                 }
-                If (Status_a)
-                {
-                    SendInput, {a Up}
-                    Status_a := !Status_a
-                }
-                If (Status_w)
-                {
-                    SendInput, {w Up}
-                    Status_w := !Status_w
-                }
-                If (Status_s)
-                    Return false
                 Else
                 {
-                    SendInput, {s Down}
-                    Status_s := !Status_s
+                    If (Status_d)
+                    {
+                        SendInput, {d Up}
+                        Status_d := !Status_d
+                    }
+                    If (Status_a)
+                    {
+                        SendInput, {a Up}
+                        Status_a := !Status_a
+                    }
+                    If (Status_w)
+                    {
+                        SendInput, {w Up}
+                        Status_w := !Status_w
+                    }
                 }
             }
             If (y1 > y2)
             {
-                If (Status_d)
+                If (!Status_w)
                 {
-                    SendInput, {d Up}
-                    Status_d := !Status_d
+                    Status_w := !Status_w
+                    SendInput, {w Down}
                 }
-                If (Status_a)
-                {
-                    SendInput, {a Up}
-                    Status_a := !Status_a
-                }
-                If (Status_s)
-                {
-                    SendInput, {s Up}
-                    Status_s := !Status_s
-                }
-                If (Status_w)
-                    Return false
                 Else
                 {
-                    SendInput, {w Down}
-                    Status_w := !Status_w
+                    If (Status_d)
+                    {
+                        SendInput, {d Up}
+                        Status_d := !Status_d
+                    }
+                    If (Status_a)
+                    {
+                        SendInput, {a Up}
+                        Status_a := !Status_a
+                    }
+                    If (Status_s)
+                    {
+                        SendInput, {s Up}
+                        Status_s := !Status_s
+                    }
                 }
             }
             Return false
