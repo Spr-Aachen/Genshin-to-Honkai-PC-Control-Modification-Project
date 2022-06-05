@@ -73,6 +73,7 @@ Global Toggle_MButton := 0
 Global Status_MButton := 0
 
 ;【常量】对管理准星跟随功能的全局常量进行赋值
+Global BreakFlag_Aim := 0
 Global Status_w := 0
 Global Status_a := 0
 Global Status_s := 0
@@ -97,7 +98,7 @@ If (Toggle_MButton)
     Toggle_MButton := !Toggle_MButton
     SetTimer, ViewControl, Off
     If GetKeyState("e", "P")
-        SetTimer, AimControl, Off
+        BreakFlag_Aim := !BreakFlag_Aim
     InputReset()
 }
 SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
@@ -120,7 +121,7 @@ If (Toggle_MButton)
     Toggle_MButton := !Toggle_MButton
     SetTimer, ViewControl, Off
     If GetKeyState("e", "P")
-        SetTimer, AimControl, Off
+        BreakFlag_Aim := !BreakFlag_Aim
     InputReset()
 }
 Reload 
@@ -137,7 +138,7 @@ If (!A_IsSuspended)
         Toggle_MButton := !Toggle_MButton
         SetTimer, ViewControl, Off
         If GetKeyState("e", "P")
-            SetTimer, AimControl, Off
+            BreakFlag_Aim := !BreakFlag_Aim
         InputReset()
     }
     SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
@@ -161,7 +162,7 @@ LAltTab()
             Toggle_MButton := !Toggle_MButton
             SetTimer, ViewControl, Off
             If GetKeyState("e", "P")
-                SetTimer, AimControl, Off
+                BreakFlag_Aim := !BreakFlag_Aim
             InputReset()
         }
         SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
@@ -218,17 +219,11 @@ ViewControlTemp()
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
             SendInput, {Click, Down Middle}
-        Else If (x1 < x2)
+        Else If (y1 > y2)
         {
-            SendInput, {e Down}
+            SendInput, {n Down}
             Sleep, 1
-            SendInput, {e Up}
-        }
-        Else If (x1 > x2)
-        {
-            SendInput, {q Down}
-            Sleep, 1
-            SendInput, {q Up}
+            SendInput, {n Up}
         }
         Else If (y1 < y2)
         {
@@ -236,17 +231,23 @@ ViewControlTemp()
             Sleep, 1
             SendInput, {m Up}
         }
-        Else If (y1 > y2)
+        Else If (x1 > x2)
         {
-            SendInput, {n Down}
+            SendInput, {q Down}
             Sleep, 1
-            SendInput, {n Up}
+            SendInput, {q Up}
         }
-        Else If (x1 < x2 and y1 < y2)
+        Else If (x1 < x2)
         {
-            SendInput, {e Down}{m Down}
+            SendInput, {e Down}
             Sleep, 1
-            SendInput, {e Up}{m Up}
+            SendInput, {e Up}
+        }
+        Else If (x1 > x2 and y1 > y2)
+        {
+            SendInput, {q Down}{n Down}
+            Sleep, 1
+            SendInput, {q Up}{n Up}
         }
         Else If (x1 < x2 and y1 > y2)
         {
@@ -260,11 +261,11 @@ ViewControlTemp()
             Sleep, 1
             SendInput, {q Up}{m Up}
         }
-        Else If (x1 > x2 and y1 > y2)
+        Else If (x1 < x2 and y1 < y2)
         {
-            SendInput, {q Down}{n Down}
+            SendInput, {e Down}{m Down}
             Sleep, 1
-            SendInput, {q Up}{n Up}
+            SendInput, {e Up}{m Up}
         }
         Else
             SendInput, {Click, Up Middle}
@@ -276,141 +277,168 @@ AimControl()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        MouseGetPos, x1, y1
-        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
-        MouseGetPos, x2, y2
-        If (x1 != x2 or y1 != y2) ; 采用层级指令覆盖结构
+        Loop
         {
-            If (x1 < x2)
+            MouseGetPos, x1, y1
+            Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
+            MouseGetPos, x2, y2
+            If (x1 != x2 or y1 != y2) ; 采用层级指令覆盖结构
             {
-                If (!Status_d)
+                If (y1 > y2)
                 {
-                    Status_d := !Status_d
-                    SendInput, {d Down}
-                }
-                Else
-                {
-                    If (Status_a)
+                    If (!Status_w)
                     {
-                        SendInput, {a Up}
-                        Status_a := !Status_a
-                    }
-                    If (Status_s)
-                    {
-                        SendInput, {s Up}
-                        Status_s := !Status_s
-                    }
-                    If (Status_w)
-                    {
-                        SendInput, {w Up}
                         Status_w := !Status_w
+                        SendInput, {w Down}
+                    }
+                    Else
+                    {
+                        If (Status_s)
+                        {
+                            SendInput, {s Up}
+                            Status_s := !Status_s
+                        }
+                        If (Status_a)
+                        {
+                            SendInput, {a Up}
+                            Status_a := !Status_a
+                        }
+                        If (Status_d)
+                        {
+                            SendInput, {d Up}
+                            Status_d := !Status_d
+                        }
                     }
                 }
-            }
-            If (x1 > x2)
-            {
-                If (!Status_a)
+                If (y1 < y2)
                 {
-                    Status_a := !Status_a
-                    SendInput, {a Down}
-                }
-                Else
-                {
-                    If (Status_d)
+                    If (!Status_s)
                     {
-                        SendInput, {d Up}
-                        Status_d := !Status_d
-                    }
-                    If (Status_s)
-                    {
-                        SendInput, {s Up}
                         Status_s := !Status_s
+                        SendInput, {s Down}
                     }
-                    If (Status_w)
+                    Else
                     {
-                       SendInput, {w Up}
-                       Status_w := !Status_w
+                        If (Status_w)
+                        {
+                            SendInput, {w Up}
+                            Status_w := !Status_w
+                        }
+                        If (Status_a)
+                        {
+                            SendInput, {a Up}
+                            Status_a := !Status_a
+                        }
+                        If (Status_d)
+                        {
+                            SendInput, {d Up}
+                            Status_d := !Status_d
+                        }
                     }
                 }
-            }
-            If (y1 < y2)
-            {
-                If (!Status_s)
+                If (x1 > x2)
                 {
-                    Status_s := !Status_s
-                    SendInput, {s Down}
-                }
-                Else
-                {
-                    If (Status_d)
+                    If (!Status_a)
                     {
-                        SendInput, {d Up}
-                        Status_d := !Status_d
-                    }
-                    If (Status_a)
-                    {
-                        SendInput, {a Up}
                         Status_a := !Status_a
+                        SendInput, {a Down}
                     }
-                    If (Status_w)
+                    Else
                     {
-                        SendInput, {w Up}
-                        Status_w := !Status_w
+                        If (Status_w)
+                        {
+                            SendInput, {w Up}
+                            Status_w := !Status_w
+                        }
+                        If (Status_s)
+                        {
+                            SendInput, {s Up}
+                            Status_s := !Status_s
+                        }
+                        If (Status_d)
+                        {
+                            SendInput, {d Up}
+                            Status_d := !Status_d
+                        }
+                    }
+                }
+                If (x1 < x2)
+                {
+                    If (!Status_d)
+                    {
+                        Status_d := !Status_d
+                        SendInput, {d Down}
+                    }
+                    Else
+                    {
+                        If (Status_w)
+                        {
+                            SendInput, {w Up}
+                            Status_w := !Status_w
+                        }
+                        If (Status_s)
+                        {
+                            SendInput, {s Up}
+                            Status_s := !Status_s
+                        }
+                        If (Status_a)
+                        {
+                            SendInput, {a Up}
+                            Status_a := !Status_a
+                        }
                     }
                 }
             }
-            If (y1 > y2)
+            Else
             {
-                If (!Status_w)
+                If (Status_w)
                 {
+                    SendInput, {w Up}
                     Status_w := !Status_w
-                    SendInput, {w Down}
                 }
-                Else
+                If (Status_s)
                 {
-                    If (Status_d)
-                    {
-                        SendInput, {d Up}
-                        Status_d := !Status_d
-                    }
-                    If (Status_a)
-                    {
-                        SendInput, {a Up}
-                        Status_a := !Status_a
-                    }
-                    If (Status_s)
-                    {
-                        SendInput, {s Up}
-                        Status_s := !Status_s
-                    }
+                    SendInput, {s Up}
+                    Status_s := !Status_s
+                }
+                If (Status_a)
+                {
+                    SendInput, {a Up}
+                    Status_a := !Status_a
+                }
+                If (Status_d)
+                {
+                    SendInput, {d Up}
+                    Status_d := !Status_d
                 }
             }
-            Return false
-        }
-        Else
+            Sleep, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
+            If (BreakFlag_Aim) ; (Abort the function when BreakFlag_Aim == 1)
+            {
+                BreakFlag_Aim := !BreakFlag_Aim
+                break
+            }
+        }Until Not GetKeyState("e", "P")
+        If (Status_w)
         {
-            If (Status_w)
-            {
-                SendInput, {w Up}
-                Status_w := !Status_w
-            }
-            If (Status_d)
-            {
-                SendInput, {d Up}
-                Status_d := !Status_d
-            }
-            If (Status_a)
-            {
-                SendInput, {a Up}
-                Status_a := !Status_a
-            }
-            If (Status_s)
-            {
-                SendInput, {s Up}
-                Status_s := !Status_s
-            }
-            Return true
-        }  
+            SendInput, {w Up}
+            Status_w := !Status_w
+        }
+        If (Status_s)
+        {
+            SendInput, {s Up}
+            Status_s := !Status_s
+        }
+        If (Status_a)
+        {
+            SendInput, {a Up}
+            Status_a := !Status_a
+        }
+        If (Status_d)
+        {
+            SendInput, {d Up}
+            Status_d := !Status_d
+        }
     }
 }
 
@@ -419,29 +447,6 @@ InputReset()
 {
     If (!ViewControl())
         SendInput, {Click, Up Middle}
-    If (!AimControl())
-    {
-        If (Status_w)
-        {
-            SendInput, {w Up}
-            Status_w := !Status_w
-        }
-        If (Status_d)
-        {
-            SendInput, {d Up}
-            Status_d := !Status_d
-        }
-        If (Status_a)
-        {
-            SendInput, {a Up}
-            Status_a := !Status_a
-        }
-        If (Status_s)
-        {
-            SendInput, {s Up}
-            Status_s := !Status_s
-        }
-    }
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -515,17 +520,7 @@ If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数�
 {
     SendInput, {u Down}
     If (Toggle_MButton)
-    {
-        SetTimer, ViewControl, Off
-        InputReset()
-        Loop
-        {
-            AimControl()
-            Sleep, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
-        }Until Not GetKeyState("e", "P")
-        InputReset()
-        SetTimer, ViewControl, On
-    }
+        AimControl()
     Else
         KeyWait, e
     SendInput, {u Up}
@@ -551,17 +546,21 @@ Return
 
 ;【热键】按住键盘左侧ALT以正常使用鼠标左键
 LAlt:: ; *!LButton::LButton
-Hotkey, LButton, Off
-If (Toggle_MButton)
+If Not GetKeyState("Tab", "P")
 {
-    SetTimer, ViewControl, Off
-    InputReset()
+    Hotkey, LButton, Off
+    If (Toggle_MButton)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+    }
+    KeyWait, LAlt
+    Hotkey, LButton, On
+    If (Toggle_MButton)
+        SetTimer, ViewControl, On
 }
-KeyWait, LAlt
-Hotkey, LButton, On
-If (Toggle_MButton)
-    SetTimer, ViewControl, On
-LAltTab()
+Else
+    LAltTab()
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
