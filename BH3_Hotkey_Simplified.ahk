@@ -308,17 +308,21 @@ Return
 
 ;【热键】按住键盘左侧ALT以正常使用鼠标左键
 LAlt:: ; *!LButton::LButton
-Hotkey, LButton, Off
-If (Toggle_MButton)
+If Not GetKeyState("Tab", "P")
 {
-    SetTimer, ViewControl, Off
-    InputReset()
+    Hotkey, LButton, Off
+    If (Toggle_MButton)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+    }
+    KeyWait, LAlt
+    Hotkey, LButton, On
+    If (Toggle_MButton)
+        SetTimer, ViewControl, On
 }
-KeyWait, LAlt
-Hotkey, LButton, On
-If (Toggle_MButton)
-    SetTimer, ViewControl, On
-LAltTab()
+Else
+    LAltTab()
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
