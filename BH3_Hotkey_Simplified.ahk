@@ -270,22 +270,25 @@ InputReset()
 
 ;【热键】点击鼠标中键以激活视角跟随
 MButton::
-Toggle_MButton := !Toggle_MButton
-If (Toggle_MButton)
+If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数唤醒
 {
-    CoordReset()
-    SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
-    ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
-    Sleep 999 ; [可调校数值]
-    ToolTip
-}
-Else
-{
-    SetTimer, ViewControl, Off
-    InputReset()
-    ToolTip, 视角跟随已关闭, 0, 999 ; [可调校数值]
-    Sleep 999 ; [可调校数值]
-    ToolTip
+    Toggle_MButton := !Toggle_MButton
+    If (Toggle_MButton)
+    {
+        CoordReset()
+        SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
+        ToolTip, 视角跟随已激活, 0, 999 ; [可调校数值]
+        Sleep 999 ; [可调校数值]
+        ToolTip
+    }
+    Else
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+        ToolTip, 视角跟随已关闭, 0, 999 ; [可调校数值]
+        Sleep 999 ; [可调校数值]
+        ToolTip
+    }
 }
 Return
 
