@@ -67,7 +67,7 @@ Return
 #IfWinActive ahk_exe BH3.exe
 
 ;【常量】对管理鼠标控制功能的全局常量进行赋值
-Global Toggle_MButton := 0
+Global Toggle_MouseFunction := 0
 
 ;【常量】对管理视角跟随功能的全局常量进行赋值
 Global Status_MButton := 0
@@ -93,9 +93,9 @@ SwitchIME(dwLayout)
 F1::
 Suspend, Toggle
 WinSet, AlwaysOnTop, Off, A
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
 {
-    Toggle_MButton := !Toggle_MButton
+    Toggle_MouseFunction := !Toggle_MouseFunction
     SetTimer, ViewControl, Off
     If GetKeyState("e", "P")
         BreakFlag_Aim := !BreakFlag_Aim
@@ -116,9 +116,9 @@ Return
 ;【热键】重启程序以呼出操作说明界面
 F3::
 Suspend, Off
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
 {
-    Toggle_MButton := !Toggle_MButton
+    Toggle_MouseFunction := !Toggle_MouseFunction
     SetTimer, ViewControl, Off
     If GetKeyState("e", "P")
         BreakFlag_Aim := !BreakFlag_Aim
@@ -133,9 +133,9 @@ If (!A_IsSuspended)
 {
     Suspend, On
     WinSet, AlwaysOnTop, Off, A
-    If (Toggle_MButton)
+    If (Toggle_MouseFunction)
     {
-        Toggle_MButton := !Toggle_MButton
+        Toggle_MouseFunction := !Toggle_MouseFunction
         SetTimer, ViewControl, Off
         If GetKeyState("e", "P")
             BreakFlag_Aim := !BreakFlag_Aim
@@ -159,9 +159,9 @@ LAltTab()
         {
             Suspend, On
             WinSet, AlwaysOnTop, Off, A
-            If (Toggle_MButton)
+            If (Toggle_MouseFunction)
             {
-                Toggle_MButton := !Toggle_MButton
+                Toggle_MouseFunction := !Toggle_MouseFunction
                 SetTimer, ViewControl, Off
                 If GetKeyState("e", "P")
                     BreakFlag_Aim := !BreakFlag_Aim
@@ -200,13 +200,19 @@ ViewControl()
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
-            SendInput, {Click, Down Middle}
-            Return false
+            If (!Status_MButton)
+            {
+                Status_MButton := !Status_MButton
+                SendInput, {Click, Down Middle}
+            }
         }
         Else
         {
-            SendInput, {Click, Up Middle}
-            Return true
+            If (Status_MButton)
+            {
+                SendInput, {Click, Up Middle}
+                Status_MButton := !Status_MButton
+            }
         }
     }
 }
@@ -221,7 +227,13 @@ ViewControlTemp()
         Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
-            SendInput, {Click, Down Middle}
+        {
+            If (!Status_MButton)
+            {
+                Status_MButton := !Status_MButton
+                SendInput, {Click, Down Middle}
+            }
+        }
         Else If (y1 > y2)
         {
             SendInput, {n Down}
@@ -271,7 +283,13 @@ ViewControlTemp()
             SendInput, {e Up}{m Up}
         }
         Else
-            SendInput, {Click, Up Middle}
+        {
+            If (Status_MButton)
+            {
+                SendInput, {Click, Up Middle}
+                Status_MButton := !Status_MButton
+            }
+        }
     }
 }
 
@@ -448,8 +466,11 @@ AimControl()
 ;【函数】输入重置
 InputReset()
 {
-    If (!ViewControl())
+    If (Status_MButton)
+    {
         SendInput, {Click, Up Middle}
+        Status_MButton := !Status_MButton
+    }
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -458,8 +479,8 @@ InputReset()
 MButton::
 If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数唤醒
 {
-    Toggle_MButton := !Toggle_MButton
-    If (Toggle_MButton)
+    Toggle_MouseFunction := !Toggle_MouseFunction
+    If (Toggle_MouseFunction)
     {
         CoordReset()
         SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
@@ -481,7 +502,7 @@ Return
 ;【热键】点按鼠标左键以发动普攻
 LButton::
 SendInput, {j Down}
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
 {
     If GetKeyState("LButton", "P")
     {
@@ -492,7 +513,7 @@ If (Toggle_MButton)
 }
 KeyWait, LButton
 SendInput, {j Up}
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
 {
     SetTimer, ViewControlTemp, Off
     SetTimer, ViewControl, On
@@ -504,7 +525,7 @@ q::
 If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
 {
     SendInput, {i Down}
-    If (Toggle_MButton)
+    If (Toggle_MouseFunction)
     {
         SetTimer, ViewControl, Off
         InputReset()
@@ -525,7 +546,7 @@ e::
 If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
 {
     SendInput, {u Down}
-    If (Toggle_MButton)
+    If (Toggle_MouseFunction)
         AimControl()
     Else
         KeyWait, e
@@ -554,7 +575,7 @@ Return
 LAlt:: ; *!LButton::LButton
 SetTimer, LAltTab, 0
 Hotkey, LButton, Off
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
 {
     SetTimer, ViewControl, Off
     InputReset()
@@ -562,7 +583,7 @@ If (Toggle_MButton)
 KeyWait, LAlt
 SetTimer, LAltTab, Off
 Hotkey, LButton, On
-If (Toggle_MButton)
+If (Toggle_MouseFunction)
     SetTimer, ViewControl, On
 Return
 
