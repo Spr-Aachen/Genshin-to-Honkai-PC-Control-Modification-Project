@@ -179,7 +179,7 @@ ViewControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
-        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
+        Sleep, 10 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
