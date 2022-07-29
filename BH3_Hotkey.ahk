@@ -224,7 +224,7 @@ ViewControlTemp()
     {
         Threshold := 33 ; [可调校数值] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
-        Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
+        Sleep, 10 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
         {
@@ -301,7 +301,7 @@ AimControl()
         Loop
         {
             MouseGetPos, x1, y1
-            Sleep, 1 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
+            Sleep, 10 ; [可调校数值] 设定采集当前光标坐标值的时间间隔(ms)
             MouseGetPos, x2, y2
             If (x1 != x2 or y1 != y2) ; 采用层级指令覆盖结构
             {
@@ -433,7 +433,7 @@ AimControl()
                     Status_d := !Status_d
                 }
             }
-            Sleep, 21 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
+            Sleep, 12 ; [可调校数值] 设定准星跟随命令的每执行间隔时间(ms)
             If (BreakFlag_Aim) ; (Abort the function when BreakFlag_Aim == 1)
             {
                 BreakFlag_Aim := !BreakFlag_Aim
