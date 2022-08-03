@@ -36,18 +36,37 @@ Disable( )
 Suspend, On
 Return
 
-;【标签】“开启”按钮的执行语句，注意其特殊的命名格式
+;【标签】“开启”按钮的执行语句
 StartButton开启:
-MsgBox, 4,, 是否以管理员身份运行该程序？
-IfMsgBox, Yes
+If (!A_IsAdmin)
 {
-    RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-    RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-} 
-Else
-{
-    RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-    RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+    MsgBox, 4,, 是否以管理员身份运行该程序？
+    IfMsgBox, Yes
+    {
+        If (A_IsCompiled)
+        {
+            RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
+            RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
+        }
+        Else
+        {
+            RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+            RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+        }
+    } 
+    Else
+    {
+        If (A_IsCompiled)
+        {
+            RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
+            RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
+        }
+        Else
+        {
+            RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+            RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
+       }
+   }
 }
 Suspend, Off
 Gui, Start: Destroy
