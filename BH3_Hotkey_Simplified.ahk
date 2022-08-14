@@ -1,5 +1,11 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-;Version 0.1.0
+;Version 0.2.9
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;【宏指令】修改AHK的默认掩饰键
+#MenuMaskKey vkE8  ; vkE8尚未映射
+#UseHook
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【函数】界面状态栏
@@ -18,12 +24,11 @@ Gui, Start: Font, s12, 新宋体
 Gui, Start: Margin , X, Y
 Gui, Start: + Theme
 Gui, Start: Add, Text, x+3, ; 集体缩进
+Gui, Start: Add, Text,, 左键:                   普攻
+Gui, Start: Add, Text,, 中键:                   管理视角跟随
+Gui, Start: Add, Text,, 左Alt+左键:             正常左键
 Gui, Start: Add, Text,, F1:                     暂停/启用
 Gui, Start: Add, Text,, F3:                     查看说明
-Gui, Start: Add, Text,, 左Alt+左键:             正常左键
-Gui, Start: Add, Text,, 左键:                   普攻/吼姆跳
-Gui, Start: Add, Text,, 中键:                   管理视角跟随
-Gui, Start: Add, Text,, 鼠标:                   视角控制
 Gui, Start: Add, Link,, 源码查看:               <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/blob/main/BH3_Hotkey.ahk">传送门</a>
 Gui, Start: Add, Text,, 
 Gui, Start: Add, Text,, 其它键位请在游戏设置界面内自行更改
@@ -71,6 +76,7 @@ Gui, Start: Destroy
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序进入运行状态,可在游戏内按F1键停用`n（PS：当前对话框将于3秒后自动消失）
 SetTimer, AutoFadeMsgbox, Off
+SetTimer, ScreenScale, 90 ; [可调校数值] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
 Return
 
 ;【标签】让对话框自动消失
@@ -89,95 +95,11 @@ Global Toggle_MouseFunction := 0
 ;【常量】对管理视角跟随功能的全局常量进行赋值
 Global Status_MButton := 0
 
-;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+;【常量】对管理自动识别功能的全局常量进行赋值
+Global Toggle_ScreenScale := 1
 
-;【函数】该段用于管理输入法，请勿删改
-SwitchIME(dwLayout)
-{
-    HKL := DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
-    ControlGetFocus, ctl, A
-    SendMessage, 0x50, 0, HKL, %ctl%, A
-}
-
-;【热键】暂停/启用程序——若想正常使用鼠标请按该键或按住ALT键
-F1::
-Suspend, Toggle
-WinSet, AlwaysOnTop, Off, A
-If (Toggle_MouseFunction)
-{
-    Toggle_MouseFunction := !Toggle_MouseFunction
-    SetTimer, ViewControl, Off
-    InputReset()
-}
-SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-If (A_IsSuspended)
-    ToolTip, 暂停中, 0, 999 ; [可调校数值]
-Else
-{
-    ToolTip, 已启用, 0, 999 ; [可调校数值]
-    Sleep 210 ; [可调校数值]
-    ToolTip
-}
-Return
-
-;【热键】重启程序以呼出操作说明界面
-F3::
-Suspend, Off
-If (Toggle_MouseFunction)
-{
-    Toggle_MouseFunction := !Toggle_MouseFunction
-    SetTimer, ViewControl, Off
-    InputReset()
-}
-Reload 
-Return
-
-;【热键】对Win+Tab快捷键的支持命令
-#Tab::
-If (!A_IsSuspended)
-{
-    Suspend, On
-    WinSet, AlwaysOnTop, Off, A
-    If (Toggle_MouseFunction)
-    {
-        Toggle_MouseFunction := !Toggle_MouseFunction
-        SetTimer, ViewControl, Off
-        InputReset()
-    }
-    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-    If (A_IsSuspended)
-        ToolTip, 暂停中, 0, 999 ; [可调校数值]
-    Sleep 99 ; [可调校数值]
-}
-SendInput, #{Tab}
-Return
-
-;【热键】对Alt+Tab快捷键的支持命令
-LAltTab()
-{
-    If GetKeyState("Tab", "P")
-    {
-        If (!A_IsSuspended)
-        {
-            Suspend, On
-            WinSet, AlwaysOnTop, Off, A
-            If (Toggle_MouseFunction)
-            {
-                Toggle_MouseFunction := !Toggle_MouseFunction
-                SetTimer, ViewControl, Off
-                InputReset()
-            }
-            SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-            ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
-            If (A_IsSuspended)
-                ToolTip, 暂停中, 0, 999 ; [可调校数值]
-            Sleep 99 ; [可调校数值]
-        }
-        SendInput, !{Tab}
-    }
-}
+;【常量】对管理手动暂停功能的全局常量进行赋值
+Global Toggle_ManualSuspend := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -307,6 +229,67 @@ InputReset()
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;【函数】不同分辨率下参数的初始化
+ScreenScale()
+{ ; 默认数值源于1920*1080分辨率下的测试结果
+    WinGetPos, ClientCorner_X, ClientCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+    Global Esc_X := ClientCorner_X
+    Global Esc_Y := ClientCorner_Y
+    Global Esc_X2 := Esc_X + 2 * Round(66 * Client_Width / 1920)
+    Global Esc_Y2 := Esc_Y + 2 * Round(57 * Client_Height / 1080)
+    Global EscIcon := "|<EscIcon>0xFFFFFF@1.00$133.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000k000000030000000000000Q00000001U000000000000C0000000300000000000001k0000003U0000000000000s0000001k0000000000000Q0000001k0000000000000D0000003s00000000000007U000001w00000000000003k000000s00000000000001s000000w00000000000000w000000S00000000000000S000000D00000000000000D0000007U00000000000007U000003U00000000000007k000003k00000000000007k000003s00000000000003s000001w00000000000001w000000y00000000000000y000000S00000000000000T000000C00000000000000DU00000D00000000000000D0000007U00000000000007U000003k00000000000003k000001s00000000000001s000000s00000000000001w000000w00000000000001y000000y00000000000000y000000T00000000000000T000000DU0000000000000DU000007000000000000007k000003U00000000000007s000003k00000000000003s000001s00000000000001s000000w00000000000000w000000S00000000000000S000000C00000000000000D000000D00000000000000TU00000DU0000000000000DU000007k00000000000007k000003k00000000000003s000001k00000000000001w000000s00000000000000y000000w00000000000000y000000S00000000000000S000000D00000000000000D0000007000000000000007U000003U00000000000003k000001k00000000000007s000003s00000000000003s000001w00000000000001w000000w00000000000000y000000Q00000000000000T000000C00000000000000DU00000700000000000000Dk000007U00000000000007U000003k00000000000003k000001s00000000000001s000000Q00000000000003s000000C00000000000001w000000700000000000000y0000003s0000000000000w0000000w0000000000000S0000000C0000000000000C000000030000000000000Q00000001U000000000000C00000000800000000000080000000010000000000000000000000000000000000E00000000000000Ts00000000000000000000C00000000000000000000070000000000000000000003U000000000000000000001k0T0y00000000000000000s0sVv00000000000000000TsM1k00000000000000000DwA0k00000000000000000707Us000000000000000003U0wQ000000000000000001k07C000000000000000000s01X000000000000000000Q00lk00000000000000000DyDkTk00000000000000007z3U3U000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000E"
+    Switch A_ScreenHeight
+    {
+        case "1440":
+            EscIcon :=
+            Esc_X := Round(Esc_X * 4 / 3)
+            Esc_Y := Round(Esc_Y * 4 / 3)
+            Esc_X2 := Round(Esc_X2 * 4 / 3)
+            Esc_Y2 := Round(Esc_Y2 * 4 / 3)
+        case "2160":
+            EscIcon := 
+            Esc_X *= 2
+            Esc_Y *= 2
+            Esc_X2 *= 2
+            Esc_Y2 *= 2
+        defult:
+            EscIcon :=
+            Esc_X := ClientCorner_X
+            Esc_Y := ClientCorner_Y
+            Esc_X2 := Esc_X + Client_Width
+            Esc_Y2 := Esc_Y + Client_Height
+    }
+    If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+    {
+        If (A_IsSuspended and !Toggle_ManualSuspend)
+        {
+            Suspend, Off
+            If (!Toggle_MouseFunction)
+            {
+                Toggle_MouseFunction := !Toggle_MouseFunction
+                CoordReset()
+                SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
+            }
+        }
+    }
+    Else
+    {
+        If (!A_IsSuspended)
+        {
+            Suspend, On
+            If (Toggle_MouseFunction)
+            {
+                SetTimer, ViewControl, Off
+                InputReset()
+                Toggle_MouseFunction := !Toggle_MouseFunction
+            }
+        }
+    }
+    Return
+}
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ;【热键】点击鼠标中键以激活视角跟随
 MButton::
 If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数唤醒
@@ -367,6 +350,142 @@ Hotkey, LButton, On
 If (Toggle_MouseFunction)
     SetTimer, ViewControl, On
 Return
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;【函数】该段用于管理输入法，请勿删改
+SwitchIME(dwLayout)
+{
+    HKL := DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
+    ControlGetFocus, ctl, A
+    SendMessage, 0x50, 0, HKL, %ctl%, A
+}
+
+;【热键】暂停/启用程序——若想正常使用鼠标请按该键或按住ALT键
+F1::
+Suspend, Toggle
+Toggle_ManualSuspend := !Toggle_ManualSuspend
+If (Toggle_ManualSuspend)
+{
+    If (Toggle_ScreenScale)
+    {
+        If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+            SendEvent, {Esc}
+        SetTimer, ScreenScale, Off
+        Toggle_ScreenScale := !Toggle_ScreenScale
+    }
+    If (Toggle_MouseFunction)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+        Toggle_MouseFunction := !Toggle_MouseFunction
+    }
+    ToolTip, 暂停中, 0, 999 ; [可调校数值]
+    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+}
+Else
+{
+    If (!Toggle_ScreenScale)
+    {
+        Toggle_ScreenScale := !Toggle_ScreenScale
+        SetTimer, ScreenScale, On
+        If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+            If (!Toggle_MouseFunction)
+            {
+                Toggle_MouseFunction := !Toggle_MouseFunction
+                SetTimer, ViewControl, 0 ; [可调校数值] 设定视角跟随命令的每执行时间间隔(ms)
+            }
+    }
+    ToolTip, 已启用, 0, 999 ; [可调校数值]
+    Sleep 210 ; [可调校数值]
+    ToolTip
+}
+Return
+
+;【热键】重启程序以呼出操作说明界面
+F3::
+If (!A_IsSuspended && !Toggle_ManualSuspend)
+{
+    Toggle_ManualSuspend := !Toggle_ManualSuspend
+    Suspend, On
+    If (Toggle_ScreenScale)
+    {
+        If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+            SendEvent, {Esc}
+        SetTimer, ScreenScale, Off
+        Toggle_ScreenScale := !Toggle_ScreenScale
+    }
+    If (Toggle_MouseFunction)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+        Toggle_MouseFunction := !Toggle_MouseFunction
+    }
+}
+Reload
+Return
+
+;【热键】对Win+Tab快捷键的支持命令
+#Tab::
+If (!A_IsSuspended && !Toggle_ManualSuspend)
+{
+    Toggle_ManualSuspend := !Toggle_ManualSuspend
+    Suspend, On
+    If (Toggle_ScreenScale)
+    {
+        If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+            SendEvent, {Esc}
+        SetTimer, ScreenScale, Off
+        Toggle_ScreenScale := !Toggle_ScreenScale
+    }
+    If (Toggle_MouseFunction)
+    {
+        SetTimer, ViewControl, Off
+        InputReset()
+        Toggle_MouseFunction := !Toggle_MouseFunction
+    }
+    ToolTip, 暂停中, 0, 999 ; [可调校数值]
+    Sleep 99 ; [可调校数值]
+    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+}
+WinSet, AlwaysOnTop, Off, A
+SendInput, #{Tab}
+Return
+
+;【热键】对Alt+Tab快捷键的支持命令
+LAltTab()
+{
+    If GetKeyState("Tab", "P")
+    {
+        If (!A_IsSuspended && !Toggle_ManualSuspend)
+        {
+            Toggle_ManualSuspend := !Toggle_ManualSuspend
+            Suspend, On
+            If (Toggle_ScreenScale)
+            {
+                If (ok := FindText(X, Y, Esc_X, Esc_Y, Esc_X2, Esc_Y2, 0, 0, EscIcon))
+                    SendEvent, {Esc}
+                SetTimer, ScreenScale, Off
+                Toggle_ScreenScale := !Toggle_ScreenScale
+            }
+            If (Toggle_MouseFunction)
+            {
+                SetTimer, ViewControl, Off
+                InputReset()
+                Toggle_MouseFunction := !Toggle_MouseFunction
+            }
+            ToolTip, 暂停中, 0, 999 ; [可调校数值]
+            Sleep 99 ; [可调校数值]
+            SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
+            ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
+        }
+        WinSet, AlwaysOnTop, Off, A
+        SendInput, !{Tab}
+    }
+    Return
+}
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;目前就这些，可根据需要自行修改
