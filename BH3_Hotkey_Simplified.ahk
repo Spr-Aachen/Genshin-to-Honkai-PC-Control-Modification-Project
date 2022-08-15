@@ -8,6 +8,14 @@
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;【函数】管理输入法
+SwitchIME(dwLayout)
+{
+    HKL := DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
+    ControlGetFocus, ctl, A
+    SendMessage, 0x50, 0, HKL, %ctl%, A
+}
+
 ;【函数】界面状态栏
 Disable( )
 {
@@ -20,68 +28,87 @@ Disable( )
 }
 
 ;【GUI】说明界面
-Gui, Start: Font, s12, 新宋体
-Gui, Start: Margin , X, Y
 Gui, Start: + Theme
-Gui, Start: Add, Text, x+3, ; 集体缩进
+Gui, Start: Font, s12, 新宋体
+Gui, Start: Add, Tab3,, 键位一览|参数设置|更新链接
+
+Gui, Start: Tab, 键位一览
+Gui, Start: Add, Text, X+15, ; 集体缩进
 Gui, Start: Add, Text,, 左键:                   普攻
-Gui, Start: Add, Text,, 中键:                   管理视角跟随
 Gui, Start: Add, Text,, 左Alt+左键:             正常左键
+Gui, Start: Add, Text,, 中键:                   管理视角跟随
 Gui, Start: Add, Text,, F1:                     暂停/启用
 Gui, Start: Add, Text,, F3:                     查看说明
-Gui, Start: Add, Link,, 源码查看:               <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/blob/main/BH3_Hotkey.ahk">传送门</a>
 Gui, Start: Add, Text,, 
 Gui, Start: Add, Text,, 其它键位请在游戏设置界面内自行更改
 Gui, Start: Add, Text,, 
-Gui, Start: Add, Button, xn w333, 开启
+
+Gui, Start: Tab, 参数设置
+Gui, Start: Add, Text, X+15, ; 集体缩进
+Gui, Start: Add, CheckBox, Checked vRunAsAdmin, 启用管理员权限（推荐）
+Gui, Start: Add, CheckBox, Checked vEnableScreenScale, 启用全自动识别（推荐）
+Gui, Start: Add, Text,,
+
+Gui, Start: Tab, 更新链接
+Gui, Start: Add, Text, X+15, ; 集体缩进
+Gui, Start: Add, Link,, 百度云:               <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码：2022</a>
+Gui, Start: Add, Link,, Github:               <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/blob/main/BH3_Hotkey.ahk">Latest Release</a>
+Gui, Start: Add, Text,,
+
+Gui, Start: Tab
+Gui, Start: Add, Button, Default W345, 开启
+Gui, Start: Add, Button, W345, 退出
 Gui, Start: Show, xCenter yCenter, 设置说明
 Disable( )
-Suspend, On
 Return
 
 ;【标签】“开启”按钮的执行语句
 StartButton开启:
-If (!A_IsAdmin)
+Gui, Submit, NoHide
+Gui, Start: Destroy
+If (RunAsAdmin)
 {
-    MsgBox, 4,, 是否以管理员身份运行该程序？
-    IfMsgBox, Yes
+    full_command_line := DllCall("GetCommandLine", "str")
+    If not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
     {
-        If (A_IsCompiled)
+        Try
         {
-            RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
-            RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
+            If A_IsCompiled
+                Run *RunAs "%A_ScriptFullPath%" /restart
+            Else
+                Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
         }
-        Else
-        {
-            RegWrite, REG_SZ, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-            RegWrite, REG_SZ, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-        }
-    } 
+        ExitApp
+    }
+}
+If (EnableScreenScale)
+{
+    If (!Toggle_ScreenScale)
+    {
+        Toggle_ScreenScale := !Toggle_ScreenScale
+        SetTimer, ScreenScale, 90 ; [可调校数值] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+    }
     Else
     {
-        If (A_IsCompiled)
-        {
-            RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
-            RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_ScriptFullPath%, ~ RUNASADMIN
-        }
-        Else
-        {
-            RegDelete, HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-            RegDelete, HKCR\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers,%A_AhkPath%, ~ RUNASADMIN
-       }
-   }
+        MsgBox, 0, 警告, 检测到异常参数，即将退出程序
+        ExitApp
+    }
 }
-Suspend, Off
-Gui, Start: Destroy
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序进入运行状态,可在游戏内按F1键停用`n（PS：当前对话框将于3秒后自动消失）
 SetTimer, AutoFadeMsgbox, Off
-SetTimer, ScreenScale, 90 ; [可调校数值] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
 Return
 
 ;【标签】让对话框自动消失
 AutoFadeMsgbox:
-DLLCall( "AnimateWindow", UInt, WinExist( "提示 ahk_class #32770"), Int, 500, UInt, 0x90000)
+DLLCall("AnimateWindow", UInt, WinExist("提示 ahk_class #32770"), Int, 500, UInt, 0x90000)
+Return
+
+;【标签】“退出”按钮的执行语句
+StartButton退出:
+MsgBox, 4,, 是否确认退出当前程序？
+IfMsgBox, Yes
+    ExitApp
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +123,7 @@ Global Toggle_MouseFunction := 0
 Global Status_MButton := 0
 
 ;【常量】对管理自动识别功能的全局常量进行赋值
-Global Toggle_ScreenScale := 1
+Global Toggle_ScreenScale := 0
 
 ;【常量】对管理手动暂停功能的全局常量进行赋值
 Global Toggle_ManualSuspend := 0
@@ -353,14 +380,6 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-;【函数】该段用于管理输入法，请勿删改
-SwitchIME(dwLayout)
-{
-    HKL := DllCall("LoadKeyboardLayout", Str, dwLayout, UInt, 1)
-    ControlGetFocus, ctl, A
-    SendMessage, 0x50, 0, HKL, %ctl%, A
-}
-
 ;【热键】暂停/启用程序——若想正常使用鼠标请按该键或按住ALT键
 F1::
 Suspend, Toggle
@@ -447,8 +466,6 @@ If (!A_IsSuspended && !Toggle_ManualSuspend)
     }
     ToolTip, 暂停中, 0, 999 ; [可调校数值]
     Sleep 99 ; [可调校数值]
-    SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-    ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
 }
 WinSet, AlwaysOnTop, Off, A
 SendInput, #{Tab}
@@ -478,8 +495,6 @@ LAltTab()
             }
             ToolTip, 暂停中, 0, 999 ; [可调校数值]
             Sleep 99 ; [可调校数值]
-            SwitchIME(0x04090409) ; 切换至"中文(中国) 简体中文-美式键盘"
-            ;SendInput, #{Space} ; [未启用命令行] 微软拼音用户可用该命令
         }
         WinSet, AlwaysOnTop, Off, A
         SendInput, !{Tab}
