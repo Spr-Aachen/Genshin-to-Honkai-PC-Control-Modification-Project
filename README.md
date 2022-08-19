@@ -1,48 +1,116 @@
+# 崩坏3仿原神PC端键鼠操控
 # An AHK project for Honkai Impact 3 to modify Genshin Impact's default way of Control on PCs
-The project is built with AutoHotkey. 
-<br>Please remind that this is a WIP stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard.
-Cheers!
+
+<br>本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
+<br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
 
 
-## 【写在前面】一些缺陷
+## 【注意 Caution】
 
-1.程序能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
-<br>相关设置如下：
-<br>F1——暂停/启用（暂停时在屏幕左下角有状态栏提示，且战斗状态下会自动暂停游戏）
-<br>F3——重启以查看说明（战斗状态下会自动暂停游戏）
+1. 请确保游戏操作设置已重置为默认键位
+   Please ensure that the gaming operation settings have been reset to default
 
-2.目前未知视角缩放的设置键，无法实现该功能
+2. 请确保客户端为官方提供的PC端而非模拟器
+   Please ensure that the client you're using is served by MiHoYo official
 
 
-## 【已实现的功能介绍】和原神PC端操作相似的部分
+## 【战斗 Combat】
 
-**1.视角跟随鼠标转动**
-<br>使用方法：点击鼠标中键以激活（再次按下以关闭）
-<br>该功能目前仍有延迟等小问题
+和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
+Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
 
-**2.Q键发动主技能（大招）**
+**Q键发动主技能（大招） Q key for main skill**
 <br>使用方法：点按或长按Q
+<br>Usage: Press or long press Q key
 
-**3.E键发动副技能（武器技）/后崩坏书主技能（大招）**
+**E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill**
 <br>使用方法：点按或长按E
+<br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
+<br>Usage: Press or long press E key
+<br>Extra: After entering the aiming mode by long pressing E key, cross hair can be controled by the mouse-movement
 
-**4.鼠标左键发动普攻/吼姆关卡跳跃**
-<br>使用方法：点击或长按鼠标左键
-
-**5.鼠标右键或左侧Shift键发动闪避/冲刺**
-<br>使用方法：点击或长按鼠标右键/左侧Shift键
-
-**6.左侧Alt键+鼠标左键以正常使用点击功能**
-<br>使用方法：按住Alt后点击鼠标左键
-
-
-## 【已实现的功能介绍】和原神PC端操作不同的部分
-
-**1.鼠标控制进入瞄准模式后的准星**
-<br>使用方法：长按E键以进入瞄准模式后通过移动鼠标来操控准星（原方向键方案已取消）
-
-**2.Z键发动人偶技能**
+**Z键发动人偶技能 Z key for doll skill**
 <br>使用方法：按下Z键
+<br>Usage: Press down (Long press) Z key
+
+**左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing**
+<br>使用方法：点击或长按左侧Shift键/鼠标右键
+<br>Usage: Press (Click) or long press LShift/RButton
+
+**鼠标左键发动普攻 LButton for normal attack**
+<br>使用方法：点击或长按鼠标左键
+<br>Usage: Press (Click) or long press LButton
 
 
-[点击前往作者B站主页](https://space.bilibili.com/359461611)
+## 【其它 Others】
+
+尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
+Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
+
+**左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
+<br>使用方法：按住左侧Alt键后点击鼠标左键
+<br>Usage: Press down (Long press) LAlt and then click LButton
+
+**鼠标中键管理视角跟随功能 MButton for view-control function management**
+<br>使用方法：点击鼠标中键
+<br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
+<br>Usage: Click MButton
+<br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
+
+**F1键暂停/启用程序 F1 key for program suspending/continuing**
+<br>使用方法：按下F1键
+<br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
+<br>Usage: Press down (Long press) F1 key
+<br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
+
+**F3键调出启动界面 F3 key for surface check**
+<br>使用方法：按下F3键
+<br>Usage: Press down (Long press) F3 key
+
+
+## 【附加 Additon】
+
+1. 启动界面允许手动选择是否启用全自动识别与管理员权限（均默认启用）
+   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
+
+2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。值得注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
+   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
+
+3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
+   New scene supported:  Elysian Realm
+
+
+## 【缺陷 Bugs】
+
+1. 目前未知视角缩放的设置键，无法实现该功能
+   So far the way to implement camera zooming is still unkown.
+
+2. 视角跟随功能目前仍有延迟、错误触发UI等问题，目前正在寻找更优方案
+   The view-control function has several problems like lagging and accidently toggling UI. Been looking for better scheme to solve it.
+
+3. 部分win11用户反映程序运行并未生效，目前尚未发现问题所在
+   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
+
+4. 全自动识别功能对于硬件性能要求稍高，现已对其进行了数次优化
+   The "automatic identification" has a little high demand of hardware performance, though it has been optimized for several times.
+
+5. 灵敏度（鼠标DPI）无法通过程序调节。虽然通过调教各函数的响应时间参数能够达到类似的效果，但是需要大量的数据采集和调试，这将是个漫长的过程。
+   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
+
+
+## 【测试平台 Tested Devices】
+
+**1.Honor Hunter V700**
+- Type：NoteBook
+- GPU：GTX 1660Ti
+- CPU：i5-10300H
+- RAM：16G
+- Sys：Win10
+- Res：1920*1080
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
+
+- [点击前往作者B站主页](https://space.bilibili.com/359461611)
