@@ -1,5 +1,4 @@
-# 崩坏3仿原神PC端键鼠操控
-# An AHK project for Honkai Impact 3 to modify Genshin Impact's default way of Control on PCs
+# 崩坏3仿原神PC端键鼠操控<br>An AHK project for Honkai Impact 3 to modify Genshin Impact's default way of Control on PCs
 
 <br>本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
@@ -8,16 +7,16 @@
 ## 【注意 Caution】
 
 1. 请确保游戏操作设置已重置为默认键位
-   Please ensure that the gaming operation settings have been reset to default
+<br>   Please ensure that the gaming operation settings have been reset to default
 
 2. 请确保客户端为官方提供的PC端而非模拟器
-   Please ensure that the client you're using is served by MiHoYo official
+<br>   Please ensure that the client you're using is served by MiHoYo official
 
 
 ## 【战斗 Combat】
 
-和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
-Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
+<br>和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
+<br>Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
 
 **Q键发动主技能（大招） Q key for main skill**
 <br>使用方法：点按或长按Q
@@ -44,8 +43,8 @@ Pretty much close to the default settings from Genshin Impact, but mind that the
 
 ## 【其它 Others】
 
-尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
-Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
+<br>尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
+<br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
 
 **左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
 <br>使用方法：按住左侧Alt键后点击鼠标左键
@@ -71,31 +70,31 @@ Although the combat scene can be automaticly identified, manual control is still
 ## 【附加 Additon】
 
 1. 启动界面允许手动选择是否启用全自动识别与管理员权限（均默认启用）
-   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
+<br>   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
 
 2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。值得注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
-   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
+<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
-   New scene supported:  Elysian Realm
+<br>   New scene supported:  Elysian Realm
 
 
 ## 【缺陷 Bugs】
 
 1. 目前未知视角缩放的设置键，无法实现该功能
-   So far the way to implement camera zooming is still unkown.
+<br>   So far the way to implement camera zooming is still unkown.
 
 2. 视角跟随功能目前仍有延迟、错误触发UI等问题，目前正在寻找更优方案
-   The view-control function has several problems like lagging and accidently toggling UI. Been looking for better scheme to solve it.
+<br>   The view-control function has several problems like lagging and accidently toggling UI. Been looking for better scheme to solve it.
 
 3. 部分win11用户反映程序运行并未生效，目前尚未发现问题所在
-   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
+<br>   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
 
 4. 全自动识别功能对于硬件性能要求稍高，现已对其进行了数次优化
-   The "automatic identification" has a little high demand of hardware performance, though it has been optimized for several times.
+<br>   The "automatic identification" has a little high demand of hardware performance, though it has been optimized for several times.
 
 5. 灵敏度（鼠标DPI）无法通过程序调节。虽然通过调教各函数的响应时间参数能够达到类似的效果，但是需要大量的数据采集和调试，这将是个漫长的过程。
-   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
+<br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
 
 
 ## 【测试平台 Tested Devices】
@@ -109,7 +108,7 @@ Although the combat scene can be automaticly identified, manual control is still
 - Res：1920*1080
 
 
-## Stargazers over time
+## 【收藏趋势 Stargazers over time】
 
 [![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
 
