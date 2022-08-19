@@ -1,8 +1,8 @@
 # 崩坏3仿原神PC端键鼠操控<br>An AHK project for Honkai Impact 3 to modify Genshin Impact's default way of Control on PCs
 
-<br>本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
+本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
-
+<br>
 
 ## 【注意 Caution】
 
@@ -11,11 +11,11 @@
 
 2. 请确保客户端为官方提供的PC端而非模拟器
 <br>   Please ensure that the client you're using is served by MiHoYo official
-
+<br>
 
 ## 【战斗 Combat】
 
-<br>和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
+和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
 <br>Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
 
 **Q键发动主技能（大招） Q key for main skill**
@@ -39,11 +39,11 @@
 **鼠标左键发动普攻 LButton for normal attack**
 <br>使用方法：点击或长按鼠标左键
 <br>Usage: Press (Click) or long press LButton
-
+<br>
 
 ## 【其它 Others】
 
-<br>尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
+尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
 
 **左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
@@ -65,7 +65,7 @@
 **F3键调出启动界面 F3 key for surface check**
 <br>使用方法：按下F3键
 <br>Usage: Press down (Long press) F3 key
-
+<br>
 
 ## 【附加 Additon】
 
@@ -77,7 +77,7 @@
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
 <br>   New scene supported:  Elysian Realm
-
+<br>
 
 ## 【缺陷 Bugs】
 
@@ -95,7 +95,7 @@
 
 5. 灵敏度（鼠标DPI）无法通过程序调节。虽然通过调教各函数的响应时间参数能够达到类似的效果，但是需要大量的数据采集和调试，这将是个漫长的过程。
 <br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
-
+<br>
 
 ## 【测试平台 Tested Devices】
 
@@ -106,7 +106,7 @@
 - RAM：16G
 - Sys：Win10
 - Res：1920*1080
-
+<br>
 
 ## 【收藏趋势 Stargazers over time】
 
