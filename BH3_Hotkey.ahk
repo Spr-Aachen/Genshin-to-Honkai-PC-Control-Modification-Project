@@ -476,48 +476,162 @@ InputReset()
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-;【函数 Function】不同分辨率下参数的初始化
+;【函数 Function】自动识别
 AutoScale()
 {
     If WinActive("ahk_exe BH3.exe")
-    { ; 默认数值源于1920*1080分辨率下的测试结果
+    {
         WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
-        Global UpperLeftCorner_X := ClientUpperLeftCorner_X
-        Global UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-        Global LowerRightCorner_X := UpperLeftCorner_X + Round(69 * 2 * Client_Width / 1920)
-        Global LowerRightCorner_Y := UpperLeftCorner_Y + Round(51 * 2 * Client_Height / 1080)
-        Global Icon := "|<CombatEscIcon>0xFFFFFF@1.00$106.000400000000000030001U000000000000C00060000000000000s001U0000000000000s00C00000000000003U00s0000000000000C00700000000000000w01w00000000000003k07k0000000000000D00Q00000000000000w03k00000000000003k0D00000000000000D00w00000000000000w03k00000000000003k0C00000000000000T01s00000000000003s0DU0000000000000DU0y00000000000000y03s00000000000003s0D00000000000000DU0s00000000000000y07U00000000000007U0S00000000000000S01s00000000000001s07U00000000000007U0Q00000000000000y03k00000000000007s0T00000000000000T01w00000000000001w07k00000000000007k0Q00000000000000T01k00000000000003w0D00000000000000DU0w00000000000000w03k00000000000003k0D00000000000000D00s00000000000000w07U0000000000000Dk0y00000000000000y03s00000000000003s0D00000000000000DU0s00000000000000y03U00000000000003s0S00000000000000T01s00000000000001s07U00000000000007U0Q00000000000000S01k00000000000001s0700000000000000TU1w00000000000001w07k00000000000007k0S00000000000000T01k00000000000001w07000000000000007k0Q00000000000000z03k00000000000003k0D00000000000000D00w00000000000000w01k0000000000000DU0700000000000000y00Q00000000000003s01w0000000000000S003k0000000000001s00700000000000007000A0000000000001k000k00000000000070000U000000000000U0000U000000000000000000000000000010000000000Dw0000000000000000s00000000000000003U0000000000000000C00000000000000000s0DUT0000000000003U3W7g000000000000DwA0s0000000000000zkk300000000000003U3kQ0000000000000C03lk0000000000000s03b00000000000003U06A0000000000000C00Ms0000000000000zsz1z0000000000003zVk1k000000U"
-        Global Icon .= "|<ElysianRealmIcon>0xFFFFFF@1.00$89.000400000000000000M00000000000000k00000000000007U0000000000000T00000000000000y00000000000007w0000000000000Ts0000000000000zk0000000000007lU000000000000S10000000000000w20000000000007k0000000000000S00000000000000w00000000000007k0000000000000S00000000000000w00000000000007k0000000000000S00000000000000w00000000000007s00000000000003k00000000000007U00000000000007k00000000000003k00000000000007U00000000000007k00000000000003k00000000000007U00000000000007k00000000000003k80000000000007UE0000000000007kU0000000000003z00000000000007y00000000000007w00000000000003s00000000000007k00000000000007U0000000000000300000000000000600000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000E000000000000010M"
-        Switch A_ScreenHeight
-        {
-            Case "1080":
-                ;测试所得默认参数
-            Case "720":
-                Icon :=
-                UpperLeftCorner_X := Round(UpperLeftCorner_X * 2 / 3)
-                UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 2 / 3)
-                LowerRightCorner_X := Round(LowerRightCorner_X * 2 / 3)
-                LowerRightCorner_Y := Round(LowerRightCorner_Y * 2 / 3)
-            Case "1440":
-                Icon :=
-                UpperLeftCorner_X := Round(UpperLeftCorner_X * 4 / 3)
-                UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 4 / 3)
-                LowerRightCorner_X := Round(LowerRightCorner_X * 4 / 3)
-                LowerRightCorner_Y := Round(LowerRightCorner_Y * 4 / 3)
-            Case "2160":
-                Icon := 
-                UpperLeftCorner_X *= 2
-                UpperLeftCorner_Y *= 2
-                LowerRightCorner_X *= 2
-                LowerRightCorner_Y *= 2
-            Default:
-                Icon :=
-                UpperLeftCorner_X := ClientUpperLeftCorner_X
-                UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-                LowerRightCorner_X := UpperLeftCorner_X + Client_Width
-                LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
+        If (Client_Width / Client_Height == 1920 / 1080)
+        { ; 默认数值源于1920*1080分辨率下的测试结果
+            UpperLeftCorner_X := ClientUpperLeftCorner_X
+            UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+            LowerRightCorner_X := UpperLeftCorner_X + Round(69 * 2 * Client_Width / 1920)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(51 * 2 * Client_Height / 1080)
+            Switch Client_Height
+            {
+                Case "1080": ;[已测试 tested]（颜色相似二值化100% + 灰度差值240）
+                    Icon := "|<CombatEscIcon>0xFFFFFF@1.00$106.000400000000000030001U000000000000C00060000000000000s001U0000000000000s00C00000000000003U00s0000000000000C00700000000000000w01w00000000000003k07k0000000000000D00Q00000000000000w03k00000000000003k0D00000000000000D00w00000000000000w03k00000000000003k0C00000000000000T01s00000000000003s0DU0000000000000DU0y00000000000000y03s00000000000003s0D00000000000000DU0s00000000000000y07U00000000000007U0S00000000000000S01s00000000000001s07U00000000000007U0Q00000000000000y03k00000000000007s0T00000000000000T01w00000000000001w07k00000000000007k0Q00000000000000T01k00000000000003w0D00000000000000DU0w00000000000000w03k00000000000003k0D00000000000000D00s00000000000000w07U0000000000000Dk0y00000000000000y03s00000000000003s0D00000000000000DU0s00000000000000y03U00000000000003s0S00000000000000T01s00000000000001s07U00000000000007U0Q00000000000000S01k00000000000001s0700000000000000TU1w00000000000001w07k00000000000007k0S00000000000000T01k00000000000001w07000000000000007k0Q00000000000000z03k00000000000003k0D00000000000000D00w00000000000000w01k0000000000000DU0700000000000000y00Q00000000000003s01w0000000000000S003k0000000000001s00700000000000007000A0000000000001k000k00000000000070000U000000000000U0000U000000000000000000000000000010000000000Dw0000000000000000s00000000000000003U0000000000000000C00000000000000000s0DUT0000000000003U3W7g000000000000DwA0s0000000000000zkk300000000000003U3kQ0000000000000C03lk0000000000000s03b00000000000003U06A0000000000000C00Ms0000000000000zsz1z0000000000003zVk1k000000U"
+                    Icon .= "|<ElysianRealmIcon>*240$89.zzzvzzzzzzzzzzzzzzbzzzzzzzzzzzzzyDzzzzzzzzzzzzzsTzzzzzzzzzzzzzUzzzzzzzzzzzzzy1zzzzzzzzzzzzzs3zzzzzzzzzzzzzU7zzzzzzzzzzzzy0DzzzzzzzzzzzzsATzzzzzzzzzzzzUQzzzzzzzzzzzzy1xzzzzzzzzzzzzsDvzzzzzzzzzzzzUTzzzzzzzzzzzzy1zzzzzzzzzzzzzs7zzzzzzzzzzzzzUTzzzzzzzzzzzzy1zzzzzzzzzzzzzs7zzzzzzzzzzzzzUTzzzzzzzzzzzzy1zzzzzzzzzzzzzs3zzzzzzzzzzzzzk7zzzzzzzzzzzzzk7zzzzzzzzzzzzzsDzzzzzzzzzzzzzk7zzzzzzzzzzzzzk7zzzzzzzzzzzzzsDzzzzzzzzzzzzzkDzzzzzzzzzzzzzkDzzzzzzzzzzzzzsDvzzzzzzzzzzzzkDrzzzzzzzzzzzzkDjzzzzzzzzzzzzsCTzzzzzzzzzzzzk0zzzzzzzzzzzzzk1zzzzzzzzzzzzzs3zzzzzzzzzzzzzk7zzzzzzzzzzzzzkDzzzzzzzzzzzzzsTzzzzzzzzzzzzzkzzzzzzzzzzzzzzlzzzzzzzzzzzzzzvzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzdzzzzzzzzzzzzzyyc"
+
+                Case "720": ;[未测试 untested]（颜色相似二值化100% + 灰度差值240）
+                    Icon := "|<CombatEscIcon>0xFFFFFF@1.00$72.001U0000001U00600000000s00Q00000000Q00s00000000S01k00000000C03k00000000D07U00000000D07U00000000D0D000000000D0D000000000D0D000000000D0C000000000T0S000000000S0S000000000S0S000000000S0w000000000y0w000000000w0w000000000w0s000000000w1s000000001s1s000000001s1s000000001s1k000000003s3k000000003k3k000000003k3k000000003k3U000000007k7U000000007U7U000000007U70000000007UD000000000DUD000000000D0D000000000D0C000000000T0S000000000T0S000000000S0Q000000000S0Q000000000y0w000000000y0w000000000w0w000000001w0Q000000001s0S000000003k0C000000003k0C000000007U0700000000C003U0000000Q000k0000001k0000007k0000000000400000000000400000000000410E000000007X0U0000000041100000000040l000000000409000000000408U000000007lUQ0000U"
+                    Icon .= "|<ElysianRealmIcon>*240$60.zzrzzzzzzzzzbzzzzzzzzz7zzzzzzzzy7zzzzzzzzw7zzzzzzzzs7zzzzzzzzk7zzzzzzzzUbzzzzzzzz1rzzzzzzzy3zzzzzzzzw7zzzzzzzzsDzzzzzzzzkTzzzzzzzzUzzzzzzzzz1zzzzzzzzz1zzzzzzzzzUzzzzzzzzzkTzzzzzzzzsDzzzzzzzzw7zzzzzzzzy3zzzzzzzzz1rzzzzzzzzUrzzzzzzzzk7zzzzzzzzs7zzzzzzzzw7zzzzzzzzy7zzzzzzzzz7zzzzzzzzzbzzzzzzzzzrzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyU"
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 2 / 3)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 2 / 3)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 2 / 3)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 2 / 3)
+
+                Case "900": ;[未测试 untested]（颜色相似二值化100% + 灰度差值222）
+                    Icon := "|<CombatEscIcon>0xFFFFFF@1.00$89.000U0000000000U00600000000001U00A00000000003000U00000000003U0300000000000700A00000000000D01s00000000000S03k00000000000w07000000000001s0S000000000003k0w000000000007U1s00000000000D03U00000000000S0D000000000001s0S000000000003k0w000000000007U1k00000000000D03000000000000y0C000000000001k0Q000000000003U0s00000000000701U00000000000S07000000000001w0S000000000003k0w000000000007U1k00000000000D03U00000000000y0D000000000001s0S000000000003k0w000000000007U1k00000000000D07U00000000000y0D000000000001s0S000000000003k0s000000000007U1U00000000000T07000000000000w0C000000000001k0Q000000000003U0k00000000000701U00000000000y0D000000000001w0S000000000003k0s000000000007U1k00000000000D03U00000000000y0D000000000001s0S000000000003k0w000000000007U0s00000000000S01k00000000000w03k00000000003U03U0000000000700300000000000Q00200000000001k002000000000040001000000000000000000000000100000000100000000000000200000000000000400000000000000800000000000000E00000000000000U0000000000000100200000000000200400000000000400000000000000800000000000000TU00000004"
+                    Icon .= "|<ElysianRealmIcon>*222$74.zzzTzzzzzzzzzzzbzzzzzzzzzzzlzzzzzzzzzzzsTzzzzzzzzzzw7zzzzzzzzzzy1zzzzzzzzzzz0TzzzzzzzzzzU7zzzzzzzzzzkFzzzzzzzzzzsDTzzzzzzzzzw7rzzzzzzzzzy3xzzzzzzzzzz1zzzzzzzzzzzUTzzzzzzzzzzkDzzzzzzzzzzs7zzzzzzzzzzw3zzzzzzzzzzy1zzzzzzzzzzz0zzzzzzzzzzzs7zzzzzzzzzzz0zzzzzzzzzzzs7zzzzzzzzzzz0zzzzzzzzzzzs7zzzzzzzzzzz1zzzzzzzzzzzs7rzzzzzzzzzz0xzzzzzzzzzzs6Tzzzzzzzzzz07zzzzzzzzzzs1zzzzzzzzzzz0Tzzzzzzzzzzs7zzzzzzzzzzz1zzzzzzzzzzzsTzzzzzzzzzzz7zzzzzzzzzzztzzzzzzzzzzzzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzjc"
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 5 / 6)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 5 / 6)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 5 / 6)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 5 / 6)
+
+                Case "1440":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 4 / 3)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 4 / 3)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 4 / 3)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 4 / 3)
+
+                Case "2160":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X *= 2
+                    UpperLeftCorner_Y *= 2
+                    LowerRightCorner_X *= 2
+                    LowerRightCorner_Y *= 2
+
+                Default:
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := ClientUpperLeftCorner_X
+                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
+                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
+            }
         }
-        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.001, 0.001, Icon)[1].id == "CombatEscIcon")
+        Else If (Client_Width / Client_Height == 1360 / 768)
+        {
+            UpperLeftCorner_X := ClientUpperLeftCorner_X
+            UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+            LowerRightCorner_X := UpperLeftCorner_X + Round(48 * 2 * Client_Width / 1360)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(36 * 2 * Client_Height / 768)
+            Switch Client_Height
+            {
+                Case "768": ;[未测试 untested]（颜色相似二值化100%）
+                    Icon := "|<CombatEscIcon>0xFFFFFF@1.00$76.000000000000U00U000000003004000000000600k000000000M060000000001k0s000000000703U000000000Q0A0000000001k1k0000000007070000000000Q0M0000000001k3U000000000C0C0000000000s0s0000000003U30000000000C0Q0000000001k1k0000000007070000000000Q0M0000000003k3U000000000C0C0000000000s0s0000000007U30000000000y0Q0000000003k1k000000000D070000000000w0M0000000003k3U000000000S0C0000000001s0k0000000007U30000000000S0Q0000000003k1k000000000D060000000000w0s0000000007k7U000000000S0S0000000001k1k0000000007070000000000w0w0000000003k3k000000000C0D0000000000s0Q000000000701k000000000Q03U000000003U06000000000A008000000001U00E000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000E000002"
+                    Icon .= "|<ElysianRealmIcon>*234$60.zzrzzzzzzzzzbzzzzzzzzz7zzzzzzzzy7zzzzzzzzw7zzzzzzzzs7zzzzzzzzkbzzzzzzzzVzzzzzzzzz3zzzzzzzzy7zzzzzzzzw7zzzzzzzzsDzzzzzzzzkTzzzzzzzzUzzzzzzzzz1zzzzzzzzz1zzzzzzzzzUzzzzzzzzzkTzzzzzzzzsDzzzzzzzzw7zzzzzzzzy3zzzzzzzzz3zzzzzzzzzVrzzzzzzzzkbzzzzzzzzs7zzzzzzzzw7zzzzzzzzy7zzzzzzzzz7zzzzzzzzzbzzzzzzzzzrzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyU"
+
+                Default:
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := ClientUpperLeftCorner_X
+                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
+                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
+            }
+        }
+        Else If (Client_Width / Client_Height == 1440 / 900)
+        {
+            UpperLeftCorner_X := ClientUpperLeftCorner_X
+            UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+            LowerRightCorner_X := UpperLeftCorner_X + Round(51 * 2 * Client_Width / 1440)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(39 * 2 * Client_Height / 900)
+            Switch Client_Height
+            {
+                Case "900": ;[未测试 untested]（颜色相似二值化100%）
+                    Icon := "|<CombatEscIcon>0xFFFFFF@1.00$80.00200000000020030000000000k01U000000000600k0000000001U0Q0000000000Q060000000000703U0000000001k0k0000000000Q0Q000000000070700000000001k1k0000000000Q0s0000000000C0S00000000003U7U0000000000s1s0000000000C0Q00000000003UD00000000001k3k0000000000Q0w000000000070C00000000003k7U0000000000s1s0000000000C0S00000000003U700000000000s1k0000000000w0w0000000000D0D00000000003k300000000000w1k0000000000T0Q00000000007U700000000001s1U0000000000S0M00000000007UC00000000003k3U0000000000w0k0000000000D0A00000000007k700000000001w1k0000000000Q0M000000000070600000000001k3U0000000000w0s0000000000C0C00000000003U3U0000000001k0M0000000000Q060000000000701k0000000003U0A0000000001k010000000000s008000000000M000000000000000000000000000000000200000000000000000000000000000000000000000000000000000U0000000000000010000000000000E000000000000400000000000000000000000200000000U"
+                    Icon .= "|<ElysianRealmIcon>*222$65.zzxzzzzzzzzzznzzzzzzzzzz7zzzzzzzzzwDzzzzzzzzzkTzzzzzzzzz0zzzzzzzzzw1zzzzzzzzzk3zzzzzzzzz1bzzzzzzzzw7jzzzzzzzzkTTzzzzzzzz1zzzzzzzzzw3zzzzzzzzzkDzzzzzzzzz1zzzzzzzzzw7zzzzzzzzzkDzzzzzzzzzkTzzzzzzzzzkTzzzzzzzzzkTzzzzzzzzzkTzzzzzzzzzkTzzzzzzzzzkTzzzzzzzzzkyzzzzzzzzzkxzzzzzzzzzkHzzzzzzzzzk7zzzzzzzzzkDzzzzzzzzzkTzzzzzzzzzkzzzzzzzzzzlzzzzzzzzzznzzzzzzzzzzrzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzzzzzzzzzzzE"
+                Default:
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := ClientUpperLeftCorner_X
+                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
+                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
+            }
+        }
+
+        Else
+        { ; 其它比率尚未测试,暂通过扩大原识别范围(21px)处理
+            UpperLeftCorner_X := ClientUpperLeftCorner_X
+            UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+            LowerRightCorner_X := UpperLeftCorner_X + Round((69 * 2 + 21) * Client_Width / 1920)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round((51 * 2 + 21) * Client_Height / 1080)
+            Switch Client_Height
+            {
+                Case "1080":
+                    Icon := 
+                    Icon .= 
+
+                Case "720":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 2 / 3)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 2 / 3)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 2 / 3)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 2 / 3)
+
+                Case "900":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 5 / 6)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 5 / 6)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 5 / 6)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 5 / 6)
+
+                Case "1440":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 4 / 3)
+                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 4 / 3)
+                    LowerRightCorner_X := Round(LowerRightCorner_X * 4 / 3)
+                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 4 / 3)
+
+                Case "2160":
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X *= 2
+                    UpperLeftCorner_Y *= 2
+                    LowerRightCorner_X *= 2
+                    LowerRightCorner_Y *= 2
+
+                Default:
+                    Icon := 
+                    Icon .= 
+                    UpperLeftCorner_X := ClientUpperLeftCorner_X
+                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
+                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
+            }
+        }
+        ; ScreenScale
+        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.003, 0.003, Icon)[1].id == "CombatEscIcon")
         {
             If (!Toggle_ManualSuspend)
             {
@@ -549,7 +663,7 @@ AutoScale()
             }
             Else If (!Toggle_ManualSuspend)
             {
-                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.001, 0.001, Icon)[1].id == "ElysianRealmIcon")
+                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.003, 0.003, Icon)[1].id == "ElysianRealmIcon")
                 {
                     If (!Toggle_MouseFunction)
                     {
