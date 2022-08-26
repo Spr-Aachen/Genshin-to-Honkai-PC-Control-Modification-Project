@@ -1,4 +1,4 @@
-## 崩坏3仿原神PC端键鼠操控<br>An AHK project for Honkai Impact 3 to modify Genshin Impact's default way of Control on PCs
+## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
 本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
