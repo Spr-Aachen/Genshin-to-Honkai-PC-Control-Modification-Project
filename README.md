@@ -15,20 +15,20 @@
 3. 请使用全屏模式游玩以确保自动识别的正常运行
 <br>   Please use fullscreen mode in order to run "automatic identification" properly
 
-<br>支持与不支持的客户端分辨率如下：（? 表示未经测试）
-<br>Supported&unsupported client resolution is shown as follows: (? means untested)
+<br>支持与不支持的客户端分辨率如下：（:grey_exclamation: 表示未经测试）
+<br>Supported&unsupported client resolution is shown as follows: (:grey_exclamation: means untested)
 
 | 分辨率 Resolution | 支持 Support |
 | ----------------- | ----------- |
-| 2560 x 1440       | ?           |
+| 2560 x 1440       | :grey_exclamation:           |
 | 1920 x 1080       | ✔           |
-| 1680 x 1050       | ?           |
-| 1600 x 1024       | ✘           |
-| 1600 x 900        | ?           |
-| 1440 x 900        | ?           |
-| 1366 x 768        | ✘           |
-| 1360 x 768        | ?           |
-| 1280 x 720        | ?           |
+| 1680 x 1050       | :grey_exclamation:           |
+| 1600 x 1024       | :x:           |
+| 1600 x 900        | :grey_exclamation:           |
+| 1440 x 900        | :grey_exclamation:           |
+| 1366 x 768        | :x:           |
+| 1360 x 768        | :grey_exclamation:           |
+| 1280 x 720        | :grey_exclamation:           |
 
 <br>若需要其它分辨率支持可以联系我，亦或者提交issue。  
 <br>Contact me if any other resolution need to be supported, or submit an issue.
