@@ -1,19 +1,42 @@
 ## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
-本项目以AHK为基础进行编译。请注意这是个半成品且完全是为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
+本项目以AHK为基础进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
 
 
-## 【注意 Caution】
+## 注意 Caution
 
-1. 请确保游戏操作设置已重置为默认键位
-<br>   Please ensure that the gaming operation settings have been reset to default
-
-2. 请确保客户端为官方提供的PC端而非模拟器
+1. 请确保客户端为官方提供的PC端而非模拟器
 <br>   Please ensure that the client you're using is served by MiHoYo official
 
+2. 请确保游戏操作设置已重置为默认键位
+<br>   Please ensure that the gaming operation settings have been reset to default
 
-## 【战斗 Combat】
+3. 请使用全屏模式游玩以确保自动识别的正常运行
+<br>   Please use fullscreen mode in order to run "automatic identification" properly
+
+<br>支持与不支持的客户端分辨率如下：（? 表示未经测试）
+<br>Supported&unsupported client resolution is shown as follows: (? means untested)
+
+| 分辨率 Resolution | 支持 Support |
+| ----------------- | ----------- |
+| 2560 x 1440       | ?           |
+| 1920 x 1080       | ✔           |
+| 1680 x 1050       | ?           |
+| 1600 x 1024       | ✘           |
+| 1600 x 900        | ?           |
+| 1440 x 900        | ?           |
+| 1366 x 768        | ✘           |
+| 1360 x 768        | ?           |
+| 1280 x 720        | ?           |
+
+<br>若需要其它分辨率支持可以联系我，亦或者提交issue。  
+<br>Contact me if any other resolution need to be supported, or submit an issue.
+
+
+## 键位 Key Maps
+
+**【战斗 Combat】**
 
 和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
 <br>Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
@@ -40,10 +63,9 @@
 <br>使用方法：点击或长按鼠标左键
 <br>Usage: Press (Click) or long press LButton
 
+**【其它 Others】**
 
-## 【其它 Others】
-
-尽管能够自动分辨战斗与其它场景，但出现异常情况时仍可以进行手动控制
+尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
 
 **左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
@@ -67,19 +89,22 @@
 <br>Usage: Press down (Long press) F3 key
 
 
-## 【附加 Additon】
+## 附加 Additon
 
 1. 启动界面允许手动选择是否启用全自动识别与管理员权限（均默认启用）
 <br>   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
 
-2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。值得注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
+2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
 <br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
-<br>   New scene supported:  Elysian Realm
+<br>   New scene supported:  Elysium Lobby
+
+4. 精简版去除了除左键（普攻）外的所有战斗键位
+<br>   The simplified version cut all the combat key maps except LButton (which is for normal attack).
 
 
-## 【缺陷 Bugs】
+## 缺陷 Bugs
 
 1. 目前未知视角缩放的设置键，无法实现该功能
 <br>   So far the way to implement camera zooming is still unkown.
@@ -97,7 +122,7 @@
 <br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
 
 
-## 【测试平台 Tested Devices】
+## 测试平台 Tested Devices
 
 **1.Honor Hunter V700**
 - Type：NoteBook
@@ -108,7 +133,7 @@
 - Res：1920*1080
 
 
-## 【收藏趋势 Stargazers over time】
+## 收藏趋势 Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
 
