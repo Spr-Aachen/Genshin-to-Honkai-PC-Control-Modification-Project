@@ -4,7 +4,7 @@
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
 
 
-## 注意 Caution
+## 【注意 Caution】
 
 1. 请确保客户端为官方提供的PC端而非模拟器
 <br>   Please ensure that the client you're using is served by MiHoYo official
@@ -29,67 +29,67 @@
 | 1366 x 768        | :x:           |
 | 1360 x 768        | :grey_exclamation:          |
 | 1280 x 720        | :grey_exclamation:          |
+|  720 x 480        | :x:           |
 
-<br>若需要其它分辨率支持可以联系我，亦或者提交issue。  
-<br>Contact me if any other resolution need to be supported, or submit an issue.
+<br>若需要其它分辨率支持可以联系我，亦或者提交issue
+<br>Contact me if any other resolution need to be supported, or submit an issue
 
 
-## 键位 Key Maps
+## 【设定 Configurations】
 
-**【战斗 Combat】**
+**键位设定 - 战斗<br>Key Maps - Combat**
 
-和原神PC端的默认键位设置较为相近，但注意瞄准模式的设定有所不同
-<br>Pretty much close to the default settings from Genshin Impact, but mind that there's a little difference between those two's aiming mode
+键位会在战斗状态下生效。且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
+<br>Key maps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
-**Q键发动主技能（大招） Q key for main skill**
+***Q键发动主技能（大招） Q key for main skill***
 <br>使用方法：点按或长按Q
 <br>Usage: Press or long press Q key
 
-**E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill**
+***E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill***
 <br>使用方法：点按或长按E
 <br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
 <br>Usage: Press or long press E key
 <br>Extra: After entering the aiming mode by long pressing E key, cross hair can be controled by the mouse-movement
 
-**Z键发动人偶技能 Z key for doll skill**
+***Z键发动人偶技能 Z key for doll skill***
 <br>使用方法：按下Z键
 <br>Usage: Press down (Long press) Z key
 
-**左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing**
+***左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing***
 <br>使用方法：点击或长按左侧Shift键/鼠标右键
 <br>Usage: Press (Click) or long press LShift/RButton
 
-**鼠标左键发动普攻 LButton for normal attack**
+***鼠标左键发动普攻 LButton for normal attack***
 <br>使用方法：点击或长按鼠标左键
 <br>Usage: Press (Click) or long press LButton
 
-**【其它 Others】**
+**键位设定 - 管理<br>Key Maps - Management**
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
 
-**左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
+***左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function***
 <br>使用方法：按住左侧Alt键后点击鼠标左键
 <br>Usage: Press down (Long press) LAlt and then click LButton
 
-**鼠标中键管理视角跟随功能 MButton for view-control function management**
+***鼠标中键管理视角跟随功能 MButton for view-control function management***
 <br>使用方法：点击鼠标中键
 <br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
 <br>Usage: Click MButton
 <br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
 
-**F1键暂停/启用程序 F1 key for program suspending/continuing**
+***F1键暂停/启用程序 F1 key for program suspending/continuing***
 <br>使用方法：按下F1键
 <br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
 <br>Usage: Press down (Long press) F1 key
 <br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
 
-**F3键调出启动界面 F3 key for surface check**
+***F3键调出启动界面 F3 key for surface check***
 <br>使用方法：按下F3键
 <br>Usage: Press down (Long press) F3 key
 
-
-## 附加 Additon
+**附加设定<br>Additon**
 
 1. 启动界面允许手动选择是否启用全自动识别与管理员权限（均默认启用）
 <br>   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
@@ -100,11 +100,11 @@
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
 <br>   New scene supported:  Elysium Lobby
 
-4. 精简版去除了除左键（普攻）外的所有战斗键位
-<br>   The simplified version cut all the combat key maps except LButton (which is for normal attack).
+4. 精简版去掉了除左键（普攻）外的所有战斗键位
+<br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).
 
 
-## 缺陷 Bugs
+## 【缺陷 Bugs】
 
 1. 目前未知视角缩放的设置键，无法实现该功能
 <br>   So far the way to implement camera zooming is still unkown.
@@ -122,7 +122,7 @@
 <br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
 
 
-## 测试平台 Tested Devices
+## 【测试平台 Tested Devices】
 
 **1.Honor Hunter V700**
 - Type：NoteBook
@@ -133,7 +133,7 @@
 - Res：1920*1080
 
 
-## 收藏趋势 Stargazers over time
+## 【收藏趋势 Stargazers over time】
 
 [![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
 
