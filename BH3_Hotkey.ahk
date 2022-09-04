@@ -7,7 +7,6 @@
 
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
-#UseHook
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -41,7 +40,7 @@ Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15, Q:                      必杀技
 Gui, Start: Add, Text, Xp Yp+33, E:                      武器技/后崩技
-Gui, Start: Add, Text, Xp Yp+33, Z:                      人偶技
+Gui, Start: Add, Text, Xp Yp+33, Z:                      人偶技/月之环
 Gui, Start: Add, Text, Xp Yp+33, 左ShIft/右键:           闪避
 Gui, Start: Add, Text, Xp Yp+33, 左键:                   普攻
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
@@ -77,6 +76,7 @@ Gui, Start: Add, Button, Default W366, 开启
 Gui, Start: Add, Button, W366, 退出
 Gui, Start: Show, xCenter yCenter, 启动界面
 Disable( )
+Suspend, On
 Return
 
 ;【例程 Gosub】“版本”选项的执行语句
@@ -128,6 +128,7 @@ If (EnableAutoScale)
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值 adjustable parameters] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序启动成功(/≧▽≦)/，祝游戏愉快！`n（当前对话框将于3秒后自动消失）
 SetTimer, AutoFadeMsgbox, Off
+Suspend, Off
 Return
 
 ;【标签 Label】让对话框自动消失
@@ -467,10 +468,13 @@ AimControl()
 ;【函数 Function】输入重置
 InputReset()
 {
-    If (Status_MButton)
+    If GetKeyState("MButton")
     {
+        If (Status_MButton)
+        {
+            Status_MButton := !Status_MButton
+        }
         SendInput, {Click, Up Middle}
-        Status_MButton := !Status_MButton
     }
 }
 
@@ -697,7 +701,8 @@ AutoScale()
 
         Else
         { ; 其它比率尚未测试
-            
+            ;MsgBox, 4,, 请检查当前是否为全屏模式或支持的分辨率！
+            ;ExitApp
         }
         ; ScreenScale
         If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.03, 0.03, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.03, 0.03, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
@@ -764,6 +769,11 @@ AutoScale()
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;【命令 Directive】不对以下键盘热键使用钩子（也不要对鼠标热键使用InstallMouseHook）
+#UseHook, Off
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ;【热键 Hotkey】点击鼠标中键以激活视角跟随
 MButton::
 If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数 Function唤醒
@@ -811,7 +821,7 @@ Return
 
 ;【热键 Hotkey】按下键盘Q键以发动必杀技
 q::
-If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数 Function唤醒
+If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
 {
     SendInput, {i Down}
     If (Toggle_MouseFunction)
@@ -832,7 +842,7 @@ Return
 
 ;【热键 Hotkey】按下键盘E键以发动武器技/后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
 e::
-If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数 Function唤醒
+If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
 {
     SendInput, {u Down}
     If (Toggle_MouseFunction)
