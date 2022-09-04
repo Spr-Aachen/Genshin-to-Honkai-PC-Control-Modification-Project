@@ -24,11 +24,11 @@
 | 1920 x 1080       | :heavy_check_mark:          |
 | 1680 x 1050       | :grey_exclamation:          |
 | 1600 x 1024       | :heavy_multiplication_x:          |
-| 1600 x 900        | :grey_exclamation:          |
-| 1440 x 900        | :grey_exclamation:          |
+| 1600 x 900        | :heavy_check_mark:          |
+| 1440 x 900        | :heavy_check_mark:          |
 | 1366 x 768        | :heavy_multiplication_x:          |
-| 1360 x 768        | :grey_exclamation:          |
-| 1280 x 720        | :grey_exclamation:          |
+| 1360 x 768        | :heavy_check_mark:          |
+| 1280 x 720        | :heavy_check_mark:          |
 |  720 x 480        | :heavy_multiplication_x:          |
 
 <br>若需要其它分辨率支持可以联系我，亦或者提交issue
