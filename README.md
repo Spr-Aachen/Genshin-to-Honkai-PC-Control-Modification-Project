@@ -21,15 +21,15 @@
 | 分辨率 Resolution | 支持 Support |
 | ----------------- | ----------- |
 | 2560 x 1440       | :grey_exclamation:          |
-| 1920 x 1080       | ✔           |
+| 1920 x 1080       | :heavy_check_mark:          |
 | 1680 x 1050       | :grey_exclamation:          |
-| 1600 x 1024       | :x:           |
+| 1600 x 1024       | :heavy_multiplication_x:          |
 | 1600 x 900        | :grey_exclamation:          |
 | 1440 x 900        | :grey_exclamation:          |
-| 1366 x 768        | :x:           |
+| 1366 x 768        | :heavy_multiplication_x:          |
 | 1360 x 768        | :grey_exclamation:          |
 | 1280 x 720        | :grey_exclamation:          |
-|  720 x 480        | :x:           |
+|  720 x 480        | :heavy_multiplication_x:          |
 
 <br>若需要其它分辨率支持可以联系我，亦或者提交issue
 <br>Contact me if any other resolution need to be supported, or submit an issue
@@ -52,7 +52,7 @@
 <br>Usage: Press or long press E key
 <br>Extra: After entering the aiming mode by long pressing E key, cross hair can be controled by the mouse-movement
 
-***Z键发动人偶技能 Z key for doll skill***
+***Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat***
 <br>使用方法：按下Z键
 <br>Usage: Press down (Long press) Z key
 
@@ -64,7 +64,7 @@
 <br>使用方法：点击或长按鼠标左键
 <br>Usage: Press (Click) or long press LButton
 
-**键位设定 - 管理<br>Key Maps - Management**
+**键位设定 - 控制<br>Key Maps - Control**
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
