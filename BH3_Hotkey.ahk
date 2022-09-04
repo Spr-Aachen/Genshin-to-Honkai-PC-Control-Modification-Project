@@ -486,16 +486,17 @@ AutoScale()
     If WinActive("ahk_exe BH3.exe")
     {
         WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+
         If (Client_Width / Client_Height == 1920 / 1080)
         { ; 默认数值源于1920*1080分辨率下的测试结果
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-            LowerRightCorner_X := UpperLeftCorner_X + Round(69 * 2 * Client_Width / 1920)
-            LowerRightCorner_Y := UpperLeftCorner_Y + Round(51 * 2 * Client_Height / 1080)
+            LowerRightCorner_X := UpperLeftCorner_X + Round(69 * 2 * Client_Width / 1920 * A_ScreenWidth / 1920)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(51 * 2 * Client_Height / 1080 * A_ScreenHeight/ 1080)
             LowerRightCorner_X2 := ClientUpperLeftCorner_X + Client_Width
             LowerRightCorner_Y2 := ClientUpperLeftCorner_Y + Client_Height
-            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(69 * 2 * Client_Width / 1920)
-            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(51 * 2 * Client_Height / 1080)
+            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(69 * 2 * Client_Width / 1920 * A_ScreenWidth / 1920)
+            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(51 * 2 * Client_Height / 1080 * A_ScreenHeight/ 1080)
             Switch Client_Height
             {
                 Case "1080": ;[已测试 tested]（颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化100%）
@@ -513,14 +514,6 @@ AutoScale()
                     Icon .= "|<CombatIcon_WithoutTips_Endangered>0xF4D0CD@0.81$73.003U0000001k00700000000Q00D00000000700D000000003k0D000000001w07U00000000S07U00000000D03U000000007k3k000000003s1s000000001s0s000000001w0w000000000y0S000000000T0C000000000T0D000000000DU7U000000007k3k000000007s1k000000003s1s000000001w0w000000000y0Q000000000z0C000000000T0D000000000DU7U000000007k3U000000007s1k000000003s1s000000001w0w000000001y0Q000000000z0S000000000T0D000000000DU7000000000Dk3U000000007s3k000000003s1s000000003w0s000000001y0Q000000000z0S000000000T0D000000000TU7U00000000Dk3k00000000Dk1s000000007s0Q000000007s0D000000007s03k00000003w00s00000007s00C00000007s003U000000Dk000A000001zU00E"
                     Icon .= "|<ElysiumIcon_UpperLeft>0xFFFFFF@1.00$15.0080300s0D03s0z0Ds3v0y8DU3s0y0DU3s0y07k0T01w07k0T01w07l0T81z07s0T01s0700M01U"
                     Icon .= "|<ElysiumIcon_LowerRight>0xD4D4D4@1.00$26.0030000k0E0A047zzV00k0E0A04030D00k00zzz0030000k0M0A06631VVUkMMMA6y631jVzzsM006U"
-                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 2 / 3)
-                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 2 / 3)
-                    LowerRightCorner_X := Round(LowerRightCorner_X * 2 / 3)
-                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 2 / 3)
-                    LowerRightCorner_X2 := Round(LowerRightCorner_X2 * 2 / 3)
-                    LowerRightCorner_Y2 := Round(LowerRightCorner_Y2 * 2 / 3)
-                    UpperLeftCorner_X2 := Round(UpperLeftCorner_X2 * 2 / 3)
-                    UpperLeftCorner_Y2 := Round(UpperLeftCorner_Y2 * 2 / 3)
 
                 Case "900": ;[未测试 untested]（颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化100%）
                     Icon := "|<CombatIcon_WithTips_Normal>0xFFFFFF@1.00$89.000U0000000000U00600000000001U00A00000000003000U00000000003U0300000000000700A00000000000D01s00000000000S03k00000000000w07000000000001s0S000000000003k0w000000000007U1s00000000000D03U00000000000S0D000000000001s0S000000000003k0w000000000007U1k00000000000D03000000000000y0C000000000001k0Q000000000003U0s00000000000701U00000000000S07000000000001w0S000000000003k0w000000000007U1k00000000000D03U00000000000y0D000000000001s0S000000000003k0w000000000007U1k00000000000D07U00000000000y0D000000000001s0S000000000003k0s000000000007U1U00000000000T07000000000000w0C000000000001k0Q000000000003U0k00000000000701U00000000000y0D000000000001w0S000000000003k0s000000000007U1k00000000000D03U00000000000y0D000000000001s0S000000000003k0w000000000007U0s00000000000S01k00000000000w03k00000000003U03U0000000000700300000000000Q00200000000001k002000000000040001000000000000000000000000100000000100000000000000200000000000000400000000000000800000000000000E00000000000000U0000000000000100200000000000200400000000000400000000000000800000000000000TU00000004"
@@ -529,14 +522,6 @@ AutoScale()
                     Icon .= "|<CombatIcon_WithoutTips_Endangered>0xF1C8C8@0.81$90.000000000000030001U0000000003k007U0000000001s00700000000001w00C00000000000y00Q00000000000y00s00000000000y01s00000000000z01s00000000000z03s00000000000z03k00000000000z03U00000000000z03U00000000000y07U00000000001y07U00000000001y07U00000000001y07000000000003y0D000000000003w0D000000000003w0C000000000003w0S000000000007w0S000000000007s0y00000000000Ds0y00000000000Ds0w00000000000Ds0w00000000000Dk0s00000000000Tk1s00000000000Tk1s00000000000Tk1s00000000000TU1k00000000000zU1k00000000000zU1k00000000000z03U00000000000z03U00000000001z03U00000000001z07U00000000001z07U00000000003y0D000000000003y0D000000000003y0D000000000003y0S000000000007w0S000000000007w0S000000000007w0S00000000000Dw0y00000000000Ds0w00000000000Ds0w00000000000Ds0w00000000000Tk0y00000000000Tk0y00000000000zU0S00000000000zU0S00000000001z00T00000000003z00D00000000007y007U000000000Dw003k000000000Tk001s000000000zU000w000000003y0000600000000Tk000U"
                     Icon .= "|<ElysiumIcon_UpperLeft>0xFFFFFF@1.00$18.00100300300700D00z01z01z03n0710S00w00w01s03U0D00S00S00y00S00D003U03U01s00w00S007107103l01z00z00D00D007003001U"
                     Icon .= "|<ElysiumIcon_LowerRight>0xD4D4D4@1.00$31.000M0000A0300601UDzzkk01U0M00k0A00M0600A0D00600003000Tzzy000k0000M0300A01UE60Uk830EM41U8A20k4610M2T0zzz1U000Y"
-                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 5 / 6)
-                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 5 / 6)
-                    LowerRightCorner_X := Round(LowerRightCorner_X * 5 / 6)
-                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 5 / 6)
-                    LowerRightCorner_X2 := Round(LowerRightCorner_X2 * 5 / 6)
-                    LowerRightCorner_Y2 := Round(LowerRightCorner_Y2 * 5 / 6)
-                    UpperLeftCorner_X2 := Round(UpperLeftCorner_X2 * 5 / 6)
-                    UpperLeftCorner_Y2 := Round(UpperLeftCorner_Y2 * 5 / 6)
 
                 Case "1440": ;[未测试 untested]（颜色相似二值化93% + 颜色相似二值化81% + 颜色相似二值化93% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化100%）
                     Icon := "|<CombatIcon_WithTips_Normal>0xFFFFFF@0.93$143.00000S0000000000000003k000001s0000000000000003k00000D00000000000000003s00001w00000000000000007s0000Ds00000000000000007s0000z000000000000000007s0003w00000000000000000Ds000Ds00000000000000000Tk000zU00000000000000000zk003y000000000000000000zU00Dw000000000000000001z000Tk000000000000000003z001z0000000000000000007y003y000000000000000000Dw00Ds000000000000000000Ts00Tk000000000000000000zk00zU000000000000000001zU01z0000000000000000003z007w000000000000000000Dy00Ds000000000000000000Tw00Tk000000000000000000zk01z0000000000000000001zU03y0000000000000000003z007w000000000000000000Dy00Ts000000000000000000Ts00zU000000000000000000zk01z0000000000000000001zU03w0000000000000000007y00Ds000000000000000000Dw00Tk000000000000000000zs00zU000000000000000001zk01z0000000000000000003zU07y0000000000000000007z00Ds000000000000000000Dw00Tk000000000000000000zs01zU000000000000000001zk03z0000000000000000003z007w0000000000000000007y00Ds000000000000000000Tw00zk000000000000000000zk01z0000000000000000001zU03y0000000000000000007z00Dw000000000000000000Dy00Tk000000000000000000Ts00zU000000000000000000zk01z0000000000000000003zU07y0000000000000000007z00Ds000000000000000000Dw00Tk000000000000000000Ts00zU000000000000000001zk03y0000000000000000003zU07w0000000000000000007y00Ds000000000000000000Dw00TU000000000000000000Ts01z0000000000000000001zk03y0000000000000000003z007w000000000000000000Dy00Tk000000000000000000Tw00zU000000000000000000zs01z0000000000000000001zU03y0000000000000000007z00Ds000000000000000000Dy00Tk000000000000000000Tw00z0000000000000000000zk01y0000000000000000003zU07w0000000000000000007y00Dk000000000000000000Dw00TU000000000000000000zs00z0000000000000000001zk03y0000000000000000003zU07w0000000000000000007z00Ds000000000000000000Tw00TU000000000000000000zs01z0000000000000000001zk03y0000000000000000007z007w000000000000000000Dy00Ds000000000000000000Tw00Tk000000000000000000zs00zU000000000000000003zU01z0000000000000000007z003y000000000000000000Dw007w000000000000000000zs007s000000000000000003zU00Dk000000000000000007y000Tk00000000000000000Tw000TU00000000000000000zk000zU00000000000000003z0000z00000000000000000Dw0000z00000000000000000zk0000y00000000000000003z00000y0000000000000000Ds00000w0000000000000000z000000w0000000000000003s000000Q000000Tz0000000DU000000A000000zy0000001k00000000000001zw000000Q000000000000003k00000000000000000000007U0000000000000000000000D00000000000000000000000S00TU3y00000000000000000w03zUTw00000000000000001s07V1zs00000000000000003zsS03k000000000000000007zkw0D000000000000000000DzVw0Q000000000000000000S01y0s000000000000000000w01z1k000000000000000001s00z3U000000000000000003k00S70000000000000000007U00SD000000000000000000D000sD000000000000000000TzX3kTy00000000000000000zz7z0Tw00000000000000001zy7s0Dk00000000U"
@@ -545,14 +530,6 @@ AutoScale()
                     Icon .= "|<CombatIcon_WithoutTips_Endangered>0xEECCC8@0.81$144.00000C0000000000000007k000000w0000000000000003s000003s0000000000000001y000007k0000000000000000z00000TU0000000000000000TU0001z00000000000000000Tk0003y00000000000000000Ts0003w00000000000000000Dw0007s00000000000000000Dw000Dk00000000000000000Dw000Tk00000000000000000Dy000TU00000000000000000Dy000zU00000000000000000Dy000z0000000000000000007y001z000000000000000000Dy003z000000000000000000Dy003y000000000000000000Dz003y000000000000000000Dy003w000000000000000000Dy003w000000000000000000Ty007w000000000000000000Ty007w000000000000000000Tw00Dw000000000000000000Tw00Ds000000000000000000Tw00Ds000000000000000000zw00Ds000000000000000000zw00Dk000000000000000001zs00Dk000000000000000001zs00Tk000000000000000001zs00Tk000000000000000001zk00zU000000000000000001zk00zU000000000000000003zk00z0000000000000000003zk00z0000000000000000003zk00z0000000000000000007zU01z0000000000000000007zU03y0000000000000000007zU03y0000000000000000007zU03y000000000000000000Dz003w000000000000000000Dz003w000000000000000000Dz003w000000000000000000Tz007w000000000000000000Ty007w000000000000000000Ty00Ds000000000000000000Ty00Ds000000000000000000zy00Ds000000000000000000zw00Dk000000000000000001zw00Dk000000000000000001zw00Dk000000000000000001zw00Tk000000000000000001zs00zU000000000000000001zs00zU000000000000000003zs00zU000000000000000003zs00z0000000000000000007zk00z0000000000000000007zk00z0000000000000000007zk01z0000000000000000007zk01y0000000000000000007zU03y000000000000000000DzU03y000000000000000000DzU03y000000000000000000Dz003w000000000000000000Tz003w000000000000000000Tz003w000000000000000000Tz007w000000000000000000Tz00Ds000000000000000000zy00Ds000000000000000000zy00Ds000000000000000000zy00Dk000000000000000001zw00Dk000000000000000001zw00Dk000000000000000001zw00Tk000000000000000001zw00Tk000000000000000003zs00zk000000000000000003zs00zU000000000000000003zs00zU000000000000000007zs00zU000000000000000007zk00zU000000000000000007zk00zU00000000000000000Dzk00zU00000000000000000DzU00Tk00000000000000000TzU00Tk00000000000000000Tz000Dk00000000000000000zy000Ds00000000000000001zy000Ds00000000000000003zw000Ds00000000000000003zs0007w00000000000000007zk0003w0000000000000000DzU0001y0000000000000000Tz00000z0000000000000000zy00000TU000000000000003zs00000Dk000000000000007zk000003s00000000000000Tz0000000w00000000000001zw000000020000000000000Dz000000U"
                     Icon .= "|<ElysiumIcon_UpperLeft>0xFFFFFF@1.00$29.00002000040000s0001k000DU000T0003y0007w000zs001zk00DzU00Tz003wC007sQ00z0801y0E0Dk000TU003w0007s000z0001y000Dk000TU003w0007s000z0001y000Dw000Ts000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk200TU400Dk800TUE00DzU00Tz000Dy000Tw000Ds000Tk000DU000T0000C0000Q000080000M"
                     Icon .= "|<ElysiumIcon_LowerRight>0xD4D4D4@1.00$52.00000D00000000w00000003k001s000D0007U000w000S0Dzzzzw1s0zzzzzk7U3zzzzz0S0Dzzzzw1s000D0007U000w000S0003k001s000D003zU000w00Dy0003k00zs3zzzzzzzUDzzzzzk00zzzzzz003zzzzzw00000w00000003k000w000D0003k000w000D0DU3k1w0w0y0D07k3k3s0w0T0D0DU3k1w0w0y0D07k3k3s0w0T0D0DU3k1wzw0y0D07nzk3zzzzzDz0Dzzzzwzw0zzzzzk3k00000T0D000001wU"
-                    UpperLeftCorner_X := Round(UpperLeftCorner_X * 4 / 3)
-                    UpperLeftCorner_Y := Round(UpperLeftCorner_Y * 4 / 3)
-                    LowerRightCorner_X := Round(LowerRightCorner_X * 4 / 3)
-                    LowerRightCorner_Y := Round(LowerRightCorner_Y * 4 / 3)
-                    LowerRightCorner_X2 := Round(LowerRightCorner_X2 * 4 / 3)
-                    LowerRightCorner_Y2 := Round(LowerRightCorner_Y2 * 4 / 3)
-                    UpperLeftCorner_X2 := Round(UpperLeftCorner_X2 * 4 / 3)
-                    UpperLeftCorner_Y2 := Round(UpperLeftCorner_Y2 * 4 / 3)
 
                 Case "2160":
                     Icon := 
@@ -561,14 +538,6 @@ AutoScale()
                     Icon .= 
                     Icon .= 
                     Icon .= 
-                    UpperLeftCorner_X *= 2
-                    UpperLeftCorner_Y *= 2
-                    LowerRightCorner_X *= 2
-                    LowerRightCorner_Y *= 2
-                    LowerRightCorner_X2 := 2
-                    LowerRightCorner_Y2 := 2
-                    UpperLeftCorner_X2 := 2
-                    UpperLeftCorner_Y2 := 2
 
                 Default:
                     Icon := 
@@ -577,26 +546,19 @@ AutoScale()
                     Icon .= 
                     Icon .= 
                     Icon .= 
-                    UpperLeftCorner_X := ClientUpperLeftCorner_X
-                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
-                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
-                    LowerRightCorner_X2 := ClientUpperLeftCorner_X
-                    LowerRightCorner_Y2 := ClientUpperLeftCorner_Y
-                    UpperLeftCorner_X2 := UpperLeftCorner_X + Client_Width
-                    UpperLeftCorner_Y2 := UpperLeftCorner_Y + Client_Height
             }
         }
+
         Else If (Client_Width / Client_Height == 1360 / 768)
         {
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-            LowerRightCorner_X := UpperLeftCorner_X + Round(48 * 2 * Client_Width / 1360)
-            LowerRightCorner_Y := UpperLeftCorner_Y + Round(36 * 2 * Client_Height / 768)
+            LowerRightCorner_X := UpperLeftCorner_X + Round(48 * 2 * Client_Width / 1360 * A_ScreenWidth / 1360)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(36 * 2 * Client_Height / 768 * A_ScreenHeight/ 768)
             LowerRightCorner_X2 := ClientUpperLeftCorner_X + Client_Width
             LowerRightCorner_Y2 := ClientUpperLeftCorner_Y + Client_Height
-            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(48 * 2 * Client_Width / 1360)
-            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(36 * 2 * Client_Height / 768)
+            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(48 * 2 * Client_Width / 1360 * A_ScreenWidth / 1360)
+            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(36 * 2 * Client_Height / 768 * A_ScreenHeight/ 768)
             Switch Client_Height
             {
                 Case "768": ;[未测试 untested]（颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化96%）
@@ -614,26 +576,19 @@ AutoScale()
                     Icon .= 
                     Icon .= 
                     Icon .= 
-                    UpperLeftCorner_X := ClientUpperLeftCorner_X
-                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
-                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
-                    LowerRightCorner_X2 := ClientUpperLeftCorner_X
-                    LowerRightCorner_Y2 := ClientUpperLeftCorner_Y
-                    UpperLeftCorner_X2 := UpperLeftCorner_X + Client_Width
-                    UpperLeftCorner_Y2 := UpperLeftCorner_Y + Client_Height
             }
         }
+
         Else If (Client_Width / Client_Height == 1440 / 900)
         {
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-            LowerRightCorner_X := UpperLeftCorner_X + Round(51 * 2 * Client_Width / 1440)
-            LowerRightCorner_Y := UpperLeftCorner_Y + Round(39 * 2 * Client_Height / 900)
+            LowerRightCorner_X := UpperLeftCorner_X + Round(51 * 2 * Client_Width / 1440 * A_ScreenWidth / 1440)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(39 * 2 * Client_Height / 900 * A_ScreenHeight/ 900)
             LowerRightCorner_X2 := ClientUpperLeftCorner_X + Client_Width
             LowerRightCorner_Y2 := ClientUpperLeftCorner_Y + Client_Height
-            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(51 * 2 * Client_Width / 1440)
-            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(39 * 2 * Client_Height / 900)
+            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(51 * 2 * Client_Width / 1440 * A_ScreenWidth / 1440)
+            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(39 * 2 * Client_Height / 900 * A_ScreenHeight/ 900)
             Switch Client_Height
             {
                 Case "900": ;[未测试 untested]（颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化99%）
@@ -651,26 +606,19 @@ AutoScale()
                     Icon .= 
                     Icon .= 
                     Icon .= 
-                    UpperLeftCorner_X := ClientUpperLeftCorner_X
-                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
-                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
-                    LowerRightCorner_X2 := ClientUpperLeftCorner_X
-                    LowerRightCorner_Y2 := ClientUpperLeftCorner_Y
-                    UpperLeftCorner_X2 := UpperLeftCorner_X + Client_Width
-                    UpperLeftCorner_Y2 := UpperLeftCorner_Y + Client_Height
             }
         }
+
         Else If (Client_Width / Client_Height == 1680 / 1050)
         {
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-            LowerRightCorner_X := UpperLeftCorner_X + Round(60 * 2 * Client_Width / 1680)
-            LowerRightCorner_Y := UpperLeftCorner_Y + Round(45 * 2 * Client_Height / 1050)
+            LowerRightCorner_X := UpperLeftCorner_X + Round(60 * 2 * Client_Width / 1680 * A_ScreenWidth / 1680)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(45 * 2 * Client_Height / 1050 * A_ScreenHeight/ 1050)
             LowerRightCorner_X2 := ClientUpperLeftCorner_X + Client_Width
             LowerRightCorner_Y2 := ClientUpperLeftCorner_Y + Client_Height
-            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(60 * 2 * Client_Width / 1690)
-            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(45 * 2 * Client_Height / 1050)
+            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(60 * 2 * Client_Width / 1690 * A_ScreenWidth / 1680)
+            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(45 * 2 * Client_Height / 1050 * A_ScreenHeight/ 1050)
             Switch Client_Height
             {
                 Case "1050": ;[未测试 untested]（颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化81% + 颜色相似二值化100% + 颜色相似二值化100%）
@@ -688,14 +636,6 @@ AutoScale()
                     Icon .= 
                     Icon .= 
                     Icon .= 
-                    UpperLeftCorner_X := ClientUpperLeftCorner_X
-                    UpperLeftCorner_Y := ClientUpperLeftCorner_Y
-                    LowerRightCorner_X += UpperLeftCorner_X + Client_Width
-                    LowerRightCorner_Y := UpperLeftCorner_Y + Client_Height
-                    LowerRightCorner_X2 := ClientUpperLeftCorner_X
-                    LowerRightCorner_Y2 := ClientUpperLeftCorner_Y
-                    UpperLeftCorner_X2 := UpperLeftCorner_X + Client_Width
-                    UpperLeftCorner_Y2 := UpperLeftCorner_Y + Client_Height
             }
         }
 
@@ -704,6 +644,7 @@ AutoScale()
             ;MsgBox, 4,, 请检查当前是否为全屏模式或支持的分辨率！
             ;ExitApp
         }
+
         ; ScreenScale
         If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.03, 0.03, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.03, 0.03, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
         {
@@ -760,6 +701,7 @@ AutoScale()
                 Status_CombatIcon := !Status_CombatIcon
         }
     }
+
     Else
     {
         InputReset()
