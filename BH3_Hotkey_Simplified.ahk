@@ -7,7 +7,6 @@
 
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
-#UseHook
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -74,6 +73,7 @@ Gui, Start: Add, Button, Default W366, 开启
 Gui, Start: Add, Button, W366, 退出
 Gui, Start: Show, xCenter yCenter, 启动界面
 Disable( )
+Suspend, On
 Return
 
 ;【例程 Gosub】“版本”选项的执行语句
@@ -125,6 +125,7 @@ If (EnableAutoScale)
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值 adjustable parameters] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序启动成功(/≧▽≦)/，祝游戏愉快！`n（当前对话框将于3秒后自动消失）
 SetTimer, AutoFadeMsgbox, Off
+Suspend, Off
 Return
 
 ;【标签 Label】让对话框自动消失
@@ -287,10 +288,13 @@ ViewControlTemp()
 ;【函数 Function】输入重置
 InputReset()
 {
-    If (Status_MButton)
+    If GetKeyState("MButton")
     {
+        If (Status_MButton)
+        {
+            Status_MButton := !Status_MButton
+        }
         SendInput, {Click, Up Middle}
-        Status_MButton := !Status_MButton
     }
 }
 
@@ -582,6 +586,11 @@ AutoScale()
     Return
 }
 
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;【命令 Directive】不对以下键盘热键使用钩子（也不要对鼠标热键使用InstallMouseHook）
+#UseHook, Off
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
