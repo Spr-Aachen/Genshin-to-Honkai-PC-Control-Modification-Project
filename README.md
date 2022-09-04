@@ -15,20 +15,20 @@
 3. 请使用全屏模式游玩以确保自动识别的正常运行
 <br>   Please use fullscreen mode in order to run "automatic identification" properly
 
-<br>支持与不支持的客户端分辨率如下：（ :grey_exclamation: 表示未经测试）
-<br>Supported&unsupported client resolution is shown as follows: ( :grey_exclamation: means untested)
+<br>支持与不支持的客户端分辨率如下：（ :heavy_exclamation_mark: 表示未经测试）
+<br>Supported&unsupported client resolution is shown as follows: ( :heavy_exclamation_mark: means untested)
 
 | 分辨率 Resolution | 支持 Support |
 | ----------------- | ----------- |
-| 2560 x 1440       | :grey_exclamation:          |
+| 2560 x 1440       | :heavy_exclamation_mark:          |
 | 1920 x 1080       | :heavy_check_mark:          |
-| 1680 x 1050       | :grey_exclamation:          |
+| 1680 x 1050       | :heavy_exclamation_mark:          |
 | 1600 x 1024       | :heavy_multiplication_x:          |
-| 1600 x 900        | :grey_exclamation:          |
-| 1440 x 900        | :grey_exclamation:          |
+| 1600 x 900        | :heavy_exclamation_mark:          |
+| 1440 x 900        | :heavy_exclamation_mark:          |
 | 1366 x 768        | :heavy_multiplication_x:          |
-| 1360 x 768        | :grey_exclamation:          |
-| 1280 x 720        | :grey_exclamation:          |
+| 1360 x 768        | :heavy_exclamation_mark:          |
+| 1280 x 720        | :heavy_exclamation_mark:          |
 |  720 x 480        | :heavy_multiplication_x:          |
 
 <br>若需要其它分辨率支持可以联系我，亦或者提交issue
@@ -89,7 +89,7 @@
 <br>使用方法：按下F3键
 <br>Usage: Press down (Long press) F3 key
 
-**附加设定<br>Additon**
+**附加设定<br>Addition**
 
 1. 启动界面允许手动选择是否启用全自动识别与管理员权限（均默认启用）
 <br>   The starting interface allows users to choose whether toggle the "automatic identification" and "run as admin"
