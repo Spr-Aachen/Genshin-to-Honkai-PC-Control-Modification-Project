@@ -51,10 +51,11 @@ Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
 Gui, Start: Tab, 设置
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
-Gui, Start: Add, GroupBox, W333 H105, 选项 Options
+Gui, Start: Add, GroupBox, W333 H138, 选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, CheckBox, Xp Yp+15 Checked vRunAsAdmin, 启用管理员权限（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 Checked vEnableScreenScale, 启用全自动识别（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 Checked vEnableAutoScale, 启用全自动识别（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 Checked vEnableRestriction, 启用限制性光标
 
 Gui, Start: Tab, 更新
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
@@ -118,7 +119,19 @@ If (EnableAutoScale)
     }
     Else
     {
-        MsgBox, 0, 警告, 检测到异常参数，即将退出程序
+        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
+        ExitApp
+    }
+}
+If (EnableRestriction)
+{
+    If (!Toggle_Restriction)
+    {
+        Toggle_Restriction := !Toggle_Restriction
+    }
+    Else
+    {
+        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
         ExitApp
     }
 }
@@ -156,6 +169,9 @@ Return
 ;【常量 Const】对管理自动控制功能的全局常量 Const进行赋值
 Global Toggle_AutoScale := 0
 
+;【常量 Const】对管理限制光标功能的全局常量 Const进行赋值
+Global Toggle_Restriction := 0
+
 ;【常量 Const】对管理鼠标控制功能的全局常量 Const进行赋值
 Global Toggle_MouseFunction := 0
 
@@ -163,7 +179,7 @@ Global Toggle_MouseFunction := 0
 Global Status_MButton := 0
 
 ;【常量 Const】对管理图像识别功能的全局常量 Const进行赋值
-Global Status_CombatEscIcon := 0
+Global Status_CombatIcon := 0
 Global Status_ElysiumIcon := 0
 
 ;【常量 Const】对管理手动暂停功能的全局常量 Const进行赋值
@@ -177,8 +193,8 @@ CoordReset()
     If WinActive("ahk_exe BH3.exe")
     {
         CoordMode, Window
-        WinGetPos, X, Y, Width, Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
-        MouseMove, Width/2, Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+        WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+        MouseMove, Client_Width/2, Client_Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
     }
 }
 
@@ -188,6 +204,19 @@ ViewControl()
     If WinActive("ahk_exe BH3.exe")
     {
         MouseGetPos, x1, y1
+        If (Toggle_Restriction)
+        {
+            WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+            If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+            {
+                If (Status_MButton)
+                {
+                    SendInput, {Click, Up Middle}
+                    Status_MButton := !Status_MButton
+                }
+                CoordReset()
+            }
+        }
         Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
@@ -305,7 +334,11 @@ AutoScale()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+        WinGetPos, X, Y, W, H, ahk_exe BH3.exe
+        Global ClientUpperLeftCorner_X := X
+        Global ClientUpperLeftCorner_Y := Y
+        Global Client_Width := W
+        Global Client_Height := H
 
         If (Client_Width / Client_Height == 1920 / 1080)
         { ; 默认数值源于1920*1080分辨率下的测试结果
@@ -362,7 +395,7 @@ AutoScale()
         }
 
         Else If (Client_Width / Client_Height == 1360 / 768)
-        {
+        { ; 默认数值源于1360*768分辨率下的测试结果
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
             LowerRightCorner_X := UpperLeftCorner_X + Round(48 * 2 * Client_Width / 1360)
@@ -386,7 +419,7 @@ AutoScale()
         }
 
         Else If (Client_Width / Client_Height == 1440 / 900)
-        {
+        { ; 默认数值源于1440*900分辨率下的测试结果
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
             LowerRightCorner_X := UpperLeftCorner_X + Round(51 * 2 * Client_Width / 1440)
@@ -410,7 +443,7 @@ AutoScale()
         }
 
         Else If (Client_Width / Client_Height == 1680 / 1050)
-        {
+        { ; 默认数值源于1680*1050分辨率下的测试结果
             UpperLeftCorner_X := ClientUpperLeftCorner_X
             UpperLeftCorner_Y := ClientUpperLeftCorner_Y
             LowerRightCorner_X := UpperLeftCorner_X + Round(60 * 2 * Client_Width / 1680)
@@ -478,6 +511,10 @@ AutoScale()
                     {
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         CoordReset()
+                        If (Toggle_Restriction)
+                        {
+                            Toggle_Restriction := !Toggle_Restriction
+                        }
                         SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
                     }
                 }
@@ -486,6 +523,10 @@ AutoScale()
                     If (Toggle_MouseFunction)
                     {
                         SetTimer, ViewControl, Off
+                        If (!Toggle_Restriction)
+                        {
+                            Toggle_Restriction := !Toggle_Restriction
+                        }
                         InputReset()
                         Toggle_MouseFunction := !Toggle_MouseFunction
                     }
@@ -581,7 +622,7 @@ If (Toggle_ManualSuspend)
 {
     If (Toggle_AutoScale)
     {
-        If (Status_CombatEscIcon)
+        If (Status_CombatIcon)
             SendEvent, {Esc}
         SetTimer, AutoScale, Off
         Toggle_AutoScale := !Toggle_AutoScale
@@ -600,7 +641,7 @@ Else
     {
         Toggle_AutoScale := !Toggle_AutoScale
         SetTimer, AutoScale, On
-        If (Status_CombatEscIcon)
+        If (Status_CombatIcon)
         {
             If (!Toggle_MouseFunction)
             {
@@ -623,7 +664,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     Suspend, On
     If (Toggle_AutoScale)
     {
-        If (Status_CombatEscIcon)
+        If (Status_CombatIcon)
             SendEvent, {Esc}
         SetTimer, AutoScale, Off
         Toggle_AutoScale := !Toggle_AutoScale
@@ -646,7 +687,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     Suspend, On
     If (Toggle_AutoScale)
     {
-        If (Status_CombatEscIcon)
+        If (Status_CombatIcon)
             SendEvent, {Esc}
         SetTimer, AutoScale, Off
         Toggle_AutoScale := !Toggle_AutoScale
@@ -675,7 +716,7 @@ LAltTab()
             Suspend, On
             If (Toggle_AutoScale)
             {
-                If (Status_CombatEscIcon)
+                If (Status_CombatIcon)
                     SendEvent, {Esc}
                 SetTimer, AutoScale, Off
                 Toggle_AutoScale := !Toggle_AutoScale
