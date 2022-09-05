@@ -109,8 +109,8 @@
 1. 目前未知视角缩放的设置键，无法实现该功能
 <br>   So far the way to implement camera zooming is still unkown.
 
-2. 视角跟随功能目前仍有延迟、错误触发UI等问题，目前正在寻找更优方案
-<br>   The view-control function has several problems like lagging and accidently toggling UI. Been looking for better scheme to solve it.
+2. 视角跟随功能目前仍有延迟等问题，目前正在寻找更优方案
+<br>   The view-control function has several problems like lagging. Been looking for better scheme to solve it.
 
 3. 部分win11用户反映程序运行并未生效，目前尚未发现问题所在
 <br>   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
@@ -130,7 +130,7 @@
 - CPU：i5-10300H
 - RAM：16G
 - Sys：Win10
-- Res：1920*1080
+- Res：<=1920*1080
 
 
 ## 【收藏趋势 Stargazers over time】
