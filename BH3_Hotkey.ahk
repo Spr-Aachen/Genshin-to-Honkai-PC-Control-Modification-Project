@@ -255,6 +255,19 @@ ViewControlTemp()
     {
         Threshold := 33 ; [可调校数值 adjustable parameters] 设定切换两种视角跟随模式的像素阈值
         MouseGetPos, x1, y1
+        If (Toggle_Restriction)
+        {
+            WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+            If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+            {
+                If (Status_MButton)
+                {
+                    SendInput, {Click, Up Middle}
+                    Status_MButton := !Status_MButton
+                }
+                CoordReset()
+            }
+        }
         Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
@@ -514,11 +527,7 @@ AutoScale()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        WinGetPos, X, Y, W, H, ahk_exe BH3.exe
-        Global ClientUpperLeftCorner_X := X
-        Global ClientUpperLeftCorner_Y := Y
-        Global Client_Width := W
-        Global Client_Height := H
+        WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
 
         If (Client_Width / Client_Height == 1920 / 1080)
         { ; 默认数值源于1920*1080分辨率下的测试结果
