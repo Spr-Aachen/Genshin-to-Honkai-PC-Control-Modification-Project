@@ -20,7 +20,8 @@
 
 | 分辨率 Resolution | 支持 Support |
 | ----------------- | ----------- |
-| 2560 x 1440       | :grey_exclamation:          |
+| 2560 x 1440       | :heavy_check_mark:          |
+| 2560 x 1080       | :heavy_check_mark:          |
 | 1920 x 1080       | :heavy_check_mark:          |
 | 1680 x 1050       | :grey_exclamation:          |
 | 1600 x 1024       | :heavy_multiplication_x:          |
