@@ -536,8 +536,8 @@ InputReset()
     Else
     {
         SetTimer, ViewControlTemp, Delete
-        SetTimer, AimControl, Delete
     }
+    SetTimer, AimControl, Delete
 }
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
