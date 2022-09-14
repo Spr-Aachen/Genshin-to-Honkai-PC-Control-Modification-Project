@@ -533,10 +533,7 @@ InputReset()
         }
         SendInput, {Click, Up Middle}
     }
-    Else
-    {
-        SetTimer, ViewControlTemp, Delete
-    }
+    SetTimer, ViewControlTemp, Delete
     SetTimer, AimControl, Delete
 }
 
