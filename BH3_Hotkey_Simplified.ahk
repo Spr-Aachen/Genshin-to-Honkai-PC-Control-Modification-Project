@@ -183,23 +183,25 @@ Return
 ;【命令 Directive】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
 
-;【常量 Const】对管理自动控制功能的全局常量 Const进行赋值
+;【常量 Const】对管理自动控制功能的全局常量进行赋值
 Global Toggle_AutoScale := 0
 
-;【常量 Const】对管理限制光标功能的全局常量 Const进行赋值
+;【常量 Const】对管理限制光标功能的全局常量进行赋值
 Global Toggle_Restriction := 0
+Global x1
+Global y1
 
-;【常量 Const】对管理鼠标控制功能的全局常量 Const进行赋值
+;【常量 Const】对管理鼠标控制功能的全局常量进行赋值
 Global Toggle_MouseFunction := 0
 
-;【常量 Const】对管理视角跟随功能的全局常量 Const进行赋值
+;【常量 Const】对管理视角跟随功能的全局常量进行赋值
 Global Status_MButton := 0
 
-;【常量 Const】对管理图像识别功能的全局常量 Const进行赋值
+;【常量 Const】对管理图像识别功能的全局常量进行赋值
 Global Status_CombatIcon := 0
 Global Status_ElysiumIcon := 0
 
-;【常量 Const】对管理手动暂停功能的全局常量 Const进行赋值
+;【常量 Const】对管理手动暂停功能的全局常量进行赋值
 Global Toggle_ManualSuspend := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -215,8 +217,8 @@ CoordReset()
     }
 }
 
-;【函数 Function】视角跟随
-ViewControl()
+;【函数 Function】限制光标
+Restriction()
 {
     If WinActive("ahk_exe BH3.exe")
     {
@@ -234,6 +236,15 @@ ViewControl()
                 CoordReset()
             }
         }
+    }
+}
+
+;【函数 Function】视角跟随
+ViewControl()
+{
+    If WinActive("ahk_exe BH3.exe")
+    {
+        Restriction()
         Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
@@ -261,20 +272,7 @@ ViewControlTemp()
     If WinActive("ahk_exe BH3.exe")
     {
         Threshold := 33 ; [可调校数值 adjustable parameters] 设定切换两种视角跟随模式的像素阈值
-        MouseGetPos, x1, y1
-        If (Toggle_Restriction)
-        {
-            WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
-            If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
-            {
-                If (Status_MButton)
-                {
-                    SendInput, {Click, Up Middle}
-                    Status_MButton := !Status_MButton
-                }
-                CoordReset()
-            }
-        }
+        Restriction()
         Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
@@ -354,6 +352,10 @@ InputReset()
             Status_MButton := !Status_MButton
         }
         SendInput, {Click, Up Middle}
+    }
+    Else
+    {
+        SetTimer, ViewControlTemp, Delete
     }
 }
 
@@ -549,7 +551,7 @@ AutoScale()
                 Suspend, On
                 If (Toggle_MouseFunction)
                 {
-                    SetTimer, ViewControl, Off
+                    SetTimer, ViewControl, Delete
                     InputReset()
                     Toggle_MouseFunction := !Toggle_MouseFunction
                 }
@@ -573,7 +575,7 @@ AutoScale()
                 {
                     If (Toggle_MouseFunction)
                     {
-                        SetTimer, ViewControl, Off
+                        SetTimer, ViewControl, Delete
                         If (!Toggle_Restriction)
                         {
                             Toggle_Restriction := !Toggle_Restriction
@@ -617,7 +619,7 @@ If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数 F
     }
     Else
     {
-        SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Delete
         InputReset()
         ToolTip, 视角跟随已手动关闭, 0, 999 ; [可调校数值 adjustable parameters]
         Sleep 999 ; [可调校数值 adjustable parameters]
@@ -634,7 +636,6 @@ If (Toggle_MouseFunction)
     If GetKeyState("LButton", "P")
     {
         SetTimer, ViewControl, Off
-        InputReset()
         SetTimer, ViewControlTemp, 0
     }
 }
@@ -653,7 +654,7 @@ SetTimer, LAltTab, 0
 Hotkey, LButton, Off
 If (Toggle_MouseFunction)
 {
-    SetTimer, ViewControl, Off
+    SetTimer, ViewControl, Delete
     InputReset()
 }
 KeyWait, LAlt
@@ -675,12 +676,12 @@ If (Toggle_ManualSuspend)
     {
         If (Status_CombatIcon)
             SendEvent, {Esc}
-        SetTimer, AutoScale, Off
+        SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
     If (Toggle_MouseFunction)
     {
-        SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Delete
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
     }
@@ -717,12 +718,12 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     {
         If (Status_CombatIcon)
             SendEvent, {Esc}
-        SetTimer, AutoScale, Off
+        SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
     If (Toggle_MouseFunction)
     {
-        SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Delete
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
     }
@@ -740,12 +741,12 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     {
         If (Status_CombatIcon)
             SendEvent, {Esc}
-        SetTimer, AutoScale, Off
+        SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
     If (Toggle_MouseFunction)
     {
-        SetTimer, ViewControl, Off
+        SetTimer, ViewControl, Delete
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
     }
@@ -769,12 +770,12 @@ LAltTab()
             {
                 If (Status_CombatIcon)
                     SendEvent, {Esc}
-                SetTimer, AutoScale, Off
+                SetTimer, AutoScale, Delete
                 Toggle_AutoScale := !Toggle_AutoScale
             }
             If (Toggle_MouseFunction)
             {
-                SetTimer, ViewControl, Off
+                SetTimer, ViewControl, Delete
                 InputReset()
                 Toggle_MouseFunction := !Toggle_MouseFunction
             }
