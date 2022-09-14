@@ -739,7 +739,7 @@ AutoScale()
             }
             Else If (!Toggle_ManualSuspend)
             {
-                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00012, 0.00012, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, 0.00012, 0.00012, Icon)[1].id == "ElysiumIcon_LowerRight")
+                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.01, 0.01, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, 0.01, 0.01, Icon)[1].id == "ElysiumIcon_LowerRight")
                 {
                     If (!Toggle_MouseFunction)
                     {
