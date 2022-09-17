@@ -92,8 +92,8 @@
 
 **附加设定<br>Addition**
 
-1. 启动界面允许手动选择是否启用全自动识别、管理员权限以及限制性光标（均默认启用）
-<br>   The starting interface allows users to choose whether toggle the "automatic identification", "run as admin" and "restricted cursor" (all toggled by default)
+1. 启动界面允许手动选择是否启用以下选项（均默认启用）：全自动识别、管理员权限、可隐藏光标以及限制性光标
+<br>   The starting interface allows users to choose whether toggle the following options (all toggled by default): "automatic identification", "run as admin" ,"occluded cursor" and "restricted cursor"
 
 2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
 <br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
