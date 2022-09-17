@@ -34,6 +34,7 @@ Disable( )
 ;【配置 INI】读取配置
 IniRead, RunAsAdmin, C:\BH3_Hotkey.ini, CheckBox, 管理员权限, 1 ; Check by default
 IniRead, EnableAutoScale, C:\BH3_Hotkey.ini, CheckBox, 全自动识别, 1 ; Check by default
+IniRead, EnableOcclusion, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标, 1 ; Check by default
 IniRead, EnableRestriction, C:\BH3_Hotkey.ini, CheckBox, 限制性光标, 1 ; Check by default
 
 ;【界面 GUI】说明界面
@@ -58,11 +59,12 @@ Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
 Gui, Start: Tab, 设置
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
-Gui, Start: Add, GroupBox, W333 H138, 选项 Options
+Gui, Start: Add, GroupBox, W333 H174, 选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 Checked vRunAsAdmin, 启用管理员权限（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 Checked vEnableAutoScale, 启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 Checked vEnableRestriction, 启用限制性光标
+Gui, Start: Add, CheckBox, Xp Yp+15 vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 
 Gui, Start: Tab, 更新
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
@@ -89,7 +91,7 @@ SelectVersion:
 GuiControlGet, Version
 Switch Version
 {
-    Case "v0.3.0":
+    Case "v0.3.+":
 
     Case "v0.2.+":
 
@@ -106,6 +108,7 @@ Gui, Submit
 ;【配置 INI】写入配置
 IniWrite, %RunAsAdmin%, C:\BH3_Hotkey.ini, CheckBox, 管理员权限
 IniWrite, %EnableAutoScale%, C:\BH3_Hotkey.ini, CheckBox, 全自动识别
+IniWrite, %EnableOcclusion%, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标
 IniWrite, %EnableRestriction%, C:\BH3_Hotkey.ini, CheckBox, 限制性光标
 
 Gui, Start: Destroy
@@ -130,7 +133,19 @@ If (EnableAutoScale)
     If (!Toggle_AutoScale)
     {
         Toggle_AutoScale := !Toggle_AutoScale
-        SetTimer, AutoScale, 90 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+        SetTimer, AutoScale, 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+    }
+    Else
+    {
+        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
+        ExitApp
+    }
+}
+If (EnableOcclusion)
+{
+    If (!Toggle_Occlusion)
+    {
+        Toggle_Occlusion := !Toggle_Occlusion
     }
     Else
     {
@@ -186,6 +201,10 @@ Return
 ;【常量 Const】对管理自动控制功能的全局常量进行赋值
 Global Toggle_AutoScale := 0
 
+;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
+Global Toggle_Occlusion := 0
+Global Status_Occlusion
+
 ;【常量 Const】对管理限制光标功能的全局常量进行赋值
 Global Toggle_Restriction := 0
 Global x1
@@ -205,6 +224,27 @@ Global Status_ElysiumIcon := 0
 Global Toggle_ManualSuspend := 0
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;【函数 Function】隐藏光标
+Occlusion(Status_Occlusion)
+{
+    If WinActive("ahk_exe BH3.exe")
+    {
+        If(Toggle_Occlusion)
+        {
+            If(Status_Occlusion == 1)
+            {
+                MouseGetPos, , ,HWND
+                Gui Cursor: +Owner%HWND%
+                DllCall("ShowCursor", "UInt", 0)
+            } 
+            Else 
+            {
+                DllCall("ShowCursor", "UInt", 1)
+            }
+        }
+    }
+}
 
 ;【函数 Function】重置光标
 CoordReset()
@@ -539,10 +579,20 @@ AutoScale()
                 }
             }
             If (!Status_CombatIcon)
+            {
                 Status_CombatIcon := !Status_CombatIcon
+                If (!Status_Occlusion)
+                    Occlusion(Status_Occlusion := !Status_Occlusion)
+            }
         }
         Else
         {
+            If (Status_CombatIcon)
+            {
+                If (Status_Occlusion)
+                    Occlusion(Status_Occlusion := !Status_Occlusion)
+                Status_CombatIcon := !Status_CombatIcon
+            }
             If (!A_IsSuspended)
             {
                 Suspend, On
@@ -562,9 +612,7 @@ AutoScale()
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         CoordReset()
                         If (Toggle_Restriction)
-                        {
                             Toggle_Restriction := !Toggle_Restriction
-                        }
                         SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
                     }
                 }
@@ -574,16 +622,12 @@ AutoScale()
                     {
                         SetTimer, ViewControl, Delete
                         If (!Toggle_Restriction)
-                        {
                             Toggle_Restriction := !Toggle_Restriction
-                        }
                         InputReset()
                         Toggle_MouseFunction := !Toggle_MouseFunction
                     }
                 }
             }
-            If (Status_CombatIcon)
-                Status_CombatIcon := !Status_CombatIcon
         }
     }
 
@@ -654,11 +698,15 @@ If (Toggle_MouseFunction)
     SetTimer, ViewControl, Delete
     InputReset()
 }
+If (Status_Occlusion)
+    Occlusion(Status_Occlusion := !Status_Occlusion)
 KeyWait, LAlt
 SetTimer, LAltTab, Off
 Hotkey, LButton, On
 If (Toggle_MouseFunction)
     SetTimer, ViewControl, On
+If (!Status_Occlusion)
+    Occlusion(Status_Occlusion := !Status_Occlusion)
 Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -672,7 +720,11 @@ If (Toggle_ManualSuspend)
     If (Toggle_AutoScale)
     {
         If (Status_CombatIcon)
+        {
+            If (Status_Occlusion)
+                Occlusion(Status_Occlusion := !Status_Occlusion)
             SendEvent, {Esc}
+        }
         SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
@@ -714,7 +766,11 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     If (Toggle_AutoScale)
     {
         If (Status_CombatIcon)
+        {
+            If (Status_Occlusion)
+                Occlusion(Status_Occlusion := !Status_Occlusion)
             SendEvent, {Esc}
+        }
         SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
@@ -737,7 +793,11 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     If (Toggle_AutoScale)
     {
         If (Status_CombatIcon)
+        {
+            If (Status_Occlusion)
+                Occlusion(Status_Occlusion := !Status_Occlusion)
             SendEvent, {Esc}
+        }
         SetTimer, AutoScale, Delete
         Toggle_AutoScale := !Toggle_AutoScale
     }
@@ -766,7 +826,11 @@ LAltTab()
             If (Toggle_AutoScale)
             {
                 If (Status_CombatIcon)
+                {
+                    If (Status_Occlusion)
+                        Occlusion(Status_Occlusion := !Status_Occlusion)
                     SendEvent, {Esc}
+                }
                 SetTimer, AutoScale, Delete
                 Toggle_AutoScale := !Toggle_AutoScale
             }
