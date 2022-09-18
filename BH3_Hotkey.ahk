@@ -22,8 +22,8 @@ SwitchIME(dwLayout)
 Disable( )
 {
     WinGet, id, ID, A
-    menu := DLLCall( "user32\GetSystemMenu", "UInt", id, "UInt", 0)
-    DLLCall( "user32\DeleteMenu", "UInt", menu, "UInt", 0xF060, "UInt", 0x0)
+    menu := DLLCall("user32\GetSystemMenu", "UInt", id, "UInt", 0)
+    DLLCall("user32\DeleteMenu", "UInt", menu, "UInt", 0xF060, "UInt", 0x0)
     WinGetPos ,x, y, w, h, ahk_id %id%
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h-1
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
@@ -34,7 +34,7 @@ Disable( )
 ;【配置 INI】读取配置
 IniRead, RunAsAdmin, C:\BH3_Hotkey.ini, CheckBox, 管理员权限, 1 ; Check by default
 IniRead, EnableAutoScale, C:\BH3_Hotkey.ini, CheckBox, 全自动识别, 1 ; Check by default
-IniRead, EnableOcclusion, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标, 1 ; Check by default
+IniRead, EnableOcclusion, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标, 0 ; Uncheck by default
 IniRead, EnableRestriction, C:\BH3_Hotkey.ini, CheckBox, 限制性光标, 1 ; Check by default
 
 ;【界面 GUI】说明界面
@@ -66,7 +66,7 @@ Gui, Start: Add, GroupBox, W333 H174, 选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, CheckBox, Xp Yp+15 vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
 Gui, Start: Add, CheckBox, Xp Yp+33 vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion        %EnableOcclusion%, 启用可隐藏光标（实验）
 Gui, Start: Add, CheckBox, Xp Yp+33 vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 
 Gui, Start: Tab, 更新
@@ -244,8 +244,8 @@ Occlusion(Status_Occlusion)
         {
             If(Status_Occlusion == 1)
             {
-                MouseGetPos, , ,HWND
-                Gui Cursor: +Owner%HWND%
+                MouseGetPos, , , HWND
+                Gui, Cursor: +Owner%HWND%
                 DllCall("ShowCursor", "UInt", 0)
             } 
             Else 
@@ -744,7 +744,7 @@ AutoScale()
         }
 
         ; ScreenScale
-        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00012, 0.00012, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00012, 0.00012, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
+        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
         {
             If (!Toggle_ManualSuspend)
             {
