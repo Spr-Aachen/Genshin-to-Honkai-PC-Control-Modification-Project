@@ -13,7 +13,7 @@
 <br>   Please ensure that the gaming operation settings have been reset to default
 
 3. 请使用全屏模式游玩以确保自动识别的正常运行
-<br>   Please use fullscreen mode in order to run "automatic identification" properly
+<br>   Please use fullscreen mode in order to run "Automatic Identification" properly
 
 <br>支持与不支持的客户端分辨率如下：（ 	:grey_exclamation: 表示未经测试）
 <br>Supported&unsupported client resolution is shown as follows: ( 	:grey_exclamation: means untested)
@@ -92,14 +92,22 @@
 
 **附加设定<br>Addition**
 
-1. 启动界面允许手动选择是否启用以下选项（均默认启用）：全自动识别、管理员权限、可隐藏光标以及限制性光标
-<br>   The starting interface allows users to choose whether toggle the following options (all toggled by default): "automatic identification", "run as admin" ,"occluded cursor" and "restricted cursor"
+1. 启动界面允许手动选择是否启用以下选项：
+<br>   全自动识别（默认启用）
+<br>   管理员权限（默认启用）
+<br>   可隐藏光标（默认启用）
+<br>   限制性光标（默认启用）
+<br>   The starting interface allows users to choose whether toggle the following options:
+<br>   "Automatic Identification" (toggled by default)
+<br>   "Run as Admin" (toggled by default)
+<br>   "Occluded Cursor" (toggled by default)
+<br>   "Restricted Cursor" (toggled by default)
 
 2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
-<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "automatic identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
+<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "Automatic Identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
-<br>   New scene supported:  Elysium Lobby
+<br>   New scene supported: Elysium Lobby
 
 4. 精简版去掉了除左键（普攻）外的所有战斗键位
 <br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).
@@ -117,7 +125,7 @@
 <br>   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
 
 4. 全自动识别功能对于硬件性能要求稍高，现已对其进行了数次优化
-<br>   The "automatic identification" has a little high demand of hardware performance, though it has been optimized for several times.
+<br>   The "Automatic Identification" has a little high demand of hardware performance, though it has been optimized for several times.
 
 5. 灵敏度（鼠标DPI）无法通过程序调节。虽然通过调教各函数的响应时间参数能够达到类似的效果，但是需要大量的数据采集和调试，这将是个漫长的过程。
 <br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
