@@ -95,19 +95,19 @@
 1. 启动界面允许手动选择是否启用以下选项：
 <br>   全自动识别（默认启用）
 <br>   管理员权限（默认启用）
-<br>   可隐藏光标（默认启用）
+<br>   可隐藏光标（默认关闭）
 <br>   限制性光标（默认启用）
 <br>   The starting interface allows users to choose whether toggle the following options:
 <br>   "Automatic Identification" (toggled by default)
 <br>   "Run as Admin" (toggled by default)
-<br>   "Occluded Cursor" (toggled by default)
+<br>   "Occluded Cursor" (closed by default)
 <br>   "Restricted Cursor" (toggled by default)
 
 2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
-<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling  "Automatic Identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
+<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling the "Automatic Identification"). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
-<br>   New scene supported: Elysium Lobby
+<br>   New scene supported: Elysium Lobby (Under the premise of toggling the "Automatic Identification")
 
 4. 精简版去掉了除左键（普攻）外的所有战斗键位
 <br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).
