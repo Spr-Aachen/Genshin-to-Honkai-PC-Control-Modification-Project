@@ -63,7 +63,7 @@ Gui, Start: Add, GroupBox, W333 H174, 选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, CheckBox, Xp Yp+15 vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
 Gui, Start: Add, CheckBox, Xp Yp+33 vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion        %EnableOcclusion%, 启用可隐藏光标（实验）
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（实验）
 Gui, Start: Add, CheckBox, Xp Yp+33 vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 
 Gui, Start: Tab, 更新
@@ -232,7 +232,7 @@ Occlusion(Status_Occlusion)
     {
         If(Toggle_Occlusion)
         {
-            If(Status_Occlusion == 1)
+            If(Status_Occlusion)
             {
                 MouseGetPos, , , HWND
                 Gui, Cursor: +Owner%HWND%
