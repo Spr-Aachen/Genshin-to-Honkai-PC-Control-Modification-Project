@@ -31,36 +31,82 @@ Disable( )
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-;【配置 INI】读取配置
-IniRead, RunAsAdmin, C:\BH3_Hotkey.ini, CheckBox, 管理员权限, 1 ; Check by default
-IniRead, EnableAutoScale, C:\BH3_Hotkey.ini, CheckBox, 全自动识别, 1 ; Check by default
-IniRead, EnableOcclusion, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标, 0 ; Uncheck by default
-IniRead, EnableRestriction, C:\BH3_Hotkey.ini, CheckBox, 限制性光标, 1 ; Check by default
+;【位置 Path】设定位置
+INI_DIR = C:\BH3_Hotkey.ini
+
+;【配置 INI】创建配置
+IfNotExist, %INI_DIR%
+{
+    IniRead, MainSkill, %INI_DIR%, Key Maps, 必杀技, Q
+    IniRead, SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技, E
+    IniRead, DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环, Z
+    IniRead, Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
+    IniRead, Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
+    IniRead, NormalAttack, %INI_DIR%, Key Maps, 普攻, LButton
+    ;IniRead, LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
+    IniRead, ViewControl, %INI_DIR%, Key Maps, 管理视角跟随, MButton
+    IniRead, Suspend, %INI_DIR%, Key Maps, 暂停/启用, F1
+    IniRead, SurfaceCheck, %INI_DIR%, Key Maps, 调出界面, F3
+
+    IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
+    IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
+    IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标, 0 ; Uncheck by default
+    IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标, 1 ; Check by default
+}
+Else
+{
+    IniRead, MainSkill, %INI_DIR%, Key Maps, 必杀技
+    IniRead, SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技
+    IniRead, DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环
+    IniRead, Dodging1, %INI_DIR%, Key Maps, 闪避1
+    IniRead, Dodging2, %INI_DIR%, Key Maps, 闪避2
+    IniRead, NormalAttack, %INI_DIR%, Key Maps, 普攻
+    ;IniRead, LeftClick, %INI_DIR%, Key Maps, 正常点击
+    IniRead, ViewControl, %INI_DIR%, Key Maps, 管理视角跟随
+    IniRead, Suspend, %INI_DIR%, Key Maps, 暂停/启用
+    IniRead, SurfaceCheck, %INI_DIR%, Key Maps, 调出界面
+
+    IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
+    IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
+    IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标
+    IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
+}
 
 ;【界面 GUI】说明界面
 Gui, Start: + Theme
 Gui, Start: Font, s12, 新宋体
-Gui, Start: Add, Tab3,, 说明|设置|更新
+Gui, Start: Add, Tab3,, 键位|功能|更新
 
-Gui, Start: Tab, 说明
+Gui, Start: Tab, 键位
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15, Q:                      必杀技
-Gui, Start: Add, Text, Xp Yp+33, E:                      武器技/后崩技
-Gui, Start: Add, Text, Xp Yp+33, Z:                      人偶技/月之环
-Gui, Start: Add, Text, Xp Yp+33, 左ShIft/右键:           闪避
-Gui, Start: Add, Text, Xp Yp+33, 左键:                   普攻
+Gui, Start: Add, Text, Xp Yp+15,    :                       必杀技
+Gui, Start: Add, Hotkey, Xp Yp W87 vMainSkill,    %MainSkill%
+Gui, Start: Add, Text, Xp Yp+33,    :                       武器技/后崩技
+Gui, Start: Add, Hotkey, Xp Yp W87 vSecondSkill,  %SecondSkill%
+Gui, Start: Add, Text, Xp Yp+33,    :                       人偶技/月之环
+Gui, Start: Add, Hotkey, Xp Yp W87 vDollSkill,    %DollSkill%
+Gui, Start: Add, Text, Xp Yp+33,    :                       闪避
+Gui, Start: Add, Hotkey, Xp Yp W36 vDodging1,     %Dodging1%
+Gui, Start: Add, Text, Xp+39 Yp, /
+Gui, Start: Add, Hotkey, Xp+12 Yp W36 vDodging2,  %Dodging2%
+Gui, Start: Add, Text, Xp-51 Yp+33, :                       普攻
+Gui, Start: Add, Hotkey, Xp Yp W87 vNormalAttack, %NormalAttack%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 Gui, Start: Add, GroupBox, W333 H168, 其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15, 左Alt+左键:             正常点击
-Gui, Start: Add, Text, Xp Yp+33, 中键:                   管理视角跟随
-Gui, Start: Add, Text, Xp Yp+33, F1:                     暂停/启用
-Gui, Start: Add, Text, Xp Yp+33, F3:                     调出界面
+Gui, Start: Add, Text, Xp Yp+15,    左Alt+左键:             正常点击
+;Gui, Start: Add, Hotkey, Xp Yp W87 vLeftClick,   %LeftClick%
+Gui, Start: Add, Text, Xp Yp+33,    :                       管理视角跟随
+Gui, Start: Add, Hotkey, Xp Yp W87 vViewControl,  %ViewControl%
+Gui, Start: Add, Text, Xp Yp+33,    :                       暂停/启用
+Gui, Start: Add, Hotkey, Xp Yp W87 vSuspend,      %Suspend%
+Gui, Start: Add, Text, Xp Yp+33,    :                       调出界面
+Gui, Start: Add, Hotkey, Xp Yp W87 vSurfaceCheck, %SurfaceCheck%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
-Gui, Start: Tab, 设置
+Gui, Start: Tab, 功能
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H174, 选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
@@ -109,10 +155,21 @@ StartButton开启:
 Gui, Submit
 
 ;【配置 INI】写入配置
-IniWrite, %RunAsAdmin%, C:\BH3_Hotkey.ini, CheckBox, 管理员权限
-IniWrite, %EnableAutoScale%, C:\BH3_Hotkey.ini, CheckBox, 全自动识别
-IniWrite, %EnableOcclusion%, C:\BH3_Hotkey.ini, CheckBox, 可隐藏光标
-IniWrite, %EnableRestriction%, C:\BH3_Hotkey.ini, CheckBox, 限制性光标
+IniWrite, %MainSkill%, %INI_DIR%, Key Maps, 必杀技
+IniWrite, %SecondSkill%, %INI_DIR%, Key Maps, 武器技/后崩技
+IniWrite, %DollSkill%, %INI_DIR%, Key Maps, 人偶技/月之环
+IniWrite, %Dodging1%, %INI_DIR%, Key Maps, 闪避1
+IniWrite, %Dodging2%, %INI_DIR%, Key Maps, 闪避2
+IniWrite, %NormalAttack%, %INI_DIR%, Key Maps, 普攻
+;IniWrite, %LeftClick%, %INI_DIR%, Key Maps, 正常点击
+IniWrite, %ViewControl%, %INI_DIR%, Key Maps, 管理视角跟随
+IniWrite, %Suspend%, %INI_DIR%, Key Maps, 暂停/启用
+IniWrite, %SurfaceCheck%, %INI_DIR%, Key Maps, 调出界面
+
+IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, 管理员权限
+IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, 全自动识别
+IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, 可隐藏光标
+IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
 
 Gui, Start: Destroy
 
