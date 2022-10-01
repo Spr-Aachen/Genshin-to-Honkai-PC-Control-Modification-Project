@@ -37,16 +37,16 @@ INI_DIR = C:\BH3_Hotkey.ini
 ;【配置 INI】创建配置
 IfNotExist, %INI_DIR%
 {
-    IniRead, MainSkill, %INI_DIR%, Key Maps, 必杀技, Q
-    IniRead, SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技, E
-    IniRead, DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环, Z
-    IniRead, Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
-    IniRead, Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
-    IniRead, NormalAttack, %INI_DIR%, Key Maps, 普攻, LButton
-    ;IniRead, LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
-    IniRead, ViewControl, %INI_DIR%, Key Maps, 管理视角跟随, MButton
-    IniRead, Suspend, %INI_DIR%, Key Maps, 暂停/启用, F1
-    IniRead, SurfaceCheck, %INI_DIR%, Key Maps, 调出界面, F3
+    IniRead, Key_MainSkill, %INI_DIR%, Key Maps, 必杀技, Q
+    IniRead, Key_SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技, E
+    IniRead, Key_DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环, Z
+    IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
+    IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
+    IniRead, Key_NormalAttack, %INI_DIR%, Key Maps, 普攻, LButton
+    ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
+    IniRead, Key_ViewControl, %INI_DIR%, Key Maps, 管理视角跟随, MButton
+    IniRead, Key_Suspend, %INI_DIR%, Key Maps, 暂停/启用, F1
+    IniRead, Key_SurfaceCheck, %INI_DIR%, Key Maps, 调出界面, F3
 
     IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
@@ -55,16 +55,16 @@ IfNotExist, %INI_DIR%
 }
 Else
 {
-    IniRead, MainSkill, %INI_DIR%, Key Maps, 必杀技
-    IniRead, SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技
-    IniRead, DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环
-    IniRead, Dodging1, %INI_DIR%, Key Maps, 闪避1
-    IniRead, Dodging2, %INI_DIR%, Key Maps, 闪避2
-    IniRead, NormalAttack, %INI_DIR%, Key Maps, 普攻
-    ;IniRead, LeftClick, %INI_DIR%, Key Maps, 正常点击
-    IniRead, ViewControl, %INI_DIR%, Key Maps, 管理视角跟随
-    IniRead, Suspend, %INI_DIR%, Key Maps, 暂停/启用
-    IniRead, SurfaceCheck, %INI_DIR%, Key Maps, 调出界面
+    IniRead, Key_MainSkill, %INI_DIR%, Key Maps, 必杀技
+    IniRead, Key_SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技
+    IniRead, Key_DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环
+    IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1
+    IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2
+    IniRead, Key_NormalAttack, %INI_DIR%, Key Maps, 普攻
+    ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
+    IniRead, Key_ViewControl, %INI_DIR%, Key Maps, 管理视角跟随
+    IniRead, Key_Suspend, %INI_DIR%, Key Maps, 暂停/启用
+    IniRead, Key_SurfaceCheck, %INI_DIR%, Key Maps, 调出界面
 
     IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
@@ -82,28 +82,28 @@ Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15,    :                       必杀技
-Gui, Start: Add, Hotkey, Xp Yp W87 vMainSkill,    %MainSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_MainSkill,    %Key_MainSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       武器技/后崩技
-Gui, Start: Add, Hotkey, Xp Yp W87 vSecondSkill,  %SecondSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SecondSkill,  %Key_SecondSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       人偶技/月之环
-Gui, Start: Add, Hotkey, Xp Yp W87 vDollSkill,    %DollSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_DollSkill,    %Key_DollSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       闪避
-Gui, Start: Add, Hotkey, Xp Yp W36 vDodging1,     %Dodging1%
+Gui, Start: Add, Hotkey, Xp Yp W36 vKey_Dodging1,     %Key_Dodging1%
 Gui, Start: Add, Text, Xp+39 Yp, /
-Gui, Start: Add, Hotkey, Xp+12 Yp W36 vDodging2,  %Dodging2%
+Gui, Start: Add, Hotkey, Xp+12 Yp W36 vKey_Dodging2,  %Key_Dodging2%
 Gui, Start: Add, Text, Xp-51 Yp+33, :                       普攻
-Gui, Start: Add, Hotkey, Xp Yp W87 vNormalAttack, %NormalAttack%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 Gui, Start: Add, GroupBox, W333 H168, 其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15,    左Alt+左键:             正常点击
-;Gui, Start: Add, Hotkey, Xp Yp W87 vLeftClick,   %LeftClick%
+;Gui, Start: Add, Hotkey, Xp Yp W87 vKey_LeftClick,   %Key_LeftClick%
 Gui, Start: Add, Text, Xp Yp+33,    :                       管理视角跟随
-Gui, Start: Add, Hotkey, Xp Yp W87 vViewControl,  %ViewControl%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%
 Gui, Start: Add, Text, Xp Yp+33,    :                       暂停/启用
-Gui, Start: Add, Hotkey, Xp Yp W87 vSuspend,      %Suspend%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_Suspend,      %Key_Suspend%
 Gui, Start: Add, Text, Xp Yp+33,    :                       调出界面
-Gui, Start: Add, Hotkey, Xp Yp W87 vSurfaceCheck, %SurfaceCheck%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SurfaceCheck, %Key_SurfaceCheck%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
 Gui, Start: Tab, 功能
@@ -155,16 +155,16 @@ StartButton开启:
 Gui, Submit
 
 ;【配置 INI】写入配置
-IniWrite, %MainSkill%, %INI_DIR%, Key Maps, 必杀技
-IniWrite, %SecondSkill%, %INI_DIR%, Key Maps, 武器技/后崩技
-IniWrite, %DollSkill%, %INI_DIR%, Key Maps, 人偶技/月之环
-IniWrite, %Dodging1%, %INI_DIR%, Key Maps, 闪避1
-IniWrite, %Dodging2%, %INI_DIR%, Key Maps, 闪避2
-IniWrite, %NormalAttack%, %INI_DIR%, Key Maps, 普攻
-;IniWrite, %LeftClick%, %INI_DIR%, Key Maps, 正常点击
-IniWrite, %ViewControl%, %INI_DIR%, Key Maps, 管理视角跟随
-IniWrite, %Suspend%, %INI_DIR%, Key Maps, 暂停/启用
-IniWrite, %SurfaceCheck%, %INI_DIR%, Key Maps, 调出界面
+IniWrite, %Key_MainSkill%, %INI_DIR%, Key Maps, 必杀技
+IniWrite, %Key_SecondSkill%, %INI_DIR%, Key Maps, 武器技/后崩技
+IniWrite, %Key_DollSkill%, %INI_DIR%, Key Maps, 人偶技/月之环
+IniWrite, %Key_Dodging1%, %INI_DIR%, Key Maps, 闪避1
+IniWrite, %Key_Dodging2%, %INI_DIR%, Key Maps, 闪避2
+IniWrite, %Key_NormalAttack%, %INI_DIR%, Key Maps, 普攻
+;IniWrite, %Key_LeftClick%, %INI_DIR%, Key Maps, 正常点击
+IniWrite, %Key_ViewControl%, %INI_DIR%, Key Maps, 管理视角跟随
+IniWrite, %Key_Suspend%, %INI_DIR%, Key Maps, 暂停/启用
+IniWrite, %Key_SurfaceCheck%, %INI_DIR%, Key Maps, 调出界面
 
 IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, 管理员权限
 IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, 全自动识别
@@ -172,6 +172,19 @@ IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, 可隐藏光标
 IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
 
 Gui, Start: Destroy
+
+If (Key_MainSkill != "")
+    Hotkey, %Key_MainSkill%, Key_MainSkill
+Hotkey, %Key_SecondSkill%, Key_SecondSkill
+Hotkey, %Key_DollSkill%, Key_DollSkill
+Hotkey, %Key_Dodging1%, Key_Dodging1
+Hotkey, %Key_Dodging2%, Key_Dodging2
+Hotkey, %Key_NormalAttack%, Key_NormalAttack
+;Hotkey, %Key_LeftClick%, Key_LeftClick
+If (Key_ViewControl != "")
+    Hotkey, %Key_ViewControl%, Key_ViewControl
+Hotkey, %Key_Suspend%, Key_Suspend
+Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
 
 If (RunAsAdmin)
 {
@@ -274,7 +287,7 @@ Global y1
 Global Toggle_MouseFunction := 0
 
 ;【常量 Const】对管理视角跟随功能的全局常量进行赋值
-Global Status_MButton := 0
+Global Status_ViewControl := 0
 
 ;【常量 Const】对管理准星跟随功能的全局常量进行赋值
 Global BreakFlag_Aim := 0
@@ -335,10 +348,10 @@ Restriction()
             WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
             If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
             {
-                If (Status_MButton)
+                If (Status_ViewControl)
                 {
                     SendInput, {Click, Up Middle}
-                    Status_MButton := !Status_MButton
+                    Status_ViewControl := !Status_ViewControl
                 }
                 CoordReset()
             }
@@ -356,18 +369,18 @@ ViewControl()
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
-            If (!Status_MButton)
+            If (!Status_ViewControl)
             {
-                Status_MButton := !Status_MButton
+                Status_ViewControl := !Status_ViewControl
                 SendInput, {Click, Down Middle}
             }
         }
         Else
         {
-            If (Status_MButton)
+            If (Status_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_MButton := !Status_MButton
+                Status_ViewControl := !Status_ViewControl
             }
         }
     }
@@ -384,9 +397,9 @@ ViewControlTemp()
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
         {
-            If (!Status_MButton)
+            If (!Status_ViewControl)
             {
-                Status_MButton := !Status_MButton
+                Status_ViewControl := !Status_ViewControl
                 SendInput, {Click, Down Middle}
             }
         }
@@ -440,10 +453,10 @@ ViewControlTemp()
         }
         Else
         {
-            If (Status_MButton)
+            If (Status_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_MButton := !Status_MButton
+                Status_ViewControl := !Status_ViewControl
             }
         }
     }
@@ -595,7 +608,7 @@ AimControl()
                 BreakFlag_Aim := !BreakFlag_Aim
                 break
             }
-        }Until Not GetKeyState("e", "P")
+        }Until Not GetKeyState(A_ThisHotkey, "P")
         If (Status_w)
         {
             SendInput, {w Up}
@@ -622,11 +635,11 @@ AimControl()
 ;【函数 Function】输入重置
 InputReset()
 {
-    If GetKeyState("MButton")
+    If GetKeyState(MButton)
     {
-        If (Status_MButton)
+        If (Status_ViewControl)
         {
-            Status_MButton := !Status_MButton
+            Status_ViewControl := !Status_ViewControl
         }
         SendInput, {Click, Up Middle}
     }
@@ -884,8 +897,8 @@ AutoScale()
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【热键 Hotkey】点击鼠标中键以激活视角跟随
-MButton::
-If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数 Function唤醒
+Key_ViewControl:
+If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止中键被部分函数 Function唤醒
 {
     Toggle_MouseFunction := !Toggle_MouseFunction
     If (Toggle_MouseFunction)
@@ -908,17 +921,17 @@ If GetKeyState("MButton", "P") ; 通过行为检测防止中键被部分函数 F
 Return
 
 ;【热键 Hotkey】点按鼠标左键以发动普攻
-LButton::
+Key_NormalAttack:
 SendInput, {j Down}
 If (Toggle_MouseFunction)
 {
-    If GetKeyState("LButton", "P")
+    If GetKeyState(Key_NormalAttack, "P")
     {
         SetTimer, ViewControl, Off
         SetTimer, ViewControlTemp, 0
     }
 }
-KeyWait, LButton
+KeyWait, %Key_NormalAttack%
 SendInput, {j Up}
 If (Toggle_MouseFunction)
 {
@@ -928,8 +941,8 @@ If (Toggle_MouseFunction)
 Return
 
 ;【热键 Hotkey】按下键盘Q键以发动必杀技
-q::
-If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
+Key_MainSkill:
+If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
 {
     SendInput, {i Down}
     If (Toggle_MouseFunction)
@@ -938,49 +951,53 @@ If GetKeyState("q", "P") ; 通过行为检测防止Q键被ViewControlTemp函数�
         Loop
         {
             ViewControlTemp()
-        }Until Not GetKeyState("q", "P")
+        }Until Not GetKeyState(Key_MainSkill, "P")
         SetTimer, ViewControl, On
     }
     Else
-        KeyWait, q
+        KeyWait, %Key_MainSkill%
     SendInput, {i Up}
 }
 Return
 
 ;【热键 Hotkey】按下键盘E键以发动武器技/后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
-e::
-If GetKeyState("e", "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
+Key_SecondSkill:
+If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
 {
     SendInput, {u Down}
     If (Toggle_MouseFunction)
         AimControl()
     Else
-        KeyWait, e
+        KeyWait, %Key_SecondSkill%
     SendInput, {u Up}
 }
 Return
 
 ;【热键 Hotkey】按下键盘Z键以发动人偶技
-z::l
+Key_DollSkill:
+SendInput, {l Down}
+KeyWait, %Key_DollSkill%
+SendInput, {l Up}
+Return
 
 ;【热键 Hotkey】按下键盘左侧ShIft键以发动闪避/冲刺
-LShIft::
+Key_Dodging1:
 SendInput, {k Down}
-KeyWait, LShIft
+KeyWait, %Key_Dodging1%
 SendInput, {k Up}
 Return
 
 ;【热键 Hotkey】点按鼠标右键以发动闪避/冲刺
-RButton::
+Key_Dodging2:
 SendInput, {k Down}
-KeyWait, RButton
+KeyWait, %Key_Dodging1%
 SendInput, {k Up}
 Return
 
 ;【热键 Hotkey】按住键盘左侧ALT以正常使用鼠标左键
 LAlt:: ; *!LButton::LButton
 SetTimer, LAltTab, 0
-Hotkey, LButton, Off
+Hotkey, %Key_NormalAttack%, Off
 If (Toggle_MouseFunction)
 {
     SetTimer, ViewControl, Delete
@@ -990,7 +1007,7 @@ If (Status_Occlusion)
     Occlusion(Status_Occlusion := !Status_Occlusion)
 KeyWait, LAlt
 SetTimer, LAltTab, Off
-Hotkey, LButton, On
+Hotkey, %Key_NormalAttack%, On
 If (Toggle_MouseFunction)
     SetTimer, ViewControl, On
 If (!Status_Occlusion)
@@ -1000,7 +1017,7 @@ Return
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【热键 Hotkey】暂停/启用程序
-F1::
+Key_Suspend:
 Suspend, Toggle
 Toggle_ManualSuspend := !Toggle_ManualSuspend
 If (Toggle_ManualSuspend)
@@ -1019,7 +1036,7 @@ If (Toggle_ManualSuspend)
     If (Toggle_MouseFunction)
     {
         SetTimer, ViewControl, Delete
-        If GetKeyState("e", "P")
+        If GetKeyState(Key_SecondSkill, "P")
             BreakFlag_Aim := !BreakFlag_Aim
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
@@ -1048,7 +1065,7 @@ Else
 Return
 
 ;【热键 Hotkey】重启程序以呼出操作说明界面
-F3::
+Key_SurfaceCheck:
 If (!A_IsSuspended and !Toggle_ManualSuspend)
 {
     Toggle_ManualSuspend := !Toggle_ManualSuspend
@@ -1067,7 +1084,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     If (Toggle_MouseFunction)
     {
         SetTimer, ViewControl, Delete
-        If GetKeyState("e", "P")
+        If GetKeyState(Key_SecondSkill, "P")
             BreakFlag_Aim := !BreakFlag_Aim
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
@@ -1096,7 +1113,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
     If (Toggle_MouseFunction)
     {
         SetTimer, ViewControl, Delete
-        If GetKeyState("e", "P")
+        If GetKeyState(Key_SecondSkill, "P")
             BreakFlag_Aim := !BreakFlag_Aim
         InputReset()
         Toggle_MouseFunction := !Toggle_MouseFunction
@@ -1131,7 +1148,7 @@ LAltTab()
             If (Toggle_MouseFunction)
             {
                 SetTimer, ViewControl, Delete
-                If GetKeyState("e", "P")
+                If GetKeyState(Key_SecondSkill, "P")
                     BreakFlag_Aim := !BreakFlag_Aim
                 InputReset()
                 Toggle_MouseFunction := !Toggle_MouseFunction
