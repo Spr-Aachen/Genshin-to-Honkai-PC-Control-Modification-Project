@@ -38,57 +38,57 @@
 
 ## 【设定 Configurations】
 
-**键位设定 - 战斗<br>Key Maps - Combat**
+**默认键位设定 - 战斗<br>Default Key Map Configurations- Combat**
 
 键位会在战斗状态下生效。且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
 <br>Key maps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
 ***Q键发动主技能（大招） Q key for main skill***
-<br>使用方法：点按或长按Q
-<br>Usage: Press or long press Q key
+<br>使用方法：点按或长按Q[可改]
+<br>Usage: Press or long press Q key[Adjustable]
 
 ***E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill***
-<br>使用方法：点按或长按E
+<br>使用方法：点按或长按E[可改]
 <br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
-<br>Usage: Press or long press E key
+<br>Usage: Press or long press E key[Adjustable]
 <br>Extra: After entering the aiming mode by long pressing E key, cross hair can be controled by the mouse-movement
 
 ***Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat***
-<br>使用方法：按下Z键
-<br>Usage: Press down (Long press) Z key
+<br>使用方法：按下Z键[可改]
+<br>Usage: Press down (Long press) Z key[Adjustable]
 
 ***左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing***
-<br>使用方法：点击或长按左侧Shift键/鼠标右键
-<br>Usage: Press (Click) or long press LShift/RButton
+<br>使用方法：点击或长按左侧Shift键/鼠标右键[可改]
+<br>Usage: Press (Click) or long press LShift/RButton[Adjustable]
 
 ***鼠标左键发动普攻 LButton for normal attack***
-<br>使用方法：点击或长按鼠标左键
-<br>Usage: Press (Click) or long press LButton
+<br>使用方法：点击或长按鼠标左键[可改]
+<br>Usage: Press (Click) or long press LButton[Adjustable]
 
-**键位设定 - 控制<br>Key Maps - Control**
+**默认键位设定 - 控制<br>Default Key Map Configurations- Control**
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
 
 ***左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function***
-<br>使用方法：按住左侧Alt键后点击鼠标左键
-<br>Usage: Press down (Long press) LAlt and then click LButton
+<br>使用方法：按住左侧Alt键后点击鼠标左键[不可改]
+<br>Usage: Press down (Long press) LAlt and then click LButton[Unadjustable]
 
 ***鼠标中键管理视角跟随功能 MButton for view-control function management***
-<br>使用方法：点击鼠标中键
+<br>使用方法：点击鼠标中键[可改]
 <br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
-<br>Usage: Click MButton
+<br>Usage: Click MButton[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
 
 ***F1键暂停/启用程序 F1 key for program suspending/continuing***
-<br>使用方法：按下F1键
+<br>使用方法：按下F1键[可改]
 <br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
-<br>Usage: Press down (Long press) F1 key
+<br>Usage: Press down (Long press) F1 key[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
 
 ***F3键调出启动界面 F3 key for surface check***
-<br>使用方法：按下F3键
-<br>Usage: Press down (Long press) F3 key
+<br>使用方法：按下F3键[可改]
+<br>Usage: Press down (Long press) F3 key[Adjustable]
 
 **附加设定<br>Addition**
 
@@ -109,8 +109,8 @@
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
 <br>   New scene supported: Elysium Lobby (Under the premise of toggling the "Automatic Identification")
 
-4. 精简版去掉了除左键（普攻）外的所有战斗键位
-<br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).
+~~4. 精简版去掉了除左键（普攻）外的所有战斗键位~~
+~~<br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).~~
 
 
 ## 【缺陷 Bugs】
