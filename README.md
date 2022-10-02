@@ -90,6 +90,9 @@
 <br>使用方法：按下F3键[可改]
 <br>Usage: Press down (Long press) F3 key[Adjustable]
 
+- 若要更改默认键位，点击框并按下想要的按键即可（按Del键或Backspace键可清空框）
+- To adjust the default key map, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
+
 **附加设定<br>Addition**
 
 1. 启动界面允许手动选择是否启用以下选项：
@@ -109,8 +112,8 @@
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
 <br>   New scene supported: Elysium Lobby (Under the premise of toggling the "Automatic Identification")
 
-~~4. 精简版去掉了除左键（普攻）外的所有战斗键位~~
-~~<br>   The simplified version removed all the combat key maps except LButton (which is for normal attack).~~
+4. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
+<br>   ~~The simplified version removed all the combat key maps except LButton (which is for normal attack).~~
 
 
 ## 【缺陷 Bugs】
