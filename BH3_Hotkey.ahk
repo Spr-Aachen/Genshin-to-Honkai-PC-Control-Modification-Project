@@ -1,5 +1,5 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-;Version 0.3.0 beta
+;Version 0.3.5
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ;【命令 Directive】引用库文件FindText.ahk
@@ -896,9 +896,9 @@ AutoScale()
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-;【热键 Hotkey】点击鼠标中键以激活视角跟随
+;【热键 Hotkey】点击自定义键以激活视角跟随
 Key_ViewControl:
-If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止中键被部分函数 Function唤醒
+If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止被部分函数 Function唤醒
 {
     Toggle_MouseFunction := !Toggle_MouseFunction
     If (Toggle_MouseFunction)
@@ -920,7 +920,7 @@ If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止中键被部分�
 }
 Return
 
-;【热键 Hotkey】点按鼠标左键以发动普攻
+;【热键 Hotkey】点按自定义键以发动普攻
 Key_NormalAttack:
 SendInput, {j Down}
 If (Toggle_MouseFunction)
@@ -940,9 +940,9 @@ If (Toggle_MouseFunction)
 }
 Return
 
-;【热键 Hotkey】按下键盘Q键以发动必杀技
+;【热键 Hotkey】按下自定义键以发动必杀技
 Key_MainSkill:
-If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止Q键被ViewControlTemp函数唤醒
+If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止被ViewControlTemp函数唤醒
 {
     SendInput, {i Down}
     If (Toggle_MouseFunction)
@@ -960,9 +960,9 @@ If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止Q键被ViewControlT
 }
 Return
 
-;【热键 Hotkey】按下键盘E键以发动武器技/后崩坏书必杀技，长按E键进入瞄准模式时可用鼠标键操控准心
+;【热键 Hotkey】按下自定义键以发动武器技/后崩坏书必杀技，长按自定义键进入瞄准模式时可用鼠标键操控准心
 Key_SecondSkill:
-If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止E键被ViewControlTemp函数唤醒
+If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止被ViewControlTemp函数唤醒
 {
     SendInput, {u Down}
     If (Toggle_MouseFunction)
@@ -973,21 +973,21 @@ If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止E键被ViewContro
 }
 Return
 
-;【热键 Hotkey】按下键盘Z键以发动人偶技
+;【热键 Hotkey】按下自定义键以发动人偶技
 Key_DollSkill:
 SendInput, {l Down}
 KeyWait, %Key_DollSkill%
 SendInput, {l Up}
 Return
 
-;【热键 Hotkey】按下键盘左侧ShIft键以发动闪避/冲刺
+;【热键 Hotkey】按下自定义键1以发动闪避/冲刺
 Key_Dodging1:
 SendInput, {k Down}
 KeyWait, %Key_Dodging1%
 SendInput, {k Up}
 Return
 
-;【热键 Hotkey】点按鼠标右键以发动闪避/冲刺
+;【热键 Hotkey】按下自定义键2以发动闪避/冲刺
 Key_Dodging2:
 SendInput, {k Down}
 KeyWait, %Key_Dodging1%
@@ -1016,7 +1016,7 @@ Return
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-;【热键 Hotkey】暂停/启用程序
+;【热键 Hotkey】按下自定义键以暂停/启用程序
 Key_Suspend:
 Suspend, Toggle
 Toggle_ManualSuspend := !Toggle_ManualSuspend
@@ -1064,7 +1064,7 @@ Else
 }
 Return
 
-;【热键 Hotkey】重启程序以呼出操作说明界面
+;【热键 Hotkey】按下自定义键以重启程序呼出操作说明界面
 Key_SurfaceCheck:
 If (!A_IsSuspended and !Toggle_ManualSuspend)
 {
