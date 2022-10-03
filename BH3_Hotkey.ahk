@@ -935,7 +935,7 @@ If GetKeyState(Key_NormalAttack, "P") ; 通过行为检测防止被ViewControlTe
         SetTimer, ViewControl, On
     }
     Else
-        KeyWait, %Key_MainSkill%
+        KeyWait, %Key_NormalAttack%
     SendInput, {j Up}
 }
 Return
