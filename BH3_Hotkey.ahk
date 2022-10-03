@@ -922,21 +922,21 @@ Return
 
 ;【热键 Hotkey】点按自定义键以发动普攻
 Key_NormalAttack:
-SendInput, {j Down}
-If (Toggle_MouseFunction)
+If GetKeyState(Key_NormalAttack, "P") ; 通过行为检测防止被ViewControlTemp函数唤醒
 {
-    If GetKeyState(Key_NormalAttack, "P")
+    SendInput, {j Down}
+    If (Toggle_MouseFunction)
     {
         SetTimer, ViewControl, Off
-        SetTimer, ViewControlTemp, 0
+        Loop
+        {
+            ViewControlTemp()
+        }Until Not GetKeyState(A_ThisHotkey, "P")
+        SetTimer, ViewControl, On
     }
-}
-KeyWait, %Key_NormalAttack%
-SendInput, {j Up}
-If (Toggle_MouseFunction)
-{
-    SetTimer, ViewControlTemp, Off
-    SetTimer, ViewControl, On
+    Else
+        KeyWait, %Key_MainSkill%
+    SendInput, {j Up}
 }
 Return
 
@@ -951,7 +951,7 @@ If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止被ViewControlTemp�
         Loop
         {
             ViewControlTemp()
-        }Until Not GetKeyState(Key_MainSkill, "P")
+        }Until Not GetKeyState(A_ThisHotkey, "P")
         SetTimer, ViewControl, On
     }
     Else
