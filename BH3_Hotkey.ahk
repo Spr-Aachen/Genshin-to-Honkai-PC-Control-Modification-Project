@@ -1,14 +1,18 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-;Version 0.3.5
+;Version 0.3.6
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【命令 Directive】引用库文件FindText.ahk
 #include <FindText>
 
+
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【函数 Function】管理输入法
 SwitchIME(dwLayout)
@@ -17,6 +21,7 @@ SwitchIME(dwLayout)
     ControlGetFocus, ctl, A
     SendMessage, 0x50, 0, HKL, %ctl%, A
 }
+
 
 ;【函数 Function】界面状态栏
 Disable( )
@@ -29,10 +34,13 @@ Disable( )
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
 }
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【位置 Path】设定位置
 INI_DIR = C:\BH3_Hotkey.ini
+
 
 ;【配置 INI】创建配置
 IfNotExist, %INI_DIR%
@@ -72,6 +80,17 @@ Else
     IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
 }
 
+
+;【菜单 Menu】托盘菜单
+Menu, Tray, NoStandard ; 删除原有托盘菜单
+
+Menu, Else, Add, 配置文件, Config
+Menu, Else, Add, 敬请期待, Nothing
+
+Menu, Tray, Add, 其它, :Else
+Menu, Tray, Add, 重启, Menu_Reload
+Menu, Tray, Add, 退出, Menu_Exit
+
 ;【界面 GUI】说明界面
 Gui, Start: + Theme
 Gui, Start: Font, s12, 新宋体
@@ -82,28 +101,28 @@ Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15,    :                       必杀技
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_MainSkill,    %Key_MainSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_MainSkill,          %Key_MainSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       武器技/后崩技
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SecondSkill,  %Key_SecondSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SecondSkill,        %Key_SecondSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       人偶技/月之环
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_DollSkill,    %Key_DollSkill%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_DollSkill,          %Key_DollSkill%
 Gui, Start: Add, Text, Xp Yp+33,    :                       闪避
-Gui, Start: Add, Hotkey, Xp Yp W36 vKey_Dodging1,     %Key_Dodging1%
+Gui, Start: Add, Hotkey, Xp Yp W36 vKey_Dodging1,           %Key_Dodging1%
 Gui, Start: Add, Text, Xp+39 Yp, /
-Gui, Start: Add, Hotkey, Xp+12 Yp W36 vKey_Dodging2,  %Key_Dodging2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W36 vKey_Dodging2,  %Key_Dodging2%||%Key_NormalAttack%|%Key_ViewControl%
 Gui, Start: Add, Text, Xp-51 Yp+33, :                       普攻
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%
+Gui, Start: Add, DropDownList, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%||%Key_Dodging2%|%Key_ViewControl%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 Gui, Start: Add, GroupBox, W333 H168, 其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15,    左Alt+左键:             正常点击
-;Gui, Start: Add, Hotkey, Xp Yp W87 vKey_LeftClick,   %Key_LeftClick%
+;Gui, Start: Add, Hotkey, Xp Yp W87 vKey_LeftClick,         %Key_LeftClick%
 Gui, Start: Add, Text, Xp Yp+33,    :                       管理视角跟随
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%
+Gui, Start: Add, DropDownList, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%||%Key_Dodging2%|%Key_NormalAttack%
 Gui, Start: Add, Text, Xp Yp+33,    :                       暂停/启用
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_Suspend,      %Key_Suspend%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_Suspend,            %Key_Suspend%
 Gui, Start: Add, Text, Xp Yp+33,    :                       调出界面
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SurfaceCheck, %Key_SurfaceCheck%
+Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SurfaceCheck,       %Key_SurfaceCheck%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
 Gui, Start: Tab, 功能
@@ -135,6 +154,7 @@ Disable( )
 Suspend, On
 Return
 
+
 ;【例程 Gosub】“版本”选项的执行语句
 SelectVersion:
 GuiControlGet, Version
@@ -148,6 +168,7 @@ Switch Version
 
 }
 Return
+
 
 ;【标签 Label】“开启”按钮的执行语句
 StartButton开启:
@@ -173,18 +194,20 @@ IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
 
 Gui, Start: Destroy
 
-If (Key_MainSkill != "")
+;【热键 Hotkey】重定义热键到标签
+If (Key_MainSkill != "" && Key_ViewControl != "")
+{
     Hotkey, %Key_MainSkill%, Key_MainSkill
-Hotkey, %Key_SecondSkill%, Key_SecondSkill
-Hotkey, %Key_DollSkill%, Key_DollSkill
-Hotkey, %Key_Dodging1%, Key_Dodging1
-Hotkey, %Key_Dodging2%, Key_Dodging2
-Hotkey, %Key_NormalAttack%, Key_NormalAttack
-;Hotkey, %Key_LeftClick%, Key_LeftClick
-If (Key_ViewControl != "")
+    Hotkey, %Key_SecondSkill%, Key_SecondSkill
+    Hotkey, %Key_DollSkill%, Key_DollSkill
+    Hotkey, %Key_Dodging1%, Key_Dodging1
+    Hotkey, %Key_Dodging2%, Key_Dodging2
+    Hotkey, %Key_NormalAttack%, Key_NormalAttack
+    ;Hotkey, %Key_LeftClick%, Key_LeftClick
     Hotkey, %Key_ViewControl%, Key_ViewControl
-Hotkey, %Key_Suspend%, Key_Suspend
-Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
+    Hotkey, %Key_Suspend%, Key_Suspend
+    Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
+}
 
 If (RunAsAdmin)
 {
@@ -245,10 +268,12 @@ SetTimer, AutoFadeMsgbox, Off
 Suspend, Off
 Return
 
+
 ;【标签 Label】让对话框自动消失
 AutoFadeMsgbox:
 DLLCall("AnimateWindow", UInt, WinExist("提示 ahk_class #32770"), Int, 500, UInt, 0x90000)
 Return
+
 
 ;【标签 Label】“退出”按钮的执行语句
 StartButton退出:
@@ -266,7 +291,34 @@ Else
 }
 Return
 
+
+;【标签 Label】
+Config:
+Run, open "INI_DIR"
+Return
+
+
+;【标签 Label】
+Nothing:
+Return
+
+
+;【标签 Label】
+Menu_Reload:
+Reload
+Return
+
+
+;【标签 Label】
+Menu_Exit:
+SplitPath, A_AhkPath, AHK_name
+exe := A_IsCompiled ? A_ScriptName : AHK_name
+Run, %ComSpec% /c taskkill /f /IM %exe%, , Hide
+Return
+
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【命令 Directive】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
@@ -303,7 +355,9 @@ Global Status_ElysiumIcon := 0
 ;【常量 Const】对管理手动暂停功能的全局常量进行赋值
 Global Toggle_ManualSuspend := 0
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【函数 Function】隐藏光标
 Occlusion(Status_Occlusion)
@@ -326,6 +380,7 @@ Occlusion(Status_Occlusion)
     }
 }
 
+
 ;【函数 Function】重置光标
 CoordReset()
 {
@@ -336,6 +391,7 @@ CoordReset()
         MouseMove, Client_Width/2, Client_Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
     }
 }
+
 
 ;【函数 Function】限制光标
 Restriction()
@@ -358,6 +414,7 @@ Restriction()
         }
     }
 }
+
 
 ;【函数 Function】视角跟随
 ViewControl()
@@ -385,6 +442,7 @@ ViewControl()
         }
     }
 }
+
 
 ;【函数 Function】临时视角跟随
 ViewControlTemp()
@@ -461,6 +519,7 @@ ViewControlTemp()
         }
     }
 }
+
 
 ;【函数 Function】准星控制
 AimControl()
@@ -632,10 +691,11 @@ AimControl()
     }
 }
 
+
 ;【函数 Function】输入重置
 InputReset()
 {
-    If GetKeyState(MButton)
+    If GetKeyState("MButton")
     {
         If (Status_ViewControl)
         {
@@ -647,7 +707,9 @@ InputReset()
     SetTimer, AimControl, Delete
 }
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【函数 Function】自动识别
 AutoScale()
@@ -889,12 +951,16 @@ AutoScale()
     Return
 }
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【命令 Directive】不对以下键盘热键使用钩子（也不要对鼠标热键使用InstallMouseHook）
 #UseHook, Off
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【热键 Hotkey】点击自定义键以激活视角跟随
 Key_ViewControl:
@@ -920,6 +986,7 @@ If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止被部分函数 F
 }
 Return
 
+
 ;【热键 Hotkey】点按自定义键以发动普攻
 Key_NormalAttack:
 If GetKeyState(Key_NormalAttack, "P") ; 通过行为检测防止被ViewControlTemp函数唤醒
@@ -939,6 +1006,7 @@ If GetKeyState(Key_NormalAttack, "P") ; 通过行为检测防止被ViewControlTe
     SendInput, {j Up}
 }
 Return
+
 
 ;【热键 Hotkey】按下自定义键以发动必杀技
 Key_MainSkill:
@@ -960,6 +1028,7 @@ If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止被ViewControlTemp�
 }
 Return
 
+
 ;【热键 Hotkey】按下自定义键以发动武器技/后崩坏书必杀技，长按自定义键进入瞄准模式时可用鼠标键操控准心
 Key_SecondSkill:
 If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止被ViewControlTemp函数唤醒
@@ -973,12 +1042,14 @@ If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止被ViewControlTem
 }
 Return
 
+
 ;【热键 Hotkey】按下自定义键以发动人偶技
 Key_DollSkill:
 SendInput, {l Down}
 KeyWait, %Key_DollSkill%
 SendInput, {l Up}
 Return
+
 
 ;【热键 Hotkey】按下自定义键1以发动闪避/冲刺
 Key_Dodging1:
@@ -987,12 +1058,14 @@ KeyWait, %Key_Dodging1%
 SendInput, {k Up}
 Return
 
+
 ;【热键 Hotkey】按下自定义键2以发动闪避/冲刺
 Key_Dodging2:
 SendInput, {k Down}
 KeyWait, %Key_Dodging1%
 SendInput, {k Up}
 Return
+
 
 ;【热键 Hotkey】按住键盘左侧ALT以正常使用鼠标左键
 LAlt:: ; *!LButton::LButton
@@ -1014,7 +1087,9 @@ If (!Status_Occlusion)
     Occlusion(Status_Occlusion := !Status_Occlusion)
 Return
 
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 ;【热键 Hotkey】按下自定义键以暂停/启用程序
 Key_Suspend:
@@ -1064,6 +1139,7 @@ Else
 }
 Return
 
+
 ;【热键 Hotkey】按下自定义键以重启程序呼出操作说明界面
 Key_SurfaceCheck:
 If (!A_IsSuspended and !Toggle_ManualSuspend)
@@ -1092,6 +1168,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
 }
 Reload
 Return
+
 
 ;【热键 Hotkey】对Win+Tab快捷键的支持命令
 #Tab::
@@ -1124,6 +1201,7 @@ If (!A_IsSuspended and !Toggle_ManualSuspend)
 WinSet, AlwaysOnTop, Off, A
 SendInput, #{Tab}
 Return
+
 
 ;【函数 Function】对Alt+Tab快捷键的支持命令
 LAltTab()
@@ -1161,6 +1239,7 @@ LAltTab()
     }
     Return
 }
+
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;目前就这些，可根据需要自行修改
