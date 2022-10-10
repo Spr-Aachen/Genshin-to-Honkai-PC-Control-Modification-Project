@@ -111,14 +111,14 @@ Gui, Start: Add, Hotkey, Xp Yp W36 vKey_Dodging1,           %Key_Dodging1%
 Gui, Start: Add, Text, Xp+39 Yp, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W36 vKey_Dodging2,  %Key_Dodging2%||%Key_NormalAttack%|%Key_ViewControl%
 Gui, Start: Add, Text, Xp-51 Yp+33, :                       普攻
-Gui, Start: Add, DropDownList, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%||%Key_Dodging2%|%Key_ViewControl%
+Gui, Start: Add, DropDownList, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%||%Key_ViewControl%|%Key_Dodging2%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 Gui, Start: Add, GroupBox, W333 H168, 其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15,    左Alt+左键:             正常点击
 ;Gui, Start: Add, Hotkey, Xp Yp W87 vKey_LeftClick,         %Key_LeftClick%
 Gui, Start: Add, Text, Xp Yp+33,    :                       管理视角跟随
-Gui, Start: Add, DropDownList, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%||%Key_Dodging2%|%Key_NormalAttack%
+Gui, Start: Add, DropDownList, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%||%Key_NormalAttack%|%Key_Dodging2%
 Gui, Start: Add, Text, Xp Yp+33,    :                       暂停/启用
 Gui, Start: Add, Hotkey, Xp Yp W87 vKey_Suspend,            %Key_Suspend%
 Gui, Start: Add, Text, Xp Yp+33,    :                       调出界面
