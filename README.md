@@ -91,7 +91,7 @@
 <br>Usage: Press down (Long press) F3 key[Adjustable]
 
 若要更改默认键位，点击框并按下想要的按键即可（按Del键或Backspace键可清空框）
-To adjust the default key map, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
+<br>To adjust the default key map, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
 
 **附加设定<br>Addition**
 
