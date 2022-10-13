@@ -45,16 +45,23 @@ INI_DIR = C:\BH3_Hotkey.ini
 ;【配置 INI】创建配置
 IfNotExist, %INI_DIR%
 {
-    IniRead, Key_MainSkill, %INI_DIR%, Key Maps, 必杀技, Q
-    IniRead, Key_SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技, E
-    IniRead, Key_DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环, Z
+    IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1, Q
+    IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2, %A_Space%
+    IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1, E
+    IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2, %A_Space%
+    IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1, Z
+    IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2, %A_Space%
     IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
     IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
-    IniRead, Key_NormalAttack, %INI_DIR%, Key Maps, 普攻, LButton
+    IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1, %A_Space%
+    IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2, LButton
     ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
-    IniRead, Key_ViewControl, %INI_DIR%, Key Maps, 管理视角跟随, MButton
-    IniRead, Key_Suspend, %INI_DIR%, Key Maps, 暂停/启用, F1
-    IniRead, Key_SurfaceCheck, %INI_DIR%, Key Maps, 调出界面, F3
+    IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1, %A_Space%
+    IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2, MButton
+    IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1, F1
+    IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2, %A_Space%
+    IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1, F3
+    IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2, %A_Space%
 
     IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
@@ -63,16 +70,23 @@ IfNotExist, %INI_DIR%
 }
 Else
 {
-    IniRead, Key_MainSkill, %INI_DIR%, Key Maps, 必杀技
-    IniRead, Key_SecondSkill, %INI_DIR%, Key Maps, 武器技/后崩技
-    IniRead, Key_DollSkill, %INI_DIR%, Key Maps, 人偶技/月之环
+    IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1
+    IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2
+    IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1
+    IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2
+    IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1
+    IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2
     IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1
     IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2
-    IniRead, Key_NormalAttack, %INI_DIR%, Key Maps, 普攻
+    IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1
+    IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2
     ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-    IniRead, Key_ViewControl, %INI_DIR%, Key Maps, 管理视角跟随
-    IniRead, Key_Suspend, %INI_DIR%, Key Maps, 暂停/启用
-    IniRead, Key_SurfaceCheck, %INI_DIR%, Key Maps, 调出界面
+    IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1
+    IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2
+    IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1
+    IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2
+    IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1
+    IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2
 
     IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
@@ -100,29 +114,43 @@ Gui, Start: Tab, 键位
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15,    :                       必杀技
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_MainSkill,          %Key_MainSkill%
-Gui, Start: Add, Text, Xp Yp+33,    :                       武器技/后崩技
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SecondSkill,        %Key_SecondSkill%
-Gui, Start: Add, Text, Xp Yp+33,    :                       人偶技/月之环
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_DollSkill,          %Key_DollSkill%
-Gui, Start: Add, Text, Xp Yp+33,    :                       闪避
-Gui, Start: Add, Hotkey, Xp Yp W36 vKey_Dodging1,           %Key_Dodging1%
-Gui, Start: Add, Text, Xp+39 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W36 vKey_Dodging2,  %Key_Dodging2%||%Key_NormalAttack%|%Key_ViewControl%
-Gui, Start: Add, Text, Xp-51 Yp+33, :                       普攻
-Gui, Start: Add, DropDownList, Xp Yp W87 vKey_NormalAttack, %Key_NormalAttack%||%Key_ViewControl%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp Yp+15,        :                       必杀技
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_MainSkill1,             %Key_MainSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_MainSkill2,    %Key_MainSkill2%||%Key_Dodging2%|%Key_NormalAttack2%|%Key_ViewControl2%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       武器技/后崩技
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_SecondSkill1,           %Key_SecondSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_SecondSkill2,  %Key_SecondSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       人偶技/月之环
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_DollSkill1,             %Key_DollSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_DollSkill2,    %Key_DollSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       闪避
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Dodging1,               %Key_Dodging1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Dodging2,      %Key_Dodging2%||%Key_NormalAttack2%|%Key_ViewControl2%|%A_Space%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       普攻
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_NormalAttack1,          %Key_NormalAttack1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_NormalAttack2, %Key_NormalAttack2%||%Key_ViewControl2%|%Key_Dodging2%|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 Gui, Start: Add, GroupBox, W333 H168, 其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15,    左Alt+左键:             正常点击
-;Gui, Start: Add, Hotkey, Xp Yp W87 vKey_LeftClick,         %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33,    :                       管理视角跟随
-Gui, Start: Add, DropDownList, Xp Yp W87 vKey_ViewControl,  %Key_ViewControl%||%Key_NormalAttack%|%Key_Dodging2%
-Gui, Start: Add, Text, Xp Yp+33,    :                       暂停/启用
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_Suspend,            %Key_Suspend%
-Gui, Start: Add, Text, Xp Yp+33,    :                       调出界面
-Gui, Start: Add, Hotkey, Xp Yp W87 vKey_SurfaceCheck,       %Key_SurfaceCheck%
+Gui, Start: Add, Text, Xp Yp+15,        左Alt      +      左键: 正常点击
+;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,             %Key_LeftClick%
+Gui, Start: Add, Text, Xp Yp+33,        :                       管理视角跟随
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_ViewControl1,           %Key_ViewControl1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_ViewControl2,  %Key_ViewControl2%||%Key_NormalAttack2%|%Key_Dodging2%|%A_Space%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       暂停/启用
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Suspend1,               %Key_Suspend1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Suspend2,      %Key_Suspend2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33,     :                       调出界面
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_SurfaceCheck1,          %Key_SurfaceCheck1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_SurfaceCheck2, %Key_SurfaceCheck2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
 Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
 
 Gui, Start: Tab, 功能
@@ -176,16 +204,23 @@ StartButton开启:
 Gui, Submit
 
 ;【配置 INI】写入配置
-IniWrite, %Key_MainSkill%, %INI_DIR%, Key Maps, 必杀技
-IniWrite, %Key_SecondSkill%, %INI_DIR%, Key Maps, 武器技/后崩技
-IniWrite, %Key_DollSkill%, %INI_DIR%, Key Maps, 人偶技/月之环
+IniWrite, %Key_MainSkill1%, %INI_DIR%, Key Maps, 必杀技1
+IniWrite, %Key_MainSkill2%, %INI_DIR%, Key Maps, 必杀技2
+IniWrite, %Key_SecondSkill1%, %INI_DIR%, Key Maps, 武器技/后崩技1
+IniWrite, %Key_SecondSkill2%, %INI_DIR%, Key Maps, 武器技/后崩技2
+IniWrite, %Key_DollSkill1%, %INI_DIR%, Key Maps, 人偶技/月之环1
+IniWrite, %Key_DollSkill2%, %INI_DIR%, Key Maps, 人偶技/月之环2
 IniWrite, %Key_Dodging1%, %INI_DIR%, Key Maps, 闪避1
 IniWrite, %Key_Dodging2%, %INI_DIR%, Key Maps, 闪避2
-IniWrite, %Key_NormalAttack%, %INI_DIR%, Key Maps, 普攻
-;IniWrite, %Key_LeftClick%, %INI_DIR%, Key Maps, 正常点击
-IniWrite, %Key_ViewControl%, %INI_DIR%, Key Maps, 管理视角跟随
-IniWrite, %Key_Suspend%, %INI_DIR%, Key Maps, 暂停/启用
-IniWrite, %Key_SurfaceCheck%, %INI_DIR%, Key Maps, 调出界面
+IniWrite, %Key_NormalAttack1%, %INI_DIR%, Key Maps, 普攻1
+IniWrite, %Key_NormalAttack2%, %INI_DIR%, Key Maps, 普攻2
+;IniWrite, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
+IniWrite, %Key_ViewControl1%, %INI_DIR%, Key Maps, 管理视角跟随1
+IniWrite, %Key_ViewControl2%, %INI_DIR%, Key Maps, 管理视角跟随2
+IniWrite, %Key_Suspend1%, %INI_DIR%, Key Maps, 暂停/启用1
+IniWrite, %Key_Suspend2%, %INI_DIR%, Key Maps, 暂停/启用2
+IniWrite, %Key_SurfaceCheck1%, %INI_DIR%, Key Maps, 调出界面1
+IniWrite, %Key_SurfaceCheck2%, %INI_DIR%, Key Maps, 调出界面2
 
 IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, 管理员权限
 IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, 全自动识别
@@ -195,18 +230,49 @@ IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
 Gui, Start: Destroy
 
 ;【热键 Hotkey】重定义热键到标签
-If (Key_MainSkill != "" && Key_ViewControl != "")
+Loop, 2
 {
-    Hotkey, %Key_MainSkill%, Key_MainSkill
-    Hotkey, %Key_SecondSkill%, Key_SecondSkill
-    Hotkey, %Key_DollSkill%, Key_DollSkill
-    Hotkey, %Key_Dodging1%, Key_Dodging1
-    Hotkey, %Key_Dodging2%, Key_Dodging2
-    Hotkey, %Key_NormalAttack%, Key_NormalAttack
+    If (Key_MainSkill%A_Index% != "")
+    {
+        Key_MainSkill = % Key_MainSkill%A_Index%
+        Hotkey, %Key_MainSkill%, Key_MainSkill
+    }
+    If (Key_SecondSkill%A_Index% != "")
+    {
+        Key_SecondSkill = % Key_SecondSkill%A_Index%
+        Hotkey, %Key_SecondSkill%, Key_SecondSkill
+    }
+    If (Key_DollSkill%A_Index% != "")
+    {
+        Key_DollSkill = % Key_DollSkill%A_Index%
+        Hotkey, %Key_DollSkill%, Key_DollSkill
+    }
+    If (Key_Dodging%A_Index% != "")
+    {
+        Key_Dodging = % Key_Dodging%A_Index%
+        Hotkey, %Key_Dodging%, Key_Dodging
+    }
+    If (Key_NormalAttack%A_Index% != "")
+    {
+        Key_NormalAttack = % Key_NormalAttack%A_Index%
+        Hotkey, %Key_NormalAttack%, Key_NormalAttack
+    }
     ;Hotkey, %Key_LeftClick%, Key_LeftClick
-    Hotkey, %Key_ViewControl%, Key_ViewControl
-    Hotkey, %Key_Suspend%, Key_Suspend
-    Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
+    If (Key_ViewControl%A_Index% != "")
+    {
+        Key_ViewControl = % Key_ViewControl%A_Index%
+        Hotkey, %Key_ViewControl%, Key_ViewControl
+    }
+    If (Key_Suspend%A_Index% != "")
+    {
+        Key_Suspend = % Key_Suspend%A_Index%
+        Hotkey, %Key_Suspend%, Key_Suspend
+    }
+    If (Key_SurfaceCheck%A_Index% != "")
+    {
+        Key_SurfaceCheck = % Key_SurfaceCheck%A_Index%
+        Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
+    }
 }
 
 If (RunAsAdmin)
@@ -1051,16 +1117,8 @@ SendInput, {l Up}
 Return
 
 
-;【热键 Hotkey】按下自定义键1以发动闪避/冲刺
-Key_Dodging1:
-SendInput, {k Down}
-KeyWait, %Key_Dodging1%
-SendInput, {k Up}
-Return
-
-
-;【热键 Hotkey】按下自定义键2以发动闪避/冲刺
-Key_Dodging2:
+;【热键 Hotkey】按下自定义键以发动闪避/冲刺
+Key_Dodging:
 SendInput, {k Down}
 KeyWait, %Key_Dodging1%
 SendInput, {k Up}
