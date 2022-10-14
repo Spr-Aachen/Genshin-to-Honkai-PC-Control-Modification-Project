@@ -1,5 +1,9 @@
 ## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
+[![Releases](https://img.shields.io/github/v/release/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project?color=green&label=Release&logo=Github&logoColor=white&style=flat-square)](https://github.com/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases)
+
+[![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://space.bilibili.com/359461611)
+
 本项目以AHK为基础进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
 
@@ -152,4 +156,7 @@
 
 [![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
 
-- [点击前往作者B站主页](https://space.bilibili.com/359461611)
+
+## 【联系方式 Contact Details】
+
+[![QQ](https://img.shields.io/badge/QQ-2835946988-brightgreen?style=flat-square&logo=tencent-qq&logoColor=white)]()
