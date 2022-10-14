@@ -1,5 +1,5 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-;Version 0.3.6
+;Version 0.3.7
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -172,7 +172,7 @@ Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H78, 日志 Logs
 Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15, 版本:
-Gui, Start: Add, DDL, Xp+192 Yp W87 gSelectVersion vVersion, v0.3.0|v0.2.+|v0.1.+
+Gui, Start: Add, DDL, Xp+192 Yp W87 gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
 
 Gui, Start: Tab
 Gui, Start: Add, Button, Default W366, 开启
