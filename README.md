@@ -1,8 +1,12 @@
+<div align="center">
+
 ## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
 [![Releases](https://img.shields.io/github/v/release/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project?color=green&label=Release&logo=Github&logoColor=white&style=flat-square)](https://github.com/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases)
 
 [![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://space.bilibili.com/359461611)
+
+</div>
 
 本项目以AHK为基础进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
@@ -42,10 +46,10 @@
 
 ## 【设定 Configurations】
 
-**默认键位设定 - 战斗<br>Default Key Map Configurations- Combat**
+**默认键位设定 - 战斗<br>Default Keymap Configurations- Combat**
 
 键位会在战斗状态下生效。且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
-<br>Key maps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
+<br>Keymaps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
 ***Q键发动主技能（大招） Q key for main skill***
 <br>使用方法：点按或长按Q[可改]
@@ -69,7 +73,7 @@
 <br>使用方法：点击或长按鼠标左键[可改]
 <br>Usage: Press (Click) or long press LButton[Adjustable]
 
-**默认键位设定 - 控制<br>Default Key Map Configurations- Control**
+**默认键位设定 - 控制<br>Default Keymap Configurations- Control**
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
 <br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
@@ -95,7 +99,7 @@
 <br>Usage: Press down (Long press) F3 key[Adjustable]
 
 若要更改默认键位，点击框并按下想要的按键即可（按Del键或Backspace键可清空框）
-<br>To adjust the default key map, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
+<br>To adjust the default Keymap, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
 
 **附加设定<br>Addition**
 
@@ -117,7 +121,7 @@
 <br>   New scene supported: Elysium Lobby (Under the premise of toggling the "Automatic Identification")
 
 4. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
-<br>   ~~The simplified version removed all the combat key maps except LButton (which is for normal attack).~~
+<br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
 5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开配置文件
 <br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed.
