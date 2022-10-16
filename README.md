@@ -3,7 +3,7 @@
 ## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
 [![Releases](https://img.shields.io/github/v/release/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project?color=green&label=Release&logo=Github&logoColor=white&style=flat-square)](https://github.com/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases)
-[![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://space.bilibili.com/359461611)
+[![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://www.bilibili.com/video/BV1DY4y1T7aS)
 
 </div>
 
