@@ -360,7 +360,7 @@ Return
 
 ;【标签 Label】
 Config:
-Run, open "INI_DIR"
+Run, open %INI_DIR%
 Return
 
 
@@ -1018,6 +1018,58 @@ AutoScale()
 }
 
 
+; 【函数 Function】线程控制
+ThreadControl()
+{
+    If (!Toggle_ManualSuspend)
+    {
+        Toggle_ManualSuspend := !Toggle_ManualSuspend
+        Suspend, On
+        If (Toggle_AutoScale)
+        {
+            If (Status_CombatIcon)
+            {
+                If (Status_Occlusion)
+                    Occlusion(Status_Occlusion := !Status_Occlusion)
+                SendEvent, {Esc}
+            }
+            SetTimer, AutoScale, Delete
+            Toggle_AutoScale := !Toggle_AutoScale
+        }
+        If (Toggle_MouseFunction)
+        {
+            SetTimer, ViewControl, Delete
+            If GetKeyState(Key_SecondSkill, "P")
+                BreakFlag_Aim := !BreakFlag_Aim
+            InputReset()
+            Toggle_MouseFunction := !Toggle_MouseFunction
+        }
+        ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
+    }
+    Else ; If GetKeyState(Key_Suspend, "P")
+    {
+        If (!Toggle_AutoScale)
+        {
+            Toggle_AutoScale := !Toggle_AutoScale
+            SetTimer, AutoScale, On
+            If (Status_CombatIcon)
+            {
+                If (!Toggle_MouseFunction)
+                {
+                    Toggle_MouseFunction := !Toggle_MouseFunction
+                    SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+                }
+            }
+        }
+        Suspend, Off
+        Toggle_ManualSuspend := !Toggle_ManualSuspend
+        ToolTip, 已启用, 0, 999 ; [可调校数值 adjustable parameters]
+        Sleep 210 ; [可调校数值 adjustable parameters]
+        ToolTip
+    }
+}
+
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1126,8 +1178,7 @@ Return
 
 
 ;【热键 Hotkey】按住键盘左侧ALT以正常使用鼠标左键
-LAlt:: ; *!LButton::LButton
-SetTimer, LAltTab, 0
+~LAlt:: ; ~*!LButton::LButton
 Hotkey, %Key_NormalAttack%, Off
 If (Toggle_MouseFunction)
 {
@@ -1137,7 +1188,6 @@ If (Toggle_MouseFunction)
 If (Status_Occlusion)
     Occlusion(Status_Occlusion := !Status_Occlusion)
 KeyWait, LAlt
-SetTimer, LAltTab, Off
 Hotkey, %Key_NormalAttack%, On
 If (Toggle_MouseFunction)
     SetTimer, ViewControl, On
@@ -1151,152 +1201,33 @@ Return
 
 ;【热键 Hotkey】按下自定义键以暂停/启用程序
 Key_Suspend:
-Suspend, Toggle
-Toggle_ManualSuspend := !Toggle_ManualSuspend
-If (Toggle_ManualSuspend)
-{
-    If (Toggle_AutoScale)
-    {
-        If (Status_CombatIcon)
-        {
-            If (Status_Occlusion)
-                Occlusion(Status_Occlusion := !Status_Occlusion)
-            SendEvent, {Esc}
-        }
-        SetTimer, AutoScale, Delete
-        Toggle_AutoScale := !Toggle_AutoScale
-    }
-    If (Toggle_MouseFunction)
-    {
-        SetTimer, ViewControl, Delete
-        If GetKeyState(Key_SecondSkill, "P")
-            BreakFlag_Aim := !BreakFlag_Aim
-        InputReset()
-        Toggle_MouseFunction := !Toggle_MouseFunction
-    }
-    ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
-}
-Else
-{
-    If (!Toggle_AutoScale)
-    {
-        Toggle_AutoScale := !Toggle_AutoScale
-        SetTimer, AutoScale, On
-        If (Status_CombatIcon)
-        {
-            If (!Toggle_MouseFunction)
-            {
-                Toggle_MouseFunction := !Toggle_MouseFunction
-                SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
-            }
-        }
-    }
-    ToolTip, 已启用, 0, 999 ; [可调校数值 adjustable parameters]
-    Sleep 210 ; [可调校数值 adjustable parameters]
-    ToolTip
-}
+Suspend, Permit
+ThreadControl()
 Return
 
 
 ;【热键 Hotkey】按下自定义键以重启程序呼出操作说明界面
 Key_SurfaceCheck:
-If (!A_IsSuspended and !Toggle_ManualSuspend)
-{
-    Toggle_ManualSuspend := !Toggle_ManualSuspend
-    Suspend, On
-    If (Toggle_AutoScale)
-    {
-        If (Status_CombatIcon)
-        {
-            If (Status_Occlusion)
-                Occlusion(Status_Occlusion := !Status_Occlusion)
-            SendEvent, {Esc}
-        }
-        SetTimer, AutoScale, Delete
-        Toggle_AutoScale := !Toggle_AutoScale
-    }
-    If (Toggle_MouseFunction)
-    {
-        SetTimer, ViewControl, Delete
-        If GetKeyState(Key_SecondSkill, "P")
-            BreakFlag_Aim := !BreakFlag_Aim
-        InputReset()
-        Toggle_MouseFunction := !Toggle_MouseFunction
-    }
-}
+Suspend, Permit
+ThreadControl()
 Reload
 Return
 
 
 ;【热键 Hotkey】对Win+Tab快捷键的支持命令
 #Tab::
-If (!A_IsSuspended and !Toggle_ManualSuspend)
-{
-    Toggle_ManualSuspend := !Toggle_ManualSuspend
-    Suspend, On
-    If (Toggle_AutoScale)
-    {
-        If (Status_CombatIcon)
-        {
-            If (Status_Occlusion)
-                Occlusion(Status_Occlusion := !Status_Occlusion)
-            SendEvent, {Esc}
-        }
-        SetTimer, AutoScale, Delete
-        Toggle_AutoScale := !Toggle_AutoScale
-    }
-    If (Toggle_MouseFunction)
-    {
-        SetTimer, ViewControl, Delete
-        If GetKeyState(Key_SecondSkill, "P")
-            BreakFlag_Aim := !BreakFlag_Aim
-        InputReset()
-        Toggle_MouseFunction := !Toggle_MouseFunction
-    }
-    ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
-    Sleep 99 ; [可调校数值 adjustable parameters]
-}
+ThreadControl()
 WinSet, AlwaysOnTop, Off, A
 SendInput, #{Tab}
 Return
 
 
-;【函数 Function】对Alt+Tab快捷键的支持命令
-LAltTab()
-{
-    If GetKeyState("Tab", "P")
-    {
-        If (!A_IsSuspended and !Toggle_ManualSuspend)
-        {
-            Toggle_ManualSuspend := !Toggle_ManualSuspend
-            Suspend, On
-            If (Toggle_AutoScale)
-            {
-                If (Status_CombatIcon)
-                {
-                    If (Status_Occlusion)
-                        Occlusion(Status_Occlusion := !Status_Occlusion)
-                    SendEvent, {Esc}
-                }
-                SetTimer, AutoScale, Delete
-                Toggle_AutoScale := !Toggle_AutoScale
-            }
-            If (Toggle_MouseFunction)
-            {
-                SetTimer, ViewControl, Delete
-                If GetKeyState(Key_SecondSkill, "P")
-                    BreakFlag_Aim := !BreakFlag_Aim
-                InputReset()
-                Toggle_MouseFunction := !Toggle_MouseFunction
-            }
-            ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
-            Sleep 99 ; [可调校数值 adjustable parameters]
-        }
-        WinSet, AlwaysOnTop, Off, A
-        SendInput, !{Tab}
-    }
-    Return
-}
+;【热键 Hotkey】对Alt+Tab快捷键的支持命令
+!Tab::
+ThreadControl()
+WinSet, AlwaysOnTop, Off, A
+SendInput, !{Tab}
+Return
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
