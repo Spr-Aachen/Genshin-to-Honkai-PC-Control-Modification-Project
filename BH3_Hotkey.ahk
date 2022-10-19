@@ -99,6 +99,7 @@ Else
 Menu, Tray, NoStandard ; 删除原有托盘菜单
 
 Menu, Else, Add, 配置文件, Config
+;Menu, Else, Add, 配置日志, Debug
 Menu, Else, Add, 敬请期待, Nothing
 
 Menu, Tray, Add, 其它, :Else
@@ -106,73 +107,76 @@ Menu, Tray, Add, 重启, Menu_Reload
 Menu, Tray, Add, 退出, Menu_Exit
 
 ;【界面 GUI】说明界面
-Gui, Start: + Theme
+;Gui, Start: Color, FFFFFF
+Gui, Start: +LastFound
+WinSet, TransColor, FEFFFF 222 ; WinSet, Transparent, 222
 Gui, Start: Font, s12, 新宋体
-Gui, Start: Add, Tab3,, 键位|功能|更新
+Gui, Start: Add, Tab3, , 键位|功能|更新
 
 Gui, Start: Tab, 键位
-Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
-Gui, Start: Add, GroupBox, W333 H201, 战斗 Combat
-Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15,        :                       必杀技
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_MainSkill1,             %Key_MainSkill1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_MainSkill2,    %Key_MainSkill2%||%Key_Dodging2%|%Key_NormalAttack2%|%Key_ViewControl2%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       武器技/后崩技
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_SecondSkill1,           %Key_SecondSkill1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_SecondSkill2,  %Key_SecondSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       人偶技/月之环
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_DollSkill1,             %Key_DollSkill1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_DollSkill2,    %Key_DollSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       闪避
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Dodging1,               %Key_Dodging1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Dodging2,      %Key_Dodging2%||%Key_NormalAttack2%|%Key_ViewControl2%|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       普攻
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_NormalAttack1,          %Key_NormalAttack1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_NormalAttack2, %Key_NormalAttack2%||%Key_ViewControl2%|%Key_Dodging2%|%A_Space%
-Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
-Gui, Start: Add, GroupBox, W333 H168, 其它 Others
-Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15,        左Alt      +      左键: 正常点击
+;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:\Users\Spr_Aachen\Desktop\p1.jpg
+Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H201 +BackgroundTrans, 战斗 Combat
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        :                       必杀技
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,             %Key_MainSkill1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2,    %Key_MainSkill2%||%Key_Dodging2%|%Key_NormalAttack2%|%Key_ViewControl2%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       武器技/后崩技
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,           %Key_SecondSkill1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2,  %Key_SecondSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       人偶技/月之环
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,             %Key_DollSkill1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2,    %Key_DollSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       闪避
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,               %Key_Dodging1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2,      %Key_Dodging2%||%Key_NormalAttack2%|%Key_ViewControl2%|%A_Space%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       普攻
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,          %Key_NormalAttack1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2, %Key_NormalAttack2%||%Key_ViewControl2%|%Key_Dodging2%|%A_Space%
+Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H168 +BackgroundTrans, 其它 Others
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        左Alt      +      左键: 正常点击
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,             %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33,        :                       管理视角跟随
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_ViewControl1,           %Key_ViewControl1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_ViewControl2,  %Key_ViewControl2%||%Key_NormalAttack2%|%Key_Dodging2%|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       暂停/启用
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Suspend1,               %Key_Suspend1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Suspend2,      %Key_Suspend2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
-Gui, Start: Add, Text, Xp-99 Yp+33,     :                       调出界面
-Gui, Start: Add, Hotkey, Xp Yp W84 vKey_SurfaceCheck1,          %Key_SurfaceCheck1%
-Gui, Start: Add, Text, Xp+87 Yp, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_SurfaceCheck2, %Key_SurfaceCheck2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
-Gui, Start: Add, Text, Xm+18 Yp+36 ; 控距
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,        :                       管理视角跟随
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_ViewControl1,           %Key_ViewControl1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_ViewControl2,  %Key_ViewControl2%||%Key_NormalAttack2%|%Key_Dodging2%|%A_Space%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       暂停/启用
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,               %Key_Suspend1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2,      %Key_Suspend2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       调出界面
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SurfaceCheck1,          %Key_SurfaceCheck1%
+Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2, %Key_SurfaceCheck2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 
 Gui, Start: Tab, 功能
-Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
-Gui, Start: Add, GroupBox, W333 H174, 选项 Options
-Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（实验）
-Gui, Start: Add, CheckBox, Xp Yp+33 vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
+Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H174 +BackgroundTrans, 选项 Options
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（实验）
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 
 Gui, Start: Tab, 更新
-Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
-Gui, Start: Add, GroupBox, W333 H105, 链接 Links
-Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Link, Xp Yp+15, 百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
-Gui, Start: Add, Link, Xp Yp+33, Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
-Gui, Start: Add, GroupBox, W333 H78, 日志 Logs
-Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15, 版本:
-Gui, Start: Add, DDL, Xp+192 Yp W87 gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
+Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H105 +BackgroundTrans, 链接 Links
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans, 百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
+Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans, Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
+Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H78 +BackgroundTrans, 日志 Logs
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans, 版本:
+Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
 
 Gui, Start: Tab
 Gui, Start: Add, Button, Default W366, 开启
@@ -363,6 +367,12 @@ Config:
 Run, open %INI_DIR%
 Return
 
+/*
+【标签 Label】
+Debug:
+OutputDebug, Text
+Return
+*/
 
 ;【标签 Label】
 Nothing:
@@ -405,7 +415,7 @@ Global y1
 Global Toggle_MouseFunction := 0
 
 ;【常量 Const】对管理视角跟随功能的全局常量进行赋值
-Global Status_ViewControl := 0
+Global Status_Key_ViewControl := 0
 
 ;【常量 Const】对管理准星跟随功能的全局常量进行赋值
 Global BreakFlag_Aim := 0
@@ -470,10 +480,10 @@ Restriction()
             WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
             If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
             {
-                If (Status_ViewControl)
+                If (Status_Key_ViewControl)
                 {
                     SendInput, {Click, Up Middle}
-                    Status_ViewControl := !Status_ViewControl
+                    Status_Key_ViewControl := !Status_Key_ViewControl
                 }
                 CoordReset()
             }
@@ -492,18 +502,18 @@ ViewControl()
         MouseGetPos, x2, y2
         If (x1 != x2 or y1 != y2)
         {
-            If (!Status_ViewControl)
+            If (!Status_Key_ViewControl)
             {
-                Status_ViewControl := !Status_ViewControl
+                Status_Key_ViewControl := !Status_Key_ViewControl
                 SendInput, {Click, Down Middle}
             }
         }
         Else
         {
-            If (Status_ViewControl)
+            If (Status_Key_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_ViewControl := !Status_ViewControl
+                Status_Key_ViewControl := !Status_Key_ViewControl
             }
         }
     }
@@ -521,9 +531,9 @@ ViewControlTemp()
         MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
         {
-            If (!Status_ViewControl)
+            If (!Status_Key_ViewControl)
             {
-                Status_ViewControl := !Status_ViewControl
+                Status_Key_ViewControl := !Status_Key_ViewControl
                 SendInput, {Click, Down Middle}
             }
         }
@@ -577,10 +587,10 @@ ViewControlTemp()
         }
         Else
         {
-            If (Status_ViewControl)
+            If (Status_Key_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_ViewControl := !Status_ViewControl
+                Status_Key_ViewControl := !Status_Key_ViewControl
             }
         }
     }
@@ -763,9 +773,9 @@ InputReset()
 {
     If GetKeyState("MButton")
     {
-        If (Status_ViewControl)
+        If (Status_Key_ViewControl)
         {
-            Status_ViewControl := !Status_ViewControl
+            Status_Key_ViewControl := !Status_Key_ViewControl
         }
         SendInput, {Click, Up Middle}
     }
@@ -944,32 +954,30 @@ AutoScale()
         ; ScreenScale
         If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
         {
+            If (!Status_CombatIcon)
+            {
+                Status_CombatIcon := !Status_CombatIcon
+            }
             If (!Toggle_ManualSuspend)
             {
                 If(A_IsSuspended)
                 {
-                    Suspend, Off
+                    If (!Status_Occlusion)
+                        Occlusion(Status_Occlusion := !Status_Occlusion)
                     If (!Toggle_MouseFunction)
                     {
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         CoordReset()
                         SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
                     }
+                    Suspend, Off
                 }
-            }
-            If (!Status_CombatIcon)
-            {
-                Status_CombatIcon := !Status_CombatIcon
-                If (!Status_Occlusion)
-                    Occlusion(Status_Occlusion := !Status_Occlusion)
             }
         }
         Else
         {
             If (Status_CombatIcon)
             {
-                If (Status_Occlusion)
-                    Occlusion(Status_Occlusion := !Status_Occlusion)
                 Status_CombatIcon := !Status_CombatIcon
             }
             If (!A_IsSuspended)
@@ -981,6 +989,8 @@ AutoScale()
                     InputReset()
                     Toggle_MouseFunction := !Toggle_MouseFunction
                 }
+                If (Status_Occlusion)
+                    Occlusion(Status_Occlusion := !Status_Occlusion)
             }
             Else If (!Toggle_ManualSuspend)
             {
@@ -1027,16 +1037,25 @@ ThreadControl()
         Suspend, On
         If (Toggle_AutoScale)
         {
+            SetTimer, AutoScale, Delete
+            If (Toggle_MouseFunction)
+            {
+                SetTimer, ViewControl, Delete
+                If GetKeyState(Key_SecondSkill, "P")
+                    BreakFlag_Aim := !BreakFlag_Aim
+                InputReset()
+                Toggle_MouseFunction := !Toggle_MouseFunction
+            }
+            If (Status_Occlusion)
+                Occlusion(Status_Occlusion := !Status_Occlusion)
             If (Status_CombatIcon)
             {
-                If (Status_Occlusion)
-                    Occlusion(Status_Occlusion := !Status_Occlusion)
                 SendEvent, {Esc}
+                Status_CombatIcon := !Status_CombatIcon
             }
-            SetTimer, AutoScale, Delete
             Toggle_AutoScale := !Toggle_AutoScale
         }
-        If (Toggle_MouseFunction)
+        Else If (Toggle_MouseFunction)
         {
             SetTimer, ViewControl, Delete
             If GetKeyState(Key_SecondSkill, "P")
@@ -1046,7 +1065,7 @@ ThreadControl()
         }
         ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
     }
-    Else ; If GetKeyState(Key_Suspend, "P")
+    Else ;If GetKeyState(Key_Suspend, "P")
     {
         If (!Toggle_AutoScale)
         {
