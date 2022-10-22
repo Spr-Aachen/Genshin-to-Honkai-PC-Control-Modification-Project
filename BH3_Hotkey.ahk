@@ -1,5 +1,6 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
-Version = 0.3.7
+;【常量 Const】版本号
+Version = 0.3.8
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -9,6 +10,45 @@ Version = 0.3.7
 
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
+
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+;【常量 Const】对管理自动控制功能的全局常量进行赋值
+Global Toggle_AutoScale := 0
+Global Timer_AutoScale := 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+
+;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
+Global Toggle_Occlusion := 0
+Global Status_Occlusion
+
+;【常量 Const】对管理限制光标功能的全局常量进行赋值
+Global Toggle_Restriction := 0
+Global x1
+Global y1
+
+;【常量 Const】对管理鼠标控制功能的全局常量进行赋值
+Global Toggle_MouseFunction := 0
+
+;【常量 Const】对管理视角跟随功能的全局常量进行赋值
+Global Status_Key_ViewControl := 0
+Global Timer_ViewControl := 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+
+;【常量 Const】对管理准星跟随功能的全局常量进行赋值
+Global BreakFlag_Aim := 0
+Global Status_w := 0
+Global Status_a := 0
+Global Status_s := 0
+Global Status_d := 0
+Global Timer_AimControl := 20 ; [可调校数值 adjustable parameters] 设定准星跟随命令的每执行间隔时间(ms)
+
+;【常量 Const】对管理图像识别功能的全局常量进行赋值
+Global Status_CombatIcon := 0
+Global Status_ElysiumIcon := 0
+
+;【常量 Const】对管理手动暂停功能的全局常量进行赋值
+Global Toggle_ManualSuspend := 0
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +156,7 @@ Gui, Start: Add, Tab3, , 键位|功能|更新
 Gui, Start: Tab, 键位
 ;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:\Users\Spr_Aachen\Desktop\p1.jpg
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H201 +BackgroundTrans, 战斗 Combat
+Gui, Start: Add, GroupBox, W333 H201,                                            战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        :                       必杀技
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,             %Key_MainSkill1%
@@ -139,7 +179,7 @@ Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,         
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2, %Key_NormalAttack2%||%Key_ViewControl2%|%Key_Dodging2%|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H168 +BackgroundTrans, 其它 Others
+Gui, Start: Add, GroupBox, W333 H168,                                            其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        左Alt      +      左键: 正常点击
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,             %Key_LeftClick%
@@ -159,21 +199,21 @@ Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 
 Gui, Start: Tab, 功能
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H174 +BackgroundTrans, 选项 Options
+Gui, Start: Add, GroupBox, W333 H174,                                                               选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%, 启用管理员权限（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%, 启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%, 启用可隐藏光标（实验）
+Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,               启用管理员权限（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,     启用全自动识别（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,     启用可隐藏光标（实验）
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 
 Gui, Start: Tab, 更新
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H105 +BackgroundTrans, 链接 Links
+Gui, Start: Add, GroupBox, W333 H105,                                            链接 Links
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans, 百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
-Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans, Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
+Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans,        百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
+Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,        Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H78 +BackgroundTrans, 日志 Logs
+Gui, Start: Add, GroupBox, W333 H78,                                             日志 Logs
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans, 版本:
 Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
@@ -299,7 +339,7 @@ If (EnableAutoScale)
     If (!Toggle_AutoScale)
     {
         Toggle_AutoScale := !Toggle_AutoScale
-        SetTimer, AutoScale, 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+        SetTimer, AutoScale, %Timer_AutoScale%
     }
     Else
     {
@@ -334,7 +374,7 @@ If (EnableRestriction)
 
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值 adjustable parameters] 使消息弹窗仅存在一段时间(ms)
 MsgBox, 0, 提示, 程序启动成功(/≧▽≦)/，祝游戏愉快！`n（当前对话框将于3秒后自动消失）
-SetTimer, AutoFadeMsgbox, Off
+SetTimer, AutoFadeMsgbox, Delete
 Suspend, Off
 Return
 
@@ -399,38 +439,6 @@ Return
 ;【命令 Directive】检测崩坏3游戏窗口，使程序仅在崩坏3游戏运行时生效
 #IfWinActive ahk_exe BH3.exe
 
-;【常量 Const】对管理自动控制功能的全局常量进行赋值
-Global Toggle_AutoScale := 0
-
-;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
-Global Toggle_Occlusion := 0
-Global Status_Occlusion
-
-;【常量 Const】对管理限制光标功能的全局常量进行赋值
-Global Toggle_Restriction := 0
-Global x1
-Global y1
-
-;【常量 Const】对管理鼠标控制功能的全局常量进行赋值
-Global Toggle_MouseFunction := 0
-
-;【常量 Const】对管理视角跟随功能的全局常量进行赋值
-Global Status_Key_ViewControl := 0
-
-;【常量 Const】对管理准星跟随功能的全局常量进行赋值
-Global BreakFlag_Aim := 0
-Global Status_w := 0
-Global Status_a := 0
-Global Status_s := 0
-Global Status_d := 0
-
-;【常量 Const】对管理图像识别功能的全局常量进行赋值
-Global Status_CombatIcon := 0
-Global Status_ElysiumIcon := 0
-
-;【常量 Const】对管理手动暂停功能的全局常量进行赋值
-Global Toggle_ManualSuspend := 0
-
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -462,7 +470,7 @@ CoordReset()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        CoordMode, Window
+        CoordMode, Mouse, Client
         WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
         MouseMove, Client_Width/2, Client_Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
     }
@@ -737,7 +745,7 @@ AimControl()
                     Status_d := !Status_d
                 }
             }
-            Sleep, 20 ; [可调校数值 adjustable parameters] 设定准星跟随命令的每执行间隔时间(ms)
+            Sleep, %Timer_AimControl%
             If (BreakFlag_Aim) ; (Abort the function when BreakFlag_Aim == 1)
             {
                 BreakFlag_Aim := !BreakFlag_Aim
@@ -779,8 +787,14 @@ InputReset()
         }
         SendInput, {Click, Up Middle}
     }
-    SetTimer, ViewControlTemp, Delete
-    SetTimer, AimControl, Delete
+    Else
+    {
+        SetTimer, ViewControlTemp, Delete
+    }
+    If Not GetKeyState("E")
+    {
+        SetTimer, AimControl, Delete
+    }
 }
 
 
@@ -968,7 +982,7 @@ AutoScale()
                     {
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         CoordReset()
-                        SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+                        SetTimer, ViewControl, %Timer_ViewControl%
                     }
                     Suspend, Off
                 }
@@ -986,6 +1000,8 @@ AutoScale()
                 If (Toggle_MouseFunction)
                 {
                     SetTimer, ViewControl, Delete
+                    If GetKeyState(Key_SecondSkill, "P")
+                        BreakFlag_Aim := !BreakFlag_Aim
                     InputReset()
                     Toggle_MouseFunction := !Toggle_MouseFunction
                 }
@@ -1002,7 +1018,7 @@ AutoScale()
                         CoordReset()
                         If (Toggle_Restriction)
                             Toggle_Restriction := !Toggle_Restriction
-                        SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+                        SetTimer, ViewControl, %Timer_ViewControl%
                     }
                 }
                 Else
@@ -1028,8 +1044,8 @@ AutoScale()
 }
 
 
-; 【函数 Function】线程控制
-ThreadControl()
+; 【函数 Function】手动暂停
+ManualSuspend()
 {
     If (!Toggle_ManualSuspend)
     {
@@ -1070,15 +1086,15 @@ ThreadControl()
         If (!Toggle_AutoScale)
         {
             Toggle_AutoScale := !Toggle_AutoScale
-            SetTimer, AutoScale, On
-            If (Status_CombatIcon)
+            If (!Status_Occlusion)
+                Occlusion(Status_Occlusion := !Status_Occlusion)
+            If (!Toggle_MouseFunction)
             {
-                If (!Toggle_MouseFunction)
-                {
-                    Toggle_MouseFunction := !Toggle_MouseFunction
-                    SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
-                }
+                Toggle_MouseFunction := !Toggle_MouseFunction
+                CoordReset()
+                SetTimer, ViewControl, %Timer_ViewControl%
             }
+            SetTimer, AutoScale, %Timer_AutoScale%
         }
         Suspend, Off
         Toggle_ManualSuspend := !Toggle_ManualSuspend
@@ -1107,7 +1123,7 @@ If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止被部分函数 F
     If (Toggle_MouseFunction)
     {
         CoordReset()
-        SetTimer, ViewControl, 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+        SetTimer, ViewControl, %Timer_ViewControl%
         ToolTip, 视角跟随已手动激活, 0, 999 ; [可调校数值 adjustable parameters]
         Sleep 999 ; [可调校数值 adjustable parameters]
         ToolTip
@@ -1197,21 +1213,46 @@ Return
 
 
 ;【热键 Hotkey】按住键盘左侧ALT以正常使用鼠标左键
-~LAlt:: ; ~*!LButton::LButton
-Hotkey, %Key_NormalAttack%, Off
-If (Toggle_MouseFunction)
+ ; ~*!LButton::LButton
+~LAlt::
+Hotkey, LButton, Off
+If (Toggle_AutoScale)
+{
+    If (Toggle_MouseFunction)
+    {
+        SetTimer, ViewControl, Delete
+        If GetKeyState(Key_SecondSkill, "P")
+            BreakFlag_Aim := !BreakFlag_Aim
+        InputReset()
+        Toggle_MouseFunction := !Toggle_MouseFunction
+    }
+    If (Status_Occlusion)
+        Occlusion(Status_Occlusion := !Status_Occlusion)
+    KeyWait, LAlt
+    If (Status_CombatIcon)
+    {
+        If (!Status_Occlusion)
+            Occlusion(Status_Occlusion := !Status_Occlusion)
+        If (!Toggle_MouseFunction)
+        {
+            Toggle_MouseFunction := !Toggle_MouseFunction
+            CoordReset()
+            SetTimer, ViewControl, %Timer_ViewControl%
+        }
+    }
+}
+Else If (Toggle_MouseFunction)
 {
     SetTimer, ViewControl, Delete
+    If GetKeyState(Key_SecondSkill, "P")
+        BreakFlag_Aim := !BreakFlag_Aim
     InputReset()
+    KeyWait, LAlt
+    SetTimer, ViewControl, %Timer_ViewControl%
 }
-If (Status_Occlusion)
-    Occlusion(Status_Occlusion := !Status_Occlusion)
-KeyWait, LAlt
-Hotkey, %Key_NormalAttack%, On
-If (Toggle_MouseFunction)
-    SetTimer, ViewControl, On
-If (!Status_Occlusion)
-    Occlusion(Status_Occlusion := !Status_Occlusion)
+Else
+    KeyWait, LAlt
+Hotkey, LButton, On
 Return
 
 
@@ -1221,21 +1262,21 @@ Return
 ;【热键 Hotkey】按下自定义键以暂停/启用程序
 Key_Suspend:
 Suspend, Permit
-ThreadControl()
+ManualSuspend()
 Return
 
 
 ;【热键 Hotkey】按下自定义键以重启程序呼出操作说明界面
 Key_SurfaceCheck:
 Suspend, Permit
-ThreadControl()
+ManualSuspend()
 Reload
 Return
 
 
 ;【热键 Hotkey】对Win+Tab快捷键的支持命令
 #Tab::
-ThreadControl()
+ManualSuspend()
 WinSet, AlwaysOnTop, Off, A
 SendInput, #{Tab}
 Return
@@ -1243,7 +1284,7 @@ Return
 
 ;【热键 Hotkey】对Alt+Tab快捷键的支持命令
 !Tab::
-ThreadControl()
+ManualSuspend()
 WinSet, AlwaysOnTop, Off, A
 SendInput, !{Tab}
 Return
