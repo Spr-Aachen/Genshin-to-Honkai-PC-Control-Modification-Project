@@ -20,7 +20,7 @@
 <br>   Please ensure that the gaming operation settings have been reset to default
 
 3. 请使用全屏模式游玩以确保自动识别的正常运行
-<br>   Please use fullscreen mode in order to run "Automatic Identification" properly
+<br>   Please use fullscreen mode in order for "Automatic Identification" function to run properly
 
 <br>支持与不支持的客户端分辨率如下：（ 	:grey_exclamation: 表示未经测试）
 <br>Supported&unsupported client resolution is shown as follows: ( 	:grey_exclamation: means untested)
