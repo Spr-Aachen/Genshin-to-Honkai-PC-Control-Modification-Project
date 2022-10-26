@@ -139,7 +139,7 @@ Else
 Menu, Tray, NoStandard ; 删除原有托盘菜单
 
 Menu, Else, Add, 配置文件, Config
-;Menu, Else, Add, 配置日志, Debug
+;Menu, Else, Add, 调试日志, Debug
 Menu, Else, Add, 敬请期待, Nothing
 
 Menu, Tray, Add, 其它, :Else
@@ -205,6 +205,8 @@ Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAd
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,     启用全自动识别（推荐）
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,     启用可隐藏光标（实验）
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
+Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H78,                                                                其它 Others
 
 Gui, Start: Tab, 更新
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
