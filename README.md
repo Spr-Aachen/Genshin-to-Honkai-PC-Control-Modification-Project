@@ -7,7 +7,7 @@
 
 </div>
 
-本项目以AHK为基础进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
+本项目以AHK为基础语言进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
 <br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
 
 
@@ -41,6 +41,9 @@
 
 <br>若需要其它分辨率支持可以联系我，亦或者提交issue
 <br>Contact me if any other resolution need to be supported, or submit an issue
+
+<br>如果您的设备分辨率不在以上支持列表内，可以尝试更改系统分辨率并在游戏中选择对应的全屏模式来使自动识别生效
+<br>If your device's screen resolution is not shown in the table above, you can try changing the system resolution and select the corresponding res with fullscreen mode in game settings to make "Automatic Identification" take effect.
 
 
 ## 【设定 Configurations】
@@ -163,3 +166,6 @@
 ## 【联系方式 Contact Details】
 
 [![QQ](https://img.shields.io/badge/QQ-2835946988-brightgreen?style=flat-square&logo=tencent-qq&logoColor=white)]()
+
+<br>有什么好的建议欢迎随时叨扰~
+<br>Please feel free to contact me at any time, any advice would be appreciated:)
