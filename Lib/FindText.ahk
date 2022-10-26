@@ -1,69 +1,84 @@
-﻿;/*
+;/*
 ;===========================================
-;  FindText - 屏幕抓字生成字库工具与找字函数
+;  FindText - Capture screen image into text and then find it
 ;  https://autohotkey.com/boards/viewtopic.php?f=6&t=17834
 ;
-;  脚本作者 : FeiYue
-;  最新版本 : 8.9
-;  更新时间 : 2022-05-28
+;  Author  : FeiYue
+;  Version : 8.9
+;  Date    : 2022-05-28
 ;
-;  用法:  (需要最新版本 AHK v1.1.31+)
-;  1. 将本脚本保存为“FindText.ahk”并复制到AHK程序的Lib子目录中
-;  2. 抓图并生成调用FindText()的代码
-;     2.1 方式一：直接点击“抓图”按钮
-;     2.2 方式二：先设定截屏热键，使用热键截屏，再点击“截屏抓图”按钮
-;  3. 测试一下调用的代码是否成功:直接点击“测试”按钮
-;  4. 复制调用的代码到自己的脚本中
-;     4.1 方式一：直接点击“复制”按钮，然后粘贴到自己的脚本中（不推荐）
-;     4.2 方式二：取消“附加FindText()函数”的选框，然后点击“复制”按钮，
-;         然后粘贴到自己的脚本中，然后在自己的脚本开头加上一行:
-;         #Include <FindText>  ; Lib目录中必须有FindText.ahk
-;  5. 多色查找模式可以一定程度上适应图像的放大缩小，也可以找图
-;  6. 这个库还可以用于快速截屏、获取颜色、写入颜色、编辑后另存图片
-;  7. 如果要调用FindTextClass类中的函数，请用无参数的FindText()获取默认对象
+;  Usage:  (required AHK v1.1.31+)
+;  1. Capture the image to text string.
+;  2. Test find the text string on full Screen.
+;  3. When test is successful, you may copy the code
+;     and paste it into your own script.
+;     Note: Copy the "FindText()" function and the following
+;     functions and paste it into your own script Just once.
+;  4. The more recommended way is to save the script as
+;     "FindText.ahk" and copy it to the "Lib" subdirectory
+;     of AHK program, instead of copying the "FindText()"
+;     function and the following functions, add a line to
+;     the beginning of your script: #Include <FindText>
+;  5. If you want to call a method in the "FindTextClass" class,
+;     use the parameterless FindText() to get the default object
 ;
 ;===========================================
 ;*/
+
+
 if (!A_IsCompiled and A_LineFile=A_ScriptFullPath)
   FindText().Gui("Show")
+
+
 ;===== Copy The Following Functions To Your Own Code Just once =====
+
+
 ;--------------------------------
-;  FindText - 屏幕找字函数
+;  FindText - Capture screen image into text and then find it
 ;--------------------------------
-;  返回变量 := FindText(
-;      OutputX --> 保存返回的X坐标的变量名称
-;    , OutputY --> 保存返回的Y坐标的变量名称
-;    , X1 --> 查找范围的左上角X坐标
-;    , Y1 --> 查找范围的左上角Y坐标
-;    , X2 --> 查找范围的右下角X坐标
-;    , Y2 --> 查找范围的右下角Y坐标
-;    , err1 --> 文字的黑点容错百分率（0.1=10%）
-;    , err0 --> 背景的白点容错百分率（0.1=10%）
-;    , Text --> 由工具生成的查找图像的数据，可以一次查找多个，用“|”分隔
-;    , ScreenShot --> 是否截屏，为0则使用上一次的截屏数据
-;    , FindAll --> 是否搜索所有位置，为0则找到一个位置就返回
-;    , JoinText --> 如果想组合查找，可以为1，或者是要查找单词的数组
-;    , offsetX --> 组合图像的每个字和前一个字的最大横向间隔
-;    , offsetY --> 组合图像的每个字和前一个字的最大高低间隔
-;    , dir --> 查找的方向，有上、下、左、右、中心9种
-;    , zoomW --> 图像宽度的缩放百分率（1.0=100%）
-;    , zoomH --> 图像高度的缩放百分率（1.0=100%）
+;  returnArray := FindText(
+;      OutputX --> The name of the variable used to store the returned X coordinate
+;    , OutputY --> The name of the variable used to store the returned Y coordinate
+;    , X1 --> the search scope's upper left corner X coordinates
+;    , Y1 --> the search scope's upper left corner Y coordinates
+;    , X2 --> the search scope's lower right corner X coordinates
+;    , Y2 --> the search scope's lower right corner Y coordinates
+;    , err1 --> Fault tolerance percentage of text       (0.1=10%)
+;    , err0 --> Fault tolerance percentage of background (0.1=10%)
+;    , Text --> can be a lot of text parsed into images, separated by "|"
+;    , ScreenShot --> if the value is 0, the last screenshot will be used
+;    , FindAll --> if the value is 0, Just find one result and return
+;    , JoinText --> if you want to combine find, it can be 1, or an array of words to find
+;    , offsetX --> Set the max text offset (X) for combination lookup
+;    , offsetY --> Set the max text offset (Y) for combination lookup
+;    , dir --> Nine directions for searching: up, down, left, right and center
+;    , zoomW --> Zoom percentage of image width  (1.0=100%)
+;    , zoomH --> Zoom percentage of image height (1.0=100%)
 ;  )
 ;
-;  返回变量 --> 如果没找到结果会返回0。否则返回一个二级数组，
-;      第一级是每个结果对象，第二级是结果对象的具体信息数组:
-;      { 1:左上角X, 2:左上角Y, 3:图像宽度W, 4:图像高度H
-;        , x:中心点X, y:中心点Y, id:图像识别文本 }
-;  坐标都是相对于屏幕，颜色使用RGB格式
+;  The function returns a second-order array containing
+;  all lookup results, Any result is an associative array
+;  {1:X, 2:Y, 3:W, 4:H, x:X+W//2, y:Y+H//2, id:Comment}
+;  if no image is found, the function returns 0.
+;  All coordinates are relative to Screen, colors are in RGB format
 ;
-;  如果 OutputX 等于 "wait" 或 "wait1" 意味着等待图像出现，
-;  如果 OutputX 等于 "wait0" 意味着等待图像消失
-;  此时 OutputY 设置等待时间的秒数，如果小于0则无限等待
-;  如果超时则返回0，意味着失败，如果等待图像出现成功，则返回位置数组
-;  如果等待图像消失成功，则返回 1
-;  例1: FindText(X:="wait", Y:=3, 0,0,0,0,0,0,Text)   ; 等待3秒等图像出现
-;  例2: FindText(X:="wait0", Y:=-1, 0,0,0,0,0,0,Text) ; 无限等待等图像消失
+;  If the return variable is set to "ok", ok[1] is the first result found.
+;  ok[1][1], ok[1][2] is the X, Y coordinate of the upper left corner of the found image,
+;  ok[1][3] is the width of the found image, and ok[1][4] is the height of the found image,
+;  ok[1].x <==> ok[1][1]+ok[1][3]//2 ( is the Center X coordinate of the found image ),
+;  ok[1].y <==> ok[1][2]+ok[1][4]//2 ( is the Center Y coordinate of the found image ),
+;  ok[1].id is the comment text, which is included in the <> of its parameter.
+;
+;  If OutputX is equal to "wait" or "wait1"(appear), or "wait0"(disappear)
+;  it means using a loop to wait for the image to appear or disappear.
+;  the OutputY is the wait time in seconds, time less than 0 means infinite waiting
+;  Timeout means failure, return 0, and return other values means success
+;  If you want to appear and the image is found, return the found array object
+;  If you want to disappear and the image cannot be found, return 1
+;  Example 1: FindText(X:="wait", Y:=3, 0,0,0,0,0,0,Text)   ; Wait 3 seconds for appear
+;  Example 2: FindText(X:="wait0", Y:=-1, 0,0,0,0,0,0,Text) ; Wait indefinitely for disappear
 ;--------------------------------
+
 FindText(ByRef x:="FindTextClass", ByRef y:="", args*)
 {
   global FindTextClass
@@ -72,18 +87,23 @@ FindText(ByRef x:="FindTextClass", ByRef y:="", args*)
   else
     return FindTextClass.FindText(x, y, args*)
 }
+
 Class FindTextClass
 {  ;// Class Begin
+
 static bind:=[], bits:=[], Lib:=[], Cursor:=0
+
 __New()
 {
   this.bind:=[], this.bits:=[], this.Lib:=[], this.Cursor:=0
 }
+
 __Delete()
 {
   if (this.bits.hBM)
     DllCall("DeleteObject", "Ptr",this.bits.hBM)
 }
+
 FindText(ByRef OutputX:="", ByRef OutputY:=""
   , x1:="", y1:="", x2:="", y2:="", err1:="", err0:=""
   , text:="", ScreenShot:="", FindAll:=""
@@ -208,7 +228,9 @@ FindText(ByRef OutputX:="", ByRef OutputY:=""
   }
   return 0
 }
+
 ; the join text object <==> [ "abc", "xyz", "a1|a2|a3" ]
+
 JoinText(ini, arr, info2, text, offsetX, offsetY, FindAll
   , index:="", Len:="", dir:="", minY:="", maxY:=""
   , sx:="", sy:="", sw:="", sh:="")
@@ -244,6 +266,7 @@ JoinText(ini, arr, info2, text, offsetX, offsetY, FindAll
     }
   }
 }
+
 PicFind(ini, j, dir, ByRef allpos, sx, sy, sw, sh)
 {
   local
@@ -504,6 +527,7 @@ PicFind(ini, j, dir, ByRef allpos, sx, sy, sw, sh)
     , "Ptr",&allpos, "int",ini.allpos_max
     , "int",w*ini.zoomW, "int",h*ini.zoomH)
 }
+
 GetBitsFromScreen(ByRef x:=0, ByRef y:=0, ByRef w:=0, ByRef h:=0
   , ScreenShot:=1, ByRef zx:="", ByRef zy:="", ByRef zw:="", ByRef zh:="")
 {
@@ -602,6 +626,7 @@ GetBitsFromScreen(ByRef x:=0, ByRef y:=0, ByRef w:=0, ByRef h:=0
   SetBatchLines, %bch%
   return bits
 }
+
 CreateDIBSection(w, h, bpp:=32, ByRef ppvBits:=0, ByRef bi:="")
 {
   VarSetCapacity(bi, 40, 0), NumPut(40, bi, 0, "int")
@@ -610,6 +635,7 @@ CreateDIBSection(w, h, bpp:=32, ByRef ppvBits:=0, ByRef bi:="")
   return DllCall("CreateDIBSection", "Ptr",0, "Ptr",&bi
     , "int",0, "Ptr*",ppvBits:=0, "Ptr",0, "int",0, "Ptr")
 }
+
 PicInfo(text)
 {
   local
@@ -710,6 +736,7 @@ PicInfo(text)
   return info[key]:=[v, w, h, len1, len0, e1, e0
     , mode, color, n, comment, seterr]
 }
+
 GetBitmapWH(hBM, ByRef w, ByRef h)
 {
   local
@@ -718,6 +745,7 @@ GetBitmapWH(hBM, ByRef w, ByRef h)
   w:=NumGet(bm,4,"int"), h:=Abs(NumGet(bm,8,"int"))
   return r
 }
+
 CopyHBM(hBM1, x1, y1, hBM2, x2, y2, w2, h2)
 {
   local
@@ -735,6 +763,7 @@ CopyHBM(hBM1, x1, y1, hBM2, x2, y2, w2, h2)
   DllCall("SelectObject", "Ptr",mDC1, "Ptr",oBM1)
   DllCall("DeleteDC", "Ptr",mDC1)
 }
+
 CopyBits(Scan01,Stride1,x1,y1,Scan02,Stride2,x2,y2,w2,h2,Reverse:=0)
 {
   local
@@ -747,8 +776,11 @@ CopyBits(Scan01,Stride1,x1,y1,Scan02,Stride2,x2,y2,w2,h2,Reverse:=0)
   Loop % h2
     DllCall("RtlMoveMemory","Ptr",p1+=Stride1,"Ptr",p2+=Stride2,"Ptr",w2)
 }
-; 绑定窗口从而可以后台查找这个窗口的图像
-; 相当于始终在前台。解绑窗口使用 FindText().BindWindow(0)
+
+; Bind the window so that it can find images when obscured
+; by other windows, it's equivalent to always being
+; at the front desk. Unbind Window using FindText().BindWindow(0)
+
 BindWindow(bind_id:=0, bind_mode:=0, get_id:=0, get_mode:=0)
 {
   local
@@ -781,8 +813,10 @@ BindWindow(bind_id:=0, bind_mode:=0, get_id:=0, get_mode:=0)
     bind.id:=0, bind.mode:=0, bind.oldStyle:=0
   }
 }
-; 使用 FindText().CaptureCursor(1) 设置抓图时捕获鼠标
-; 使用 FindText().CaptureCursor(0) 取消抓图时捕获鼠标
+
+; Use FindText().CaptureCursor(1) to Capture Cursor
+; Use FindText().CaptureCursor(0) to Cancel Capture Cursor
+
 CaptureCursor(hDC:=0, zx:=0, zy:=0, zw:=0, zh:=0, get_cursor:=0)
 {
   local
@@ -813,6 +847,7 @@ CaptureCursor(hDC:=0, zx:=0, zy:=0, zw:=0, zh:=0, get_cursor:=0)
   DllCall("DeleteObject", "Ptr",hBMMask)
   DllCall("DeleteObject", "Ptr",hBMColor)
 }
+
 MCode(ByRef code, hex)
 {
   local
@@ -823,6 +858,7 @@ MCode(ByRef code, hex)
   DllCall("VirtualProtect","Ptr",&code,"Ptr",len,"uint",0x40,"Ptr*",0)
   SetBatchLines, %bch%
 }
+
 base64tobit(s)
 {
   local
@@ -837,6 +873,7 @@ base64tobit(s)
   }
   return RegExReplace(RegExReplace(s,"[^01]+"),"10*$")
 }
+
 bit2base64(s)
 {
   local
@@ -854,6 +891,7 @@ bit2base64(s)
   }
   return s
 }
+
 xywh2xywh(x1,y1,w1,h1, ByRef x, ByRef y, ByRef w, ByRef h
   , ByRef zx:="", ByRef zy:="", ByRef zw:="", ByRef zh:="")
 {
@@ -864,6 +902,7 @@ xywh2xywh(x1,y1,w1,h1, ByRef x, ByRef y, ByRef w, ByRef h
   w:=Min(x1+w1,zx+zw), x:=Max(x1,zx), w-=x
   , h:=Min(y1+h1,zy+zh), y:=Max(y1,zy), h-=y
 }
+
 ASCII(s)
 {
   local
@@ -875,8 +914,11 @@ ASCII(s)
   else s:=""
   return s
 }
-; 可以在脚本的开头用 FindText().PicLib(Text,1) 导入字库,
-; 然后使用 FindText().PicLib("说明文字1|说明文字2|...") 获取字库中的数据
+
+; You can put the text library at the beginning of the script,
+; and Use FindText().PicLib(Text,1) to add the text library to PicLib()'s Lib,
+; Use FindText().PicLib("comment1|comment2|...") to get text images from Lib
+
 PicLib(comments, add_to_Lib:=0, index:=1)
 {
   local
@@ -908,13 +950,17 @@ PicLib(comments, add_to_Lib:=0, index:=1)
     return Text
   }
 }
-; 分割字符串为单个文字并获取数据
+
+; Decompose a string into individual characters and get their data
+
 PicN(Number, index:=1)
 {
   return this.PicLib(RegExReplace(Number,".","|$0"), 0, index)
 }
-; 使用 FindText().PicX(Text) 可以将文字分割成多个单字的组合，从而适应间隔变化
-; 但是不能用于“颜色位置二值化”模式, 因为位置是与整体图像相关的
+
+; Use FindText().PicX(Text) to automatically cut into multiple characters
+; Can't be used in ColorPos mode, because it can cause position errors
+
 PicX(Text)
 {
   local
@@ -937,13 +983,18 @@ PicX(Text)
   }
   return Text
 }
-; 截屏，作为后续操作要用的“上一次的截屏”
+
+; Screenshot and retained as the last screenshot.
+
 ScreenShot(x1:=0, y1:=0, x2:=0, y2:=0)
 {
   this.FindText(0, 0, x1, y1, x2, y2)
 }
-; 从“上一次的截屏”中快速获取指定坐标的RGB颜色
-; 如果坐标超出了屏幕范围，将返回白色
+
+; Get the RGB color of a point from the last screenshot.
+; If the point to get the color is beyond the range of
+; Screen, it will return White color (0xFFFFFF).
+
 GetColor(x, y, fmt:=1)
 {
   local
@@ -952,7 +1003,9 @@ GetColor(x, y, fmt:=1)
   ? 0xFFFFFF : NumGet(bits.Scan0+(y-zy)*bits.Stride+(x-zx)*4,"uint")
   return (fmt ? Format("0x{:06X}",c&0xFFFFFF) : c)
 }
-; 在“上一次的截屏”中设置点的RGB颜色
+
+; Set the RGB color of a point in the last screenshot
+
 SetColor(x, y, color:=0x000000)
 {
   local
@@ -960,11 +1013,15 @@ SetColor(x, y, color:=0x000000)
   if !(x<zx or x>=zx+zw or y<zy or y>=zy+zh or !bits.Scan0)
     NumPut(color,bits.Scan0+(y-zy)*bits.Stride+(x-zx)*4,"uint")
 }
-; 根据 FindText() 的结果识别一行文字或验证码
-; offsetX 为两个文字的最大间隔，超过会插入*号
-; offsetY 为两个文字的最大高度差
-; overlapW 用于设置覆盖的宽度
-; 最后返回数组:{text:识别结果, x:结果左上角X, y:结果左上角Y, w:宽, h:高}
+
+; Identify a line of text or verification code
+; based on the result returned by FindText().
+; offsetX is the maximum interval between two texts,
+; if it exceeds, a "*" sign will be inserted.
+; offsetY is the maximum height difference between two texts.
+; overlapW is used to set the width of the overlap.
+; Return Association array {text:Text, x:X, y:Y, w:W, h:H}
+
 Ocr(ok, offsetX:=20, offsetY:=20, overlapW:=0)
 {
   local
@@ -1000,8 +1057,10 @@ Ocr(ok, offsetX:=20, offsetY:=20, overlapW:=0)
   return {text:ocr_Text, x:ocr_X, y:min_Y
     , w: min_X-ocr_X, h: max_Y-min_Y}
 }
-; 按照从左到右、从上到下的顺序排序FindText()的结果
-; 忽略轻微的Y坐标差距，返回排序后的数组对象
+
+; Sort the results of FindText() from left to right
+; and top to bottom, ignore slight height difference
+
 Sort(ok, dy:=10)
 {
   local
@@ -1028,7 +1087,9 @@ Sort(ok, dy:=10)
     ok2.Push( ok[(StrSplit(A_LoopField,".")[2])] )
   return ok2
 }
-; 以指定点为中心，按从近到远排序FindText()的结果，返回排序后的数组
+
+; Sort the results of FindText() according to the nearest distance
+
 Sort2(ok, px, py)
 {
   local
@@ -1044,7 +1105,9 @@ Sort2(ok, px, py)
     ok2.Push( ok[(StrSplit(A_LoopField,".")[2])] )
   return ok2
 }
-; 按指定的查找方向，排序FindText()的结果，返回排序后的数组
+
+; Sort the results of FindText() according to the search direction
+
 Sort3(ok, dir:=1)
 {
   local
@@ -1068,7 +1131,9 @@ Sort3(ok, dir:=1)
     ok2.Push( ok[(StrSplit(A_LoopField,".")[2])] )
   return ok2
 }
-; 提示某个坐标的位置，或远程控制中当前鼠标的位置
+
+; Prompt mouse position in remote assistance
+
 MouseTip(x:="", y:="", w:=10, h:=10, d:=4)
 {
   local
@@ -1084,7 +1149,9 @@ MouseTip(x:="", y:="", w:=10, h:=10, d:=4)
   }
   this.RangeTip()
 }
-; 显示范围的边框，类似于 ToolTip
+
+; Shows a range of the borders, similar to the ToolTip
+
 RangeTip(x:="", y:="", w:="", h:="", color:="Red", d:=2)
 {
   local
@@ -1114,7 +1181,9 @@ RangeTip(x:="", y:="", w:="", h:="", color:="Red", d:=2)
     Gui, Range_%i%: Show, NA x%x1% y%y1% w%w1% h%h1%
   }
 }
-; 快速获取屏幕图像的搜索文本数据
+
+; Quickly get the search data of screen image
+
 GetTextFromScreen(x1, y1, x2, y2, Threshold:=""
   , ScreenShot:=1, ByRef rx:="", ByRef ry:="")
 {
@@ -1199,7 +1268,9 @@ GetTextFromScreen(x1, y1, x2, y2, Threshold:=""
   SetBatchLines, %bch%
   return s
 }
-; 快速保存截图为BMP文件，可用于调试
+
+; Quickly save screen image to BMP file for debugging
+
 SavePic(file, x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
 {
   local
@@ -1222,7 +1293,9 @@ SavePic(file, x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
   , f.RawWrite(ppvBits+0, size), f.Close()
   DllCall("DeleteObject", "Ptr",hBM)
 }
-; 显示保存的图像
+
+; Show the saved Picture file
+
 ShowPic(file:="", show:=1, ByRef x:="", ByRef y:="", ByRef w:="", ByRef h:="")
 {
   local
@@ -1248,7 +1321,9 @@ ShowPic(file:="", show:=1, ByRef x:="", ByRef y:="", ByRef w:="", ByRef h:="")
   if (show)
     this.ShowScreenShot(x, y, x+w-1, y+h-1, 0)
 }
-; 显示内存中的屏幕截图用于调试
+
+; Show the memory Screenshot for debugging
+
 ShowScreenShot(x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
 {
   local
@@ -1294,7 +1369,10 @@ ShowScreenShot(x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
   DllCall("DeleteDC", "Ptr",mDC)
   DllCall("DeleteObject", "Ptr",hBM)
 }
-; 等待几秒钟直到屏幕图像改变，需要先调用FindText().ScreenShot()
+
+; Wait for the screen image to change within a few seconds
+; Take a Screenshot before using it: FindText().ScreenShot()
+
 WaitChange(time:=-1, x1:=0, y1:=0, x2:=0, y2:=0)
 {
   local
@@ -1310,6 +1388,7 @@ WaitChange(time:=-1, x1:=0, y1:=0, x2:=0, y2:=0)
   }
   return 0
 }
+
 GetPicHash(x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
 {
   local
@@ -1327,17 +1406,20 @@ GetPicHash(x1:=0, y1:=0, x2:=0, y2:=0, ScreenShot:=1)
       , "Ptr",p+=Stride, "uint",w, "uint"))&0xFFFFFFFF
   return hash
 }
+
 WindowToScreen(ByRef x, ByRef y, x1, y1, id:="")
 {
   local
   WinGetPos, winx, winy,,, % id ? "ahk_id " id : "A"
   x:=x1+Floor(winx), y:=y1+Floor(winy)
 }
+
 ScreenToWindow(ByRef x, ByRef y, x1, y1, id:="")
 {
   local
   this.WindowToScreen(dx,dy,0,0,id), x:=x1-dx, y:=y1-dy
 }
+
 ClientToScreen(ByRef x, ByRef y, x1, y1, id:="")
 {
   local
@@ -1347,13 +1429,16 @@ ClientToScreen(ByRef x, ByRef y, x1, y1, id:="")
   , DllCall("ClientToScreen", "Ptr",id, "Ptr",&pt)
   , x:=x1+NumGet(pt,"int"), y:=y1+NumGet(pt,4,"int")
 }
+
 ScreenToClient(ByRef x, ByRef y, x1, y1, id:="")
 {
   local
   this.ClientToScreen(dx,dy,0,0,id), x:=x1-dx, y:=y1-dy
 }
-; 不像 FindText 总是使用屏幕坐标，它使用与内置命令
-; ImageSearch 一样的 CoordMode 设置的坐标模式
+
+; It is not like FindText always use Screen Coordinates,
+; But like built-in command ImageSearch using CoordMode Settings
+
 ImageSearch(ByRef rx, ByRef ry, x1, y1, x2, y2, text
   , ScreenShot:=1, FindAll:=0)
 {
@@ -1379,6 +1464,7 @@ ImageSearch(ByRef rx, ByRef ry, x1, y1, x2, y2, text
     return 0
   }
 }
+
 Click(x:="", y:="", other:="")
 {
   local
@@ -1388,7 +1474,9 @@ Click(x:="", y:="", other:="")
   Click, %x%, %y%, %other%
   CoordMode, Mouse, %bak%
 }
-; 动态运行AHK代码作为新线程
+
+; Running AHK code dynamically with new threads
+
 Class Thread
 {
   __New(args*)
@@ -1437,13 +1525,17 @@ Class Thread
     SetTimer,, Off
   }
 }
-; FindText().QPC() 用法类似于 A_TickCount
+
+; FindText().QPC() Use the same as A_TickCount
+
 QPC()
 {
   static f:=0, c:=DllCall("QueryPerformanceFrequency","Int*",f)+(f/=1000)
   return (!DllCall("QueryPerformanceCounter","Int64*",c))*0+(c/f)
 }
-; FindText().ToolTip() 用法类似于 ToolTip
+
+; FindText().ToolTip() Use the same as ToolTip
+
 ToolTip(s:="", x:="", y:="", num:=1, arg:="")
 {
   local
@@ -1501,7 +1593,9 @@ ToolTip(s:="", x:="", y:="", num:=1, arg:="")
     SetTimer, %ToolTipOff%, % -Round(Abs(timeout*1000))-1
   }
 }
-; FindText().ObjView() 查看对象的值用于调试
+
+; FindText().ObjView()  view object values for Debug
+
 ObjView(obj, keyname="")
 {
   local
@@ -1528,7 +1622,10 @@ ObjView(obj, keyname="")
   WinWaitClose, ahk_id %id%
   Gui, Gui_DeBug_Gui: Destroy
 }
-/***** 机器码的 C语言 源代码 *****
+
+
+/***** C source code of machine code *****
+
 int __attribute__((__stdcall__)) PicFind(
   int mode, unsigned int c, unsigned int n, int dir
   , unsigned char * Bmp, int Stride, int zw, int zh
@@ -1544,7 +1641,7 @@ int __attribute__((__stdcall__)) PicFind(
   unsigned char * gs;
   unsigned long long sum;
   //----------------------
-  // 找多色、找单色、搜图模式
+  // MultiColor or PixelSearch or ImageSearch Mode
   if (mode==5)
   {
     max=n; v=c*c;
@@ -1562,7 +1659,7 @@ int __attribute__((__stdcall__)) PicFind(
     goto StartLookUp;
   }
   //----------------------
-  // 生成查表需要的表格
+  // Generate Lookup Table
   o=0; len1=0; len0=0;
   for (y=0; y<h; y++)
   {
@@ -1582,8 +1679,8 @@ int __attribute__((__stdcall__)) PicFind(
   if (err0>=len0) len0=0;
   max=(len1>len0) ? len1 : len0;
   //----------------------
-  // 颜色位置模式
-  // 仅用于多色验证码的识别
+  // Color Position Mode
+  // only used to recognize multicolored Verification Code
   if (mode==3)
   {
     y=c>>16; x=c&0xFFFF;
@@ -1591,9 +1688,9 @@ int __attribute__((__stdcall__)) PicFind(
     goto StartLookUp;
   }
   //----------------------
-  // 生成二值化图像
+  // Generate Two Value Image
   o=sy*Stride+sx*4; j=Stride-sw*4; i=0;
-  if (mode==0)  // 颜色相似二值化
+  if (mode==0)  // Color Mode
   {
     rr=(c>>16)&0xFF; gg=(c>>8)&0xFF; bb=c&0xFF;
     for (y=0; y<sh; y++, o+=j)
@@ -1603,14 +1700,14 @@ int __attribute__((__stdcall__)) PicFind(
         ss[i]=((1024+v)*r*r+2048*g*g+(1534-v)*b*b<=n) ? 1:0;
       }
   }
-  else if (mode==1)  // 灰度阈值二值化
+  else if (mode==1)  // Gray Threshold Mode
   {
     c=(c+1)<<7;
     for (y=0; y<sh; y++, o+=j)
       for (x=0; x<sw; x++, o+=4, i++)
         ss[i]=(Bmp[2+o]*38+Bmp[1+o]*75+Bmp[o]*15<c) ? 1:0;
   }
-  else if (mode==2)  // 灰度差值二值化
+  else if (mode==2)  // Gray Difference Mode
   {
     gs=(unsigned char *)(ss+sw*sh);
     x2=sx+sw; y2=sy+sh;
@@ -1636,7 +1733,7 @@ int __attribute__((__stdcall__)) PicFind(
           || gs[o+k-1]>n || gs[o+k+1]>n) ? 1:0;
       }
   }
-  else  // (mode==4) 颜色分量二值化
+  else  // (mode==4) Color Difference Mode
   {
     r=(c>>16)&0xFF; g=(c>>8)&0xFF; b=c&0xFF;
     rr=(n>>16)&0xFF; gg=(n>>8)&0xFF; bb=n&0xFF;
@@ -1716,7 +1813,7 @@ int __attribute__((__stdcall__)) PicFind(
           if (i<len1 && ss[o+s1[i]]==0 && (--e1)<0) goto NoMatch;
           if (i<len0 && ss[o+s0[i]]!=0 && (--e0)<0) goto NoMatch;
         }
-        // 清空已经找到的图像
+        // Clear the image that has been found
         for (i=0; i<len1; i++)
           ss[o+s1[i]]=0;
       }
@@ -1729,8 +1826,13 @@ int __attribute__((__stdcall__)) PicFind(
   Return1:
   return ok;
 }
+
 */
+
+
 ;==== Optional GUI interface ====
+
+
 Gui(cmd, arg1:="")
 {
   local
@@ -3092,96 +3194,96 @@ Gui(cmd, arg1:="")
   Case "Load_Language_Text":
     s:="
     (
-Myww       = 宽度 = 调整捕获范围的宽度
-Myhh       = 高度 = 调整捕获范围的高度
-AddFunc    = 附加 = 将 FindText() 函数代码一起复制
-NowHotkey  = 截屏热键 = 当前的截屏热键
-SetHotkey1 = = 第一优先级的截屏热键
-SetHotkey2 = = 第二优先级的截屏热键
-Apply      = 应用 = 应用新的截屏热键
-CutU2      = 上删 = 裁剪下面编辑框中文字的上边缘
-CutL2      = 左删 = 裁剪下面编辑框中文字的左边缘
-CutR2      = 右删 = 裁剪下面编辑框中文字的右边缘
-CutD2      = 下删 = 裁剪下面编辑框中文字的下边缘
-Update     = 更新 = 更新下面编辑框中文字到代码行中
-GetRange   = 获取屏幕范围 = 获取屏幕范围到剪贴板并替换代码中的范围
-GetOffset  = 获取相对坐标 = 获取相对图像中心的坐标并替换代码中的坐标
-GetClipOffset  = 获取相对坐标2 = 获取相对左边编辑框的坐标
-Capture    = 抓图 = 开始屏幕抓图
-CaptureS   = 截屏抓图 = 先恢复上一次的截屏到屏幕再开始抓图
-Test       = 测试 = 测试生成的代码是否可以找字成功
-TestClip   = 测试2 = 测试左边文本框中的文字，结果复制到剪贴板
-Paste      = 粘贴 = 粘贴复制到剪贴板的文字数据
-CopyOffset = 复制2 = 复制左边的偏移坐标到剪贴板
-Copy       = 复制 = 复制代码到剪贴板
-Reset      = 重读 = 重新读取原来的彩色图像
-SplitAdd   = 分割添加 = 使用黄色的标签来分割图像为单个的图像数据，添加到旧代码中
-AllAdd     = 整体添加 = 将文字数据整体添加到旧代码中
-OK         = 确定 = 生成全新的代码替换旧代码
-Cancel     = 取消 = 关闭窗口不做任何事
-Save       = 保存图片 = 保存修剪后的原始图片到默认目录
-Gray2Two      = 灰度阈值二值化 = 灰度小于阈值的为黑色其余白色
-GrayDiff2Two  = 灰度差值二值化 = 某点与周围灰度之差大于差值的为黑色其余白色
-Color2Two     = 颜色相似二值化 = 指定颜色及相似色为黑色其余白色
-ColorPos2Two  = 颜色位置二值化 = 指定颜色及相似色为黑色其余白色，但是记录该色的位置
-ColorDiff2Two = 颜色分量二值化 = 指定颜色及颜色分量小于允许值的为黑色其余白色
-SelGray    = 灰度 = 选定颜色的灰度值 (0-255)
-SelColor   = 颜色 = 选定颜色的RGB颜色值
-SelR       = 红 = 选定颜色的红色分量
-SelG       = 绿 = 选定颜色的绿色分量
-SelB       = 蓝 = 选定颜色的蓝色分量
-RepU       = -上 = 撤销裁剪上边缘1个像素
-CutU       = 上 = 裁剪上边缘1个像素
-CutU3      = 上3 = 裁剪上边缘3个像素
-RepL       = -左 = 撤销裁剪左边缘1个像素
-CutL       = 左 = 裁剪左边缘1个像素
-CutL3      = 左3 = 裁剪左边缘3个像素
-Auto       = 自动 = 二值化之后自动裁剪空白边缘
-RepR       = -右 = 撤销裁剪右边缘1个像素
-CutR       = 右 = 裁剪右边缘1个像素
-CutR3      = 右3 = 裁剪右边缘3个像素
-RepD       = -下 = 撤销裁剪下边缘1个像素
-CutD       = 下 = 裁剪下边缘1个像素
-CutD3      = 下3 = 裁剪下边缘3个像素
-Modify     = 修改 = 二值化后允许修改黑白点
-MultiColor = 多色查找 = 鼠标选择多种颜色，之后点击“确定”按钮
-Undo       = 撤销 = 撤销上一次选择的颜色
-Comment    = 识别文字 = 识别文本 (包含在<>中)，分割添加时也会分解成单个文字
-Threshold  = 灰度阈值 = 灰度阈值 (0-255)
-GrayDiff   = 灰度差值 = 灰度差值 (0-255)
-Similar1   = 相似度 = 与选定颜色的相似度
-Similar2   = 相似度 = 与选定颜色的相似度
-DiffR      = 红 = 红色分量允许的偏差 (0-255)
-DiffG      = 绿 = 绿色分量允许的偏差 (0-255)
-DiffB      = 蓝 = 蓝色分量允许的偏差 (0-255)
-DiffRGB    = 红/绿/蓝 = 多色查找时各分量允许的偏差 (0-255)
-Bind0      = 绑定窗口1 = 绑定窗口使用GetDCEx()获取后台窗口图像
-Bind1      = 绑定窗口1+ = 绑定窗口使用GetDCEx()并修改窗口透明度
-Bind2      = 绑定窗口2 = 绑定窗口使用PrintWindow()获取后台窗口图像
-Bind3      = 绑定窗口2+ = 绑定窗口使用PrintWindow()并修改窗口透明度
-Bind4      = 绑定窗口3 = 绑定窗口使用PrintWindow(,,3)获取后台窗口图像
-OK2        = 确定 = 生成全新的代码替换旧代码
-Cancel2    = 取消 = 关闭窗口不做任何事
-ClearAll   = 清空 = 清空所有保存的截图
-OpenDir    = 打开目录 = 打开保存屏幕截图的目录
-SavePic    = 保存图片 = 选择一个范围保存为图片
-ClipText   = = 显示粘贴的文字数据
-Offset     = = 显示“获取相对坐标2”获取的结果
-s1  = 查找文字工具
-s2  = 灰度阈值|灰度差值|颜色相似|颜色位置|颜色分量|多色查找
-s3  = 图像二值化及分割
-s4  = 抓图生成字库及找字代码
-s5  = 位置|先点击右键一次\n把鼠标移开\n再点击右键一次
-s6  = 解绑窗口使用
-s7  = 请用左键拖动范围\n坐标复制到剪贴板
-s8  = 找到|时间|毫秒|位置|结果|值可以这样获取|等待3秒等图像出现|无限等待等图像消失
-s9  = 截屏成功
-s10 = 鼠标位置|穿透显示绑定窗口\n点击右键完成抓图
-s11 = 请先设定灰度差值
-s12 = 请先选择核心颜色
-s13 = 请先将图像二值化
-s14 = 不能用于颜色位置二值化模式, 因为分割后会导致位置错误
-s15 = 你确定选择的范围吗？\n\n如果不确定，可以重新选择
+Myww       = Width = Adjust the width of the capture range
+Myhh       = Height = Adjust the height of the capture range
+AddFunc    = Add = Additional FindText() in Copy
+NowHotkey  = Hotkey = Current screenshot hotkey
+SetHotkey1 = = First sequence Screenshot hotkey
+SetHotkey2 = = Second sequence Screenshot hotkey
+Apply      = Apply = Apply new screenshot hotkey
+CutU2      = CutU = Cut the Upper Edge of the text in the edit box below
+CutL2      = CutL = Cut the Left Edge of the text in the edit box below
+CutR2      = CutR = Cut the Right Edge of the text in the edit box below
+CutD2      = CutD = Cut the Lower Edge of the text in the edit box below
+Update     = Update = Update the text in the edit box below to the line of Code
+GetRange   = GetRange = Get screen range to clipboard and update the search range of the Code
+GetOffset  = GetOffset = Get position offset relative to the Text from the Code and update FindText().Click()
+GetClipOffset  = GetOffset2 = Get position offset relative to the Text from the Left Box
+Capture    = Capture = Initiate Image Capture Sequence
+CaptureS   = CaptureS = Restore the Saved ScreenShot by Hotkey and then start capturing
+Test       = Test = Test the Text from the Code to see if it can be found on the screen
+TestClip   = Test2 = Test the Text from the Left Box and copy the result to Clipboard
+Paste      = Paste = Paste the Text from Clipboard to the Left Box
+CopyOffset = Copy2 = Copy the Offset to Clipboard
+Copy       = Copy = Copy the selected or all of the code to the clipboard
+Reset      = Reset = Reset to Original Captured Image
+SplitAdd   = SplitAdd = Using Markup Segmentation to Generate Text Library
+AllAdd     = AllAdd = Append Another FindText Search Text into Previously Generated Code
+OK         = OK = Create New FindText Code for Testing
+Cancel     = Cancel = Close the Window Don't Do Anything
+Save       = SavePic = Save the trimmed original image to the default directory
+Gray2Two      = Gray2Two = Converts Image Pixels from Gray Threshold to Black or White
+GrayDiff2Two  = GrayDiff2Two = Converts Image Pixels from Gray Difference to Black or White
+Color2Two     = Color2Two = Converts Image Pixels from Color Similar to Black or White
+ColorPos2Two  = ColorPos2Two = Converts Image Pixels from Color Position to Black or White
+ColorDiff2Two = ColorDiff2Two = Converts Image Pixels from Color Difference to Black or White
+SelGray    = Gray = Gray value of the selected color
+SelColor   = Color = The selected color
+SelR       = R = Red component of the selected color
+SelG       = G = Green component of the selected color
+SelB       = B = Blue component of the selected color
+RepU       = -U = Undo Cut the Upper Edge by 1
+CutU       = U = Cut the Upper Edge by 1
+CutU3      = U3 = Cut the Upper Edge by 3
+RepL       = -L = Undo Cut the Left Edge by 1
+CutL       = L = Cut the Left Edge by 1
+CutL3      = L3 = Cut the Left Edge by 3
+Auto       = Auto = Automatic Cut Edge after image has been converted to black and white
+RepR       = -R = Undo Cut the Right Edge by 1
+CutR       = R = Cut the Right Edge by 1
+CutR3      = R3 = Cut the Right Edge by 3
+RepD       = -D = Undo Cut the Lower Edge by 1
+CutD       = D = Cut the Lower Edge by 1
+CutD3      = D3 = Cut the Lower Edge by 3
+Modify     = Modify = Allows Modify the Black and White Image
+MultiColor = FindMultiColor = Click multiple colors with the mouse, then Click OK button
+Undo       = Undo = Undo the last selected color
+Comment    = Comment = Optional Comment used to Label Code ( Within <> )
+Threshold  = Gray Threshold = Gray Threshold which Determines Black or White Pixel Conversion (0-255)
+GrayDiff   = Gray Difference = Gray Difference which Determines Black or White Pixel Conversion (0-255)
+Similar1   = Similarity = Adjust color similarity as Equivalent to The Selected Color
+Similar2   = Similarity = Adjust color similarity as Equivalent to The Selected Color
+DiffR      = R = Red Difference which Determines Black or White Pixel Conversion (0-255)
+DiffG      = G = Green Difference which Determines Black or White Pixel Conversion (0-255)
+DiffB      = B = Blue Difference which Determines Black or White Pixel Conversion (0-255)
+DiffRGB    = R/G/B = Determine the allowed R/G/B Error (0-255) when Find MultiColor
+Bind0      = BindWin1 = Bind the window and Use GetDCEx() to get the image of background window
+Bind1      = BindWin1+ = Bind the window Use GetDCEx() and Modify the window to support transparency
+Bind2      = BindWin2 = Bind the window and Use PrintWindow() to get the image of background window
+Bind3      = BindWin2+ = Bind the window Use PrintWindow() and Modify the window to support transparency
+Bind4      = BindWin3 = Bind the window and Use PrintWindow(,,3) to get the image of background window
+OK2        = OK = Restore this ScreenShot
+Cancel2    = Cancel = Close the Window Don't Do Anything
+ClearAll   = ClearAll = Clean up all saved ScreenShots
+OpenDir    = OpenDir = Open the saved screenshots directory
+SavePic    = SavePic = Select a range and save as a picture
+ClipText   = = Displays the Text data from clipboard
+Offset     = = Displays the results of GetOffset2
+s1  = FindText
+s2  = Gray|GrayDiff|Color|ColorPos|ColorDiff|MultiColor
+s3  = Capture Image To Text
+s4  = Capture Image To Text And Find Text Tool
+s5  = Position|First click RButton\nMove the mouse away\nSecond click RButton
+s6  = Unbind Window using
+s7  = Please drag a range with the LButton\nCoordinates are copied to clipboard
+s8  = Found|Time|ms|Pos|Result|value can be get from|Wait 3 seconds for appear|Wait indefinitely for disappear
+s9  = Success
+s10 = The Capture Position|Perspective binding window\nRight click to finish capture
+s11 = Please Set Gray Difference First
+s12 = Please select the core color first
+s13 = Please convert the image to black or white first
+s14 = Can't be used in ColorPos mode, because it can cause position errors
+s15 = Are you sure about the scope of your choice?\n\nIf not, you can choose again
     )"
     Lang:=[], Tip_Text:=[]
     Loop Parse, s, `n, `r
@@ -3191,6 +3293,9 @@ s15 = 你确定选择的范围吗？\n\n如果不确定，可以重新选择
     return
   }
 }
+
 }  ;// Class End
+
 ;================= The End =================
+
 ;
