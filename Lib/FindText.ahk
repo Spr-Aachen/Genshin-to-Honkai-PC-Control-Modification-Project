@@ -1,4 +1,4 @@
-;/*
+﻿;/*
 ;===========================================
 ;  FindText - Capture screen image into text and then find it
 ;  https://autohotkey.com/boards/viewtopic.php?f=6&t=17834
