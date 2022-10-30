@@ -45,6 +45,13 @@ IfNotExist, %INI_DIR%
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
     IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标, 0 ; Uncheck by default
     IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标, 1 ; Check by default
+
+    IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1, 3
+    IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2, 3
+    IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1, 12
+    IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2, 12
+    IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1, 1
+    IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2, 1
 }
 Else
 {
@@ -70,6 +77,13 @@ Else
     IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
     IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标
     IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
+
+    IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1
+    IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2
+    IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
+    IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
+    IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
+    IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
 }
 
 
@@ -144,7 +158,23 @@ Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%En
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,     启用可隐藏光标（实验）
 Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%, 启用限制性光标（推荐）
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H78,                                                                其它 Others
+Gui, Start: Add, GroupBox, W333 H222,                                                                高级 Advance
+Gui, Start: Font, s9, 新宋体
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans, 正常战斗状态识别容错率1
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage1, %FaultTolerance_Combat_Normal_Percentage1%
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans, 正常战斗状态识别容错率2
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage2, %FaultTolerance_Combat_Normal_Percentage2%
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans, 特殊战斗状态识别容错率2
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage1, %FaultTolerance_Combat_Endangered_Percentage1%
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans, 特殊战斗状态识别容错率2
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage2, %FaultTolerance_Combat_Endangered_Percentage2%
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans, 往世乐土大厅识别容错率2
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage1, %FaultTolerance_Elysium_Percentage1%
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans, 往世乐土大厅识别容错率2
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage2, %FaultTolerance_Elysium_Percentage2%
+Gui, Start: Font, s12, 新宋体
+
 
 Gui, Start: Tab, 更新
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
@@ -210,6 +240,13 @@ IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, 管理员权限
 IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, 全自动识别
 IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, 可隐藏光标
 IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
+
+IniWrite, %FaultTolerance_Combat_Normal_Percentage1%, %INI_DIR%, Slider, 正常战斗状态识别容错率1
+IniWrite, %FaultTolerance_Combat_Normal_Percentage2%, %INI_DIR%, Slider, 正常战斗状态识别容错率2
+IniWrite, %FaultTolerance_Combat_Endangered_Percentage1%, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
+IniWrite, %FaultTolerance_Combat_Endangered_Percentage2%, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
+IniWrite, %FaultTolerance_Elysium_Percentage1%, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
+IniWrite, %FaultTolerance_Elysium_Percentage2%, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
 
 Gui, Start: Destroy
 
