@@ -1,12 +1,18 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;【常量 Const】版本号
-Version = 0.3.8
+Version = 0.3.9
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ;【常量 Const】对管理自动控制功能的全局常量进行赋值
 Global Toggle_AutoScale := 0
 Global Timer_AutoScale := 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
+Global FaultTolerance_Combat_Normal1 := 0.00001 * %FaultTolerance_Combat_Normal1_Percentage1%
+Global FaultTolerance_Combat_Normal2 := 0.00001 * %FaultTolerance_Combat_Normal1_Percentage2%
+Global FaultTolerance_Combat_Endangered1 := 0.01 * %FaultTolerance_Combat_Endangered1_Percentage1%
+Global FaultTolerance_Combat_Endangered2 := 0.01 * %FaultTolerance_Combat_Endangered1_Percentage2%
+Global FaultTolerance_Elysium1 := 0.01 * %FaultTolerance_Elysium1%
+Global FaultTolerance_Elysium2 := 0.01 * %FaultTolerance_Elysium2%
 
 ;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
 Global Toggle_Occlusion := 0
