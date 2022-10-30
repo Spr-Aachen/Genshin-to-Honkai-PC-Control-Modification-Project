@@ -166,7 +166,7 @@ AutoScale()
         }
 
         ; ScreenScale
-        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.00003, 0.00003, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.12, 0.12, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
+        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
         {
             If (!Status_CombatIcon)
             {
@@ -181,7 +181,8 @@ AutoScale()
                     If (!Toggle_MouseFunction)
                     {
                         Toggle_MouseFunction := !Toggle_MouseFunction
-                        CoordReset()
+                        If (!Toggle_Restriction)
+                            CoordReset()
                         SetTimer, ViewControl, %Timer_ViewControl%
                     }
                     Suspend, Off
@@ -210,7 +211,7 @@ AutoScale()
             }
             Else If (!Toggle_ManualSuspend)
             {
-                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, 0.01, 0.01, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, 0.01, 0.01, Icon)[1].id == "ElysiumIcon_LowerRight")
+                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_LowerRight")
                 {
                     If (!Toggle_MouseFunction)
                     {
@@ -269,7 +270,6 @@ ManualSuspend()
                 SendEvent, {Esc}
                 Status_CombatIcon := !Status_CombatIcon
             }
-            Toggle_AutoScale := !Toggle_AutoScale
         }
         Else If (Toggle_MouseFunction)
         {
@@ -283,18 +283,25 @@ ManualSuspend()
     }
     Else ;If GetKeyState(Key_Suspend, "P")
     {
-        If (!Toggle_AutoScale)
+        If (Toggle_AutoScale)
         {
-            Toggle_AutoScale := !Toggle_AutoScale
             If (!Status_Occlusion)
                 Occlusion(Status_Occlusion := !Status_Occlusion)
             If (!Toggle_MouseFunction)
             {
                 Toggle_MouseFunction := !Toggle_MouseFunction
-                CoordReset()
+                If (!Toggle_Restriction)
+                    CoordReset()
                 SetTimer, ViewControl, %Timer_ViewControl%
             }
             SetTimer, AutoScale, %Timer_AutoScale%
+        }
+        Else If (!Toggle_MouseFunction)
+        {
+            Toggle_MouseFunction := !Toggle_MouseFunction
+            If (!Toggle_Restriction)
+                CoordReset()
+            SetTimer, ViewControl, %Timer_ViewControl%
         }
         Suspend, Off
         Toggle_ManualSuspend := !Toggle_ManualSuspend
