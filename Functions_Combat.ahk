@@ -6,9 +6,9 @@ Occlusion(Status_Occlusion)
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        If(Toggle_Occlusion)
+        If (Toggle_Occlusion)
         {
-            If(Status_Occlusion)
+            If (Status_Occlusion)
             {
                 MouseGetPos, , , HWND
                 Gui, Cursor: +Owner%HWND%
@@ -43,15 +43,18 @@ Restriction()
         MouseGetPos, x1, y1
         If (Toggle_Restriction)
         {
-            WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
-            If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+            If (Status_Restriction)
             {
-                If (Status_Key_ViewControl)
+                WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+                If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
                 {
-                    SendInput, {Click, Up Middle}
-                    Status_Key_ViewControl := !Status_Key_ViewControl
+                    If (Status_Key_ViewControl)
+                    {
+                        SendInput, {Click, Up Middle}
+                        Status_Key_ViewControl := !Status_Key_ViewControl
+                    }
+                    CoordReset()
                 }
-                CoordReset()
             }
         }
     }
