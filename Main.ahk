@@ -20,6 +20,7 @@ Global Status_Occlusion
 
 ;【常量 Const】对管理限制光标功能的全局常量进行赋值
 Global Toggle_Restriction := 0
+Global Status_Restriction
 Global x1
 Global y1
 
