@@ -183,6 +183,8 @@ AutoScale()
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         If (!Toggle_Restriction)
                             CoordReset()
+                        Else If (!Status_Restriction)
+                            Status_Restriction := !Status_Restriction
                         SetTimer, ViewControl, %Timer_ViewControl%
                     }
                     Suspend, Off
@@ -200,6 +202,8 @@ AutoScale()
                 Suspend, On
                 If (Toggle_MouseFunction)
                 {
+                    If (Status_Restriction)
+                        Status_Restriction := !Status_Restriction
                     SetTimer, ViewControl, Delete
                     If GetKeyState(Key_SecondSkill, "P")
                         BreakFlag_Aim := !BreakFlag_Aim
@@ -217,8 +221,8 @@ AutoScale()
                     {
                         Toggle_MouseFunction := !Toggle_MouseFunction
                         CoordReset()
-                        If (Toggle_Restriction)
-                            Toggle_Restriction := !Toggle_Restriction
+                        ;If (!Status_Restriction)
+                            ;Status_Restriction := !Status_Restriction
                         SetTimer, ViewControl, %Timer_ViewControl%
                     }
                 }
@@ -226,9 +230,9 @@ AutoScale()
                 {
                     If (Toggle_MouseFunction)
                     {
+                        ;If (Status_Restriction)
+                            ;Status_Restriction := !Status_Restriction
                         SetTimer, ViewControl, Delete
-                        If (!Toggle_Restriction)
-                            Toggle_Restriction := !Toggle_Restriction
                         InputReset()
                         Toggle_MouseFunction := !Toggle_MouseFunction
                     }
@@ -257,6 +261,8 @@ ManualSuspend()
             SetTimer, AutoScale, Delete
             If (Toggle_MouseFunction)
             {
+                If (Status_Restriction)
+                    Status_Restriction := !Status_Restriction
                 SetTimer, ViewControl, Delete
                 If GetKeyState(Key_SecondSkill, "P")
                     BreakFlag_Aim := !BreakFlag_Aim
@@ -285,22 +291,29 @@ ManualSuspend()
     {
         If (Toggle_AutoScale)
         {
-            If (!Status_Occlusion)
-                Occlusion(Status_Occlusion := !Status_Occlusion)
-            If (!Toggle_MouseFunction)
-            {
-                Toggle_MouseFunction := !Toggle_MouseFunction
-                If (!Toggle_Restriction)
-                    CoordReset()
-                SetTimer, ViewControl, %Timer_ViewControl%
-            }
             SetTimer, AutoScale, %Timer_AutoScale%
+            If (Status_CombatIcon)
+            {
+                If (!Status_Occlusion)
+                    Occlusion(Status_Occlusion := !Status_Occlusion)
+                If (!Toggle_MouseFunction)
+                {
+                    Toggle_MouseFunction := !Toggle_MouseFunction
+                    If (!Toggle_Restriction)
+                        CoordReset()
+                    Else If (!Status_Restriction)
+                        Status_Restriction := !Status_Restriction
+                    SetTimer, ViewControl, %Timer_ViewControl%
+                }
+            }
         }
         Else If (!Toggle_MouseFunction)
         {
             Toggle_MouseFunction := !Toggle_MouseFunction
             If (!Toggle_Restriction)
                 CoordReset()
+            Else If (!Status_Restriction)
+                Status_Restriction := !Status_Restriction
             SetTimer, ViewControl, %Timer_ViewControl%
         }
         Suspend, Off
