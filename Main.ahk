@@ -54,7 +54,7 @@ Global Toggle_ManualSuspend := 0
 #include <FindText>
 
 ;【命令 Directive】
-#include Surface.ahk
+#include Interface.ahk
 
 ;【命令 Directive】
 #include Functions_Combat.ahk
