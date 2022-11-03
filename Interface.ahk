@@ -229,11 +229,11 @@ GuiControlGet, Version
 Switch Version
 {
     Case "v0.3.+":
-
+        Run, open GUI\Changelogs\v0.3.+.txt
     Case "v0.2.+":
-
+        Run, open GUI\Changelogs\v0.2.+.txt
     Case "v0.1.+":
-
+        Run, open GUI\Changelogs\v0.1.+.txt
 }
 Return
 
