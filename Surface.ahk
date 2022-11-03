@@ -90,7 +90,8 @@ Else
 ;【菜单 Menu】托盘菜单
 Menu, Tray, NoStandard ; 删除原有托盘菜单
 
-Menu, Else, Add, 配置文件, Config
+Menu, Else, Add, 查看配置文件, Config_Check
+Menu, Else, Add, 删除配置文件, Config_Delete
 ;Menu, Else, Add, 调试日志, Debug
 Menu, Else, Add, 敬请期待, Nothing
 
@@ -103,7 +104,7 @@ Menu, Tray, Add, 退出, Menu_Exit
 Gui, Start: +LastFound
 WinSet, TransColor, FEFFFF 222 ; WinSet, Transparent, 222
 Gui, Start: Font, s12, 新宋体
-Gui, Start: Add, Tab3, , 键位|功能|更新
+Gui, Start: Add, Tab3, , 键位|功能|设置
 
 Gui, Start: Tab, 键位
 ;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:\Users\Spr_Aachen\Desktop\p1.jpg
@@ -176,17 +177,20 @@ Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterv
 Gui, Start: Font, s12, 新宋体
 
 
-Gui, Start: Tab, 更新
+Gui, Start: Tab, 设置
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H105,                                            链接 Links
+Gui, Start: Add, GroupBox, W333 H78,                                             配置 Config
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfigReset,                  重置为默认配置
+Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H150,                                            更新 Update
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans,        百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
 Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,        Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H78,                                             日志 Logs
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans, 版本:
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,        版本日志:
 Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+
 
 Gui, Start: Tab
 Gui, Start: Add, Button, Default W366, 开启
@@ -194,6 +198,28 @@ Gui, Start: Add, Button, W366, 退出
 Gui, Start: Show, xCenter yCenter, 启动界面
 Disable( )
 Suspend, On
+Return
+
+
+;【例程 Gosub】
+ConfigReset:
+MsgBox, 4, 询问, 是否确认对当前配置进行重置？
+IfMsgBox, Yes
+{
+    IfExist, %INI_DIR%
+    {
+        Try
+        {
+            FileSetAttrib, -R, %INI_DIR%
+        }
+        FileDelete, %INI_DIR%
+    }
+    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
+    MsgBox, 0, 提示, 已成功载入默认配置
+    Reload
+}
+Else
+    Reload
 Return
 
 
@@ -366,13 +392,13 @@ Return
 StartButton退出:
 If WinExist("ahk_exe BH3.exe")
 {
-    MsgBox, 4,, 检测到崩坏3正在运行\(≧□≦)/，真的要退出吗？
+    MsgBox, 4, 询问, 检测到崩坏3正在运行\(≧□≦)/，真的要退出吗？
     IfMsgBox, Yes
         ExitApp
 }
 Else
 {
-    MsgBox, 4,, 是否确认退出当前程序(・-・*)？
+    MsgBox, 4, 询问, 是否确认退出当前程序(・-・*)？
     IfMsgBox, Yes
         ExitApp
 }
@@ -380,8 +406,31 @@ Return
 
 
 ;【标签 Label】
-Config:
-Run, open %INI_DIR%
+Config_Check:
+IfNotExist, %INI_DIR%
+{
+    MsgBox, 0, 提示, 未找到配置文件，请先运行程序
+}
+Else
+    Run, open %INI_DIR%
+Return
+
+
+;【标签 Label】
+Config_Delete:
+IfNotExist, %INI_DIR%
+{
+    MsgBox, 0, 提示, 未找到配置文件，请先运行程序
+}
+Else
+{
+    Try
+    {
+        FileSetAttrib, -R, %INI_DIR%
+    }
+    FileDelete, %INI_DIR%
+    MsgBox, 0, 提示, 已成功移除配置文件
+}
 Return
 
 /*
