@@ -17,7 +17,17 @@ Disable( )
 
 
 ;【位置 Path】设定位置
-INI_DIR = C:\BH3_Hotkey_%Version%.ini
+Root_DIR = C:\BH3_Hotkey
+;SetWorkingDir, C:\BH3_Hotkey
+
+FileCreateDir, %Root_DIR%\Config
+INI_DIR = %Root_DIR%\Config\BH3_Hotkey_%Version%.ini
+
+FileCreateDir, %Root_DIR%\GUI\Changelogs
+Changelog_DIR1 = %Root_DIR%\GUI\Changelogs\v0.1.+.txt
+Changelog_DIR2 = %Root_DIR%\GUI\Changelogs\v0.2.+.txt
+Changelog_DIR3 = %Root_DIR%\GUI\Changelogs\v0.3.+.txt
+
 
 
 ;【配置 INI】创建配置
@@ -214,7 +224,10 @@ IfMsgBox, Yes
         }
         FileDelete, %INI_DIR%
     }
-    ;FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1 ; 对variable的百分号进行转义后会在compile时报错
+    /*
+    对variable的百分号进行转义后会在compile时报错:
+    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
+    */
     FileInstall, Config\Preset_Keyboard\BH3_Hotkey_0.3.9.ini, %INI_DIR%, 1
     MsgBox, 0, 提示, 已成功载入默认配置
     Reload
@@ -230,11 +243,14 @@ GuiControlGet, Version
 Switch Version
 {
     Case "v0.3.+":
-        Run, open GUI\Changelogs\v0.3.+.txt
+        FileInstall, GUI\Changelogs\v0.3.+.txt, %Changelog_DIR3%, 1
+        Run, open %Changelog_DIR3%
     Case "v0.2.+":
-        Run, open GUI\Changelogs\v0.2.+.txt
+        FileInstall, GUI\Changelogs\v0.2.+.txt, %Changelog_DIR2%, 1
+        Run, open %Changelog_DIR2%
     Case "v0.1.+":
-        Run, open GUI\Changelogs\v0.1.+.txt
+        FileInstall, GUI\Changelogs\v0.1.+.txt, %Changelog_DIR1%, 1
+        Run, open %Changelog_DIR1%
 }
 Return
 
