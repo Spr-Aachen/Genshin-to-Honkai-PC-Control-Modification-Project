@@ -105,12 +105,12 @@
 
 **附加设定<br>Addition**
 
-1. 启动界面允许手动选择是否启用以下选项：
+1. 启动界面的功能栏中允许手动选择是否启用以下选项：
 <br>   全自动识别（默认启用）
 <br>   管理员权限（默认启用）
 <br>   可隐藏光标（默认关闭）
 <br>   限制性光标（默认启用）
-<br>   The starting interface allows users to choose whether toggle the following options:
+<br>   The function bar which located in the start-up interface allows users to choose whether toggle the following options:
 <br>   `Automatic Identification` (toggled by default)
 <br>   `Run as Admin` (toggled by default)
 <br>   `Occluded Cursor` (closed by default)
@@ -125,7 +125,10 @@
 4. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
 <br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
-5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
+5. 启动界面的设置栏中可以直接重置当前配置
+<br>   Current configuration can be reset from the settings bar which located in the start-up interface.
+
+6. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
 <br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed or deleted.
 
 
