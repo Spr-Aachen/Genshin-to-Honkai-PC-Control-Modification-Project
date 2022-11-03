@@ -125,8 +125,8 @@
 4. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
 <br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
-5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开配置文件
-<br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed.
+5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
+<br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed or deleted.
 
 
 ## 【缺陷 Bugs】
