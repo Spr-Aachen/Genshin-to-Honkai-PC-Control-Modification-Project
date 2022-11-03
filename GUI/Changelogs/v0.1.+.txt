@@ -1,0 +1,20 @@
+[0.1.2] - 2022-02-28
+
+- [Fix] Now it won't affect other 3D programs anymore.
+>
+- [修复] 现在程序将不再对其它3D游戏造成影响。 
+
+
+[0.1.1] - 2022-02-28
+
+- [Fix] Issues that occurred when switching active windows through keyboard shortcuts
+>
+- [修复] 使用快捷键切换窗口时程序仍在运行的问题
+
+
+[0.1.0] - 2022-02-04
+
+- Stable version release with several bugs fixed.
+>
+- 正式版已发布，修复了若干bug并完善了部分功能
+

@@ -1,0 +1,56 @@
+[0.2.9] - 2022-05-08
+
+- [Fix] Modified some labels that might cause the occurrence of certain types of interruptions to the custom functions.
+- [Add] New function: After pressing down the activation button, options will pop up to let non-admin users choose whether to run program as administrators.
+>
+- [修复] 修改了部分可能导致自定义函数被中断的标签。
+- [增添] 新功能：按下启动按钮后，会弹出让非管理员用户选择是否以管理员身份运行程序的选项。
+
+
+[0.2.7] - 2022-05-05
+
+- [Fix] Delete and improved codes that would cause jumbled records.
+- [Add] New function: Aiming mode now supports using mouse to control cross hair.
+>
+- [修复] 删除并改进了会造成冗杂记录的代码。
+- [增添] 新功能：瞄准模式现已支持使用鼠标来操控准星。
+
+
+[0.2.5] - 2022-05-04
+
+- [Fix] Provide a more efficient scheme of View-control operation.
+- [Coming soon] New aiming mode that use mouse to control cross hair instead of using direction keys. (Still working on it)
+>
+- [修复] 提供了一种更为高效的视角操控方案。
+- [预告] 新的瞄准模式将用鼠标代替方向键来操控准星。（尚在制作中）
+
+
+[0.2.3] - 2022-03-26
+
+- [Fix] Issues that might occurred while hotkey "Left Shift" is pressed down.
+- [Fix] View-control and mouse-drag operations improved,
+- [Coming soon] New aiming mode that use mouse to control cross hair instead of using direction keys.
+>
+- [修复] 在按下键盘左侧Shift键时可能导致的一些问题。
+- [修复] 改进了视角操控与鼠标拖拽操作。
+- [预告] 新的瞄准模式将用鼠标代替方向键来操控准星。
+
+
+[0.2.1] - 2022-03-07
+
+- [Fix] No effects/ non-response when suspending or reloading scripts through hotkey "F1"/ "F3" .
+>
+- [修复] 通过F1键/F3键进行程序暂停或重启时没有效果/无响应。
+
+
+[0.2.0] - 2022-03-05
+
+- [Fix] Rewrote all the codes that related to the view-control function, so it won't be that easy to be interrupted.
+- [Fix] The mouse cruiser could sometimes flash back to the center of the window, now it's fixed and the graphic can be dragged when clicking down the mouse.
+- [Fix] Problems that occurred while hotkey "E" is released during the aiming mode.
+- [Add] New function: the middle mouse button can now be used to toggle the view-control function, there're also tips showing up in the screen's left corner to claim the current status when the function is activated or closed.
+>
+- [修复] 重写所有与视角操控功能相关的代码，使其抗打断能力大幅提升。
+- [修复] 鼠标光标有时会闪回到窗口正中央，现在已被修复且支持在按下鼠标键时进行画面拖动操作。
+- [修复] 松开E键退出瞄准模式时可能触发的问题。
+- [增添] 新功能：鼠标中键现在可用于触发视角操控功能，且屏幕左下角会有当前功能激活/关闭时的状态提示。
