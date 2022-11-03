@@ -214,7 +214,8 @@ IfMsgBox, Yes
         }
         FileDelete, %INI_DIR%
     }
-    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
+    ;FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1 ; 对variable的百分号进行转义后会在compile时报错
+    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_0.3.9.ini, %INI_DIR%, 1
     MsgBox, 0, 提示, 已成功载入默认配置
     Reload
 }
