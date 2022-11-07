@@ -340,24 +340,25 @@ AimControl()
 ;【函数 Function】输入重置
 InputReset()
 {
-    If GetKeyState("MButton")
-    {
-        If (Status_Key_ViewControl)
-        {
-            Status_Key_ViewControl := !Status_Key_ViewControl
-        }
-        SendInput, {Click, Up Middle}
-    }
-    Else
-    {
-        ;SetTimer, ViewControlTemp, -1
-        SetTimer, ViewControlTemp, Delete
-    }
     If Not GetKeyState("E")
     {
-        ;SetTimer, AimControl, -1
-        SetTimer, AimControl, Delete
+        Try
+            SetTimer, AimControl, Delete
+        Catch
+            SetTimer, AimControl, -1
     }
+    Try
+        If GetKeyState("MButton")
+        {
+            If (Status_Key_ViewControl)
+            {
+                Status_Key_ViewControl := !Status_Key_ViewControl
+            }
+            SendInput, {Click, Up Middle}
+        }
+        SetTimer, ViewControlTemp, Delete
+    Catch
+        SetTimer, ViewControlTemp, -1
 }
 
 
