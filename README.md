@@ -160,10 +160,12 @@
 - Sys：Win10
 - Res：<=`1920*1080`
 
+**2. (Waiting to add other devices)**
+
 
 ## 【收藏趋势 Stargazers over time】
 
-[![Stargazers over time](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project.svg)](https://starchart.cc/Spartan711/Genshin-to-Honkai-PC-Control-Project)
+[![Stargazers over time](https://starchart.cc/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project.svg)](https://starchart.cc/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project)
 
 
 ## 【联系方式 Contact Details】
