@@ -191,7 +191,7 @@ Gui, Start: Tab, 设置
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H78,                                             配置 Config
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfigReset,                  重置为默认配置
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfigReset,                  载入配置预设
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H150,                                            更新 Update
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
@@ -213,7 +213,7 @@ Return
 
 ;【例程 Gosub】
 ConfigReset:
-MsgBox, 4, 询问, 是否确认对当前配置进行重置？
+MsgBox, 4, 询问, 操作将覆盖当前的配置，是否继续？
 IfMsgBox, Yes
 {
     IfExist, %INI_DIR%
@@ -224,12 +224,14 @@ IfMsgBox, Yes
         }
         FileDelete, %INI_DIR%
     }
+    Gui, Presets: Add, Button, W33, 载入键鼠预设
+    Gui, Presets: Add, Button, W33, 载入手柄预设
     /*
     对variable的百分号进行转义后会在compile时报错:
     FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
     */
     FileInstall, Config\Preset_Keyboard\BH3_Hotkey_0.3.9.ini, %INI_DIR%, 1
-    MsgBox, 0, 提示, 已成功载入默认配置
+    MsgBox, 0, 提示, 已成功载入预设
     Reload
 }
 Else
@@ -258,7 +260,8 @@ Return
 ;【标签 Label】“开启”按钮的执行语句
 StartButton开启:
 
-Gui, Submit
+;Gui, Submit
+Gui, Start: Submit
 
 ;【配置 INI】写入配置
 IniWrite, %Key_MainSkill1%, %INI_DIR%, Key Maps, 必杀技1
