@@ -348,6 +348,7 @@ InputReset()
             SetTimer, AimControl, -1
     }
     Try
+    {
         If GetKeyState("MButton")
         {
             If (Status_Key_ViewControl)
@@ -357,6 +358,7 @@ InputReset()
             SendInput, {Click, Up Middle}
         }
         SetTimer, ViewControlTemp, Delete
+    }
     Catch
         SetTimer, ViewControlTemp, -1
 }
