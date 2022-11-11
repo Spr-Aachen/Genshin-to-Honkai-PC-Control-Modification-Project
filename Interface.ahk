@@ -21,7 +21,7 @@ Root_DIR = C:\BH3_Hotkey
 ;SetWorkingDir, C:\BH3_Hotkey
 
 FileCreateDir, %Root_DIR%\Config
-INI_DIR = %Root_DIR%\Config\BH3_Hotkey_%Version%.ini
+INI_DIR = %Root_DIR%\Config\BH3_Hotkey.ini ;INI_DIR = %Root_DIR%\Config\BH3_Hotkey_%Version%.ini
 
 FileCreateDir, %Root_DIR%\GUI\Changelogs
 Changelog_DIR1 = %Root_DIR%\GUI\Changelogs\v0.1.+.txt
@@ -29,71 +29,82 @@ Changelog_DIR2 = %Root_DIR%\GUI\Changelogs\v0.2.+.txt
 Changelog_DIR3 = %Root_DIR%\GUI\Changelogs\v0.3.+.txt
 
 
-
 ;【配置 INI】创建配置
-IfNotExist, %INI_DIR%
+Try
+    IniRead, TestString, %INI_DIR%, Startup, 执行初始化缓存清理
+Catch
 {
-    IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1, Q
-    IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2, %A_Space%
-    IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1, E
-    IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2, %A_Space%
-    IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1, Z
-    IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2, %A_Space%
-    IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
-    IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
-    IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1, %A_Space%
-    IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2, LButton
-    ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
-    IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1, %A_Space%
-    IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2, MButton
-    IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1, F1
-    IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2, %A_Space%
-    IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1, F3
-    IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2, %A_Space%
-
-    IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
-    IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
-    IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标, 0 ; Uncheck by default
-    IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标, 1 ; Check by default
-
-    IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1, 3
-    IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2, 3
-    IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1, 12
-    IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2, 12
-    IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1, 1
-    IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2, 1
+    ExitApp
 }
-Else
+Finally
 {
-    IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1
-    IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2
-    IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1
-    IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2
-    IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1
-    IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2
-    IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1
-    IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2
-    IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1
-    IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2
-    ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-    IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1
-    IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2
-    IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1
-    IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2
-    IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1
-    IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2
+    If (TestString = "ERROR")
+    {
+        RunWait, PowerShell.exe -Command "Get-ChildItem -Path c:\ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force", , Hide
+        IniRead, TestString, %INI_DIR%, Startup, 执行初始化缓存清理, 已执行
 
-    IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
-    IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
-    IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标
-    IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
+        IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1, Q
+        IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2, %A_Space%
+        IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1, E
+        IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2, %A_Space%
+        IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1, Z
+        IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2, %A_Space%
+        IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
+        IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
+        IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1, %A_Space%
+        IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2, LButton
+        ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
+        IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1, %A_Space%
+        IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2, MButton
+        IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1, F1
+        IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2, %A_Space%
+        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1, F3
+        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2, %A_Space%
 
-    IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1
-    IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2
-    IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
-    IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
-    IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
-    IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
+        IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
+        IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
+        IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标, 0 ; Uncheck by default
+        IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标, 1 ; Check by default
+
+        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1, 3
+        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2, 3
+        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1, 12
+        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2, 12
+        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1, 1
+        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2, 1
+    }
+    Else ;IfExist, %INI_DIR%
+    {
+        IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1
+        IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2
+        IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1
+        IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2
+        IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1
+        IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2
+        IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1
+        IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2
+        IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1
+        IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2
+        ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
+        IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1
+        IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2
+        IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1
+        IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2
+        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1
+        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2
+
+        IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
+        IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
+        IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标
+        IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
+
+        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1
+        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2
+        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
+        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
+        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
+        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
+    }
 }
 
 
@@ -229,8 +240,9 @@ IfMsgBox, Yes
     /*
     对variable的百分号进行转义后会在compile时报错:
     FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
+    故不再采用这种命名方式
     */
-    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_0.3.9.ini, %INI_DIR%, 1
+    FileInstall, Config\Preset_Keyboard\BH3_Hotkey.ini, %INI_DIR%, 1
     MsgBox, 0, 提示, 已成功载入预设
     Reload
 }
