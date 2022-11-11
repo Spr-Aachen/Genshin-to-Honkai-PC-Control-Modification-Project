@@ -117,7 +117,7 @@
 <br>   `Restricted Cursor` (toggled by default)
 
 2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
-<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the F1 key and F3 key (Under the premise of toggling the `Automatic Identification`). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
+<br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the `F1 key` and `F3 key` (Under the premise of toggling the `Automatic Identification`). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
 3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
 <br>   New scene supported: Elysium Lobby (Under the premise of toggling the `Automatic Identification`)
@@ -158,7 +158,7 @@
 - CPU：i5-10300H
 - RAM：16G
 - Sys：Win10
-- Res：<=`1920*1080`
+- Res：<=`1920`*`1080`
 
 **2. (Waiting to add other devices)**
 
