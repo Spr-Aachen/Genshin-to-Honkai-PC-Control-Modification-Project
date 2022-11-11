@@ -245,7 +245,7 @@ AutoScale()
     {
         InputReset()
     }
-    Return
+    Return "Done"
 }
 
 
@@ -292,6 +292,10 @@ ManualSuspend()
         If (Toggle_AutoScale)
         {
             SetTimer, AutoScale, %Timer_AutoScale%
+            Loop
+            {
+                Sleep, 2
+            } Until AutoScale() == "Done"
             If (Status_CombatIcon)
             {
                 If (!Status_Occlusion)
