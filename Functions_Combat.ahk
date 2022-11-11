@@ -312,7 +312,7 @@ AimControl()
                 BreakFlag_Aim := !BreakFlag_Aim
                 break
             }
-        }Until Not GetKeyState(A_ThisHotkey, "P")
+        } Until Not GetKeyState(A_ThisHotkey, "P")
         If (Status_w)
         {
             SendInput, {w Up}
