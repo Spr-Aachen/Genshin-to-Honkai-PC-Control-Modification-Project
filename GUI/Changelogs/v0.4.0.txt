@@ -1,0 +1,5 @@
+[0.4.0] - 2022-11-11
+
+- [Fix] Mouse Functions (View Control, Aim Control, Mouse Cursor, et cetera) would'nt be toggled automaticly in combat while the suspending/continuing key (F1 by default) was pressed to resume the suspended program.
+>
+- [修复] 在战斗界面内按下暂停/启用键以恢复程序运行时视角跟随等功能未自动生效的问题
