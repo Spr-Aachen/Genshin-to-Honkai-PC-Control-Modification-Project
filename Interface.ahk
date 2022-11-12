@@ -27,6 +27,7 @@ FileCreateDir, %Root_DIR%\GUI\Changelogs
 Changelog_DIR1 = %Root_DIR%\GUI\Changelogs\v0.1.+.txt
 Changelog_DIR2 = %Root_DIR%\GUI\Changelogs\v0.2.+.txt
 Changelog_DIR3 = %Root_DIR%\GUI\Changelogs\v0.3.+.txt
+Changelog_DIR4 = %Root_DIR%\GUI\Changelogs\v0.4.+.txt
 
 
 ;【配置 INI】创建配置
@@ -38,42 +39,46 @@ Catch
 }
 Finally
 {
-    If (TestString = "ERROR")
+    If (TestString == "ERROR")
     {
-        RunWait, PowerShell.exe -Command "Get-ChildItem -Path c:\ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force", , Hide
-        IniRead, TestString, %INI_DIR%, Startup, 执行初始化缓存清理, 已执行
+        Try
+            RunWait, PowerShell.exe -Command "Get-ChildItem -Path c:\ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
+        Catch
+            MsgBox, Failed to run Shell!
+        TestString = 已执行
+        IniWrite, %TestString%, %INI_DIR%, Startup, 执行初始化缓存清理
 
-        IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1, Q
-        IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2, %A_Space%
-        IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1, E
-        IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2, %A_Space%
-        IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1, Z
-        IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2, %A_Space%
-        IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1, LShift
-        IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2, RButton
-        IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1, %A_Space%
-        IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2, LButton
-        ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击, LAlt + LButton
-        IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1, %A_Space%
-        IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2, MButton
-        IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1, F1
-        IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2, %A_Space%
-        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1, F3
-        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2, %A_Space%
+        IniWrite, Q, %INI_DIR%, Key Maps, 必杀技1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 必杀技2
+        IniWrite, E, %INI_DIR%, Key Maps, 武器技/后崩技1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 武器技/后崩技2
+        IniWrite, Z, %INI_DIR%, Key Maps, 人偶技/月之环1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 人偶技/月之环2
+        IniWrite, LShift, %INI_DIR%, Key Maps, 闪避1
+        IniWrite, RButton, %INI_DIR%, Key Maps, 闪避2
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 普攻1
+        IniWrite, LButton, %INI_DIR%, Key Maps, 普攻2
+        ;IniWrite, LAlt + LButton, %INI_DIR%, Key Maps, 正常点击
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 管理视角跟随1
+        IniWrite, MButton, %INI_DIR%, Key Maps, 管理视角跟随2
+        IniWrite, F1, %INI_DIR%, Key Maps, 暂停/启用1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 暂停/启用2
+        IniWrite, F3, %INI_DIR%, Key Maps, 调出界面1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 调出界面2
 
-        IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限, 1 ; Check by default
-        IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别, 1 ; Check by default
-        IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标, 0 ; Uncheck by default
-        IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标, 1 ; Check by default
+        IniWrite, 1, %INI_DIR%, CheckBox, 管理员权限 ; Check by default
+        IniWrite, 1, %INI_DIR%, CheckBox, 全自动识别 ; Check by default
+        IniWrite, 0, %INI_DIR%, CheckBox, 可隐藏光标 ; Uncheck by default
+        IniWrite, 1, %INI_DIR%, CheckBox, 限制性光标 ; Check by default
 
-        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1, 3
-        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2, 3
-        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1, 12
-        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2, 12
-        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1, 1
-        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2, 1
+        IniWrite, 3, %INI_DIR%, Slider, 正常战斗状态识别容错率1
+        IniWrite, 3, %INI_DIR%, Slider, 正常战斗状态识别容错率2
+        IniWrite, 12, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
+        IniWrite, 12, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
+        IniWrite, 1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
+        IniWrite, 1, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
     }
-    Else ;IfExist, %INI_DIR%
+    Try ;IfExist, %INI_DIR%
     {
         IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1
         IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2
@@ -105,6 +110,55 @@ Finally
         IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
         IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
     }
+    Finally
+    {
+    /*
+        ; Not working with dict
+        Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": "%A_Space%"}
+        Counter := 0
+        For Key, Value in Dict
+        {
+            Counter += 1
+            If (Key_MainSkill2 == "%Value%")
+                Key_MainSkill2_DDL := %Counter%
+            If (Key_SecondSkill2 == "%Value%")
+                Key_SecondSkill2_DDL := %Counter%
+            If (Key_DollSkill2 == "%Value%")
+                Key_DollSkill2_DDL := %Counter%
+            If (Key_Dodging2 == "%Value%")
+                Key_Dodging2_DDL := %Counter%
+            If (Key_NormalAttack2 == "%Value%")
+                Key_NormalAttack2_DDL := %Counter%
+            If (Key_ViewControl2 == "%Value%")
+                Key_ViewControl2_DDL := %Counter%
+            If (Key_Suspend2 == "%Value%")
+                Key_Suspend2_DDL := %Counter%
+            If (Key_SurfaceCheck2 == "%Value%")
+                Key_SurfaceCheck2_DDL := %Counter%
+        }
+    */
+        ; But works with list
+        List := ["LButton", "MButton", "RButton", "%A_Space%"]
+        Loop % List.Length()
+        {
+            If (Key_MainSkill2 == List[A_Index])
+                Key_MainSkill2_DDL := A_Index
+            If (Key_SecondSkill2 == List[A_Index])
+                Key_SecondSkill2_DDL := A_Index
+            If (Key_DollSkill2 == List[A_Index])
+                Key_DollSkill2_DDL := A_Index
+            If (Key_Dodging2 == List[A_Index])
+                Key_Dodging2_DDL := A_Index
+            If (Key_NormalAttack2 == List[A_Index])
+                Key_NormalAttack2_DDL := A_Index
+            If (Key_ViewControl2 == List[A_Index])
+                Key_ViewControl2_DDL := A_Index
+            If (Key_Suspend2 == List[A_Index])
+                Key_Suspend2_DDL := A_Index
+            If (Key_SurfaceCheck2 == List[A_Index])
+                Key_SurfaceCheck2_DDL := A_Index
+        }
+    }
 }
 
 
@@ -135,23 +189,23 @@ Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        :                       必杀技
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,             %Key_MainSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2,    %Key_MainSkill2%||%Key_Dodging2%|%Key_NormalAttack2%|%Key_ViewControl2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       武器技/后崩技
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,           %Key_SecondSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2,  %Key_SecondSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       人偶技/月之环
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,             %Key_DollSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2,    %Key_DollSkill2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       闪避
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,               %Key_Dodging1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2,      %Key_Dodging2%||%Key_NormalAttack2%|%Key_ViewControl2%|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       普攻
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,          %Key_NormalAttack1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2, %Key_NormalAttack2%||%Key_ViewControl2%|%Key_Dodging2%|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H168,                                            其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
@@ -160,15 +214,15 @@ Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,        左Alt      +      左�
 Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,        :                       管理视角跟随
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_ViewControl1,           %Key_ViewControl1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_ViewControl2,  %Key_ViewControl2%||%Key_NormalAttack2%|%Key_Dodging2%|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_ViewControl2 Choose%Key_ViewControl2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       暂停/启用
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,               %Key_Suspend1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2,      %Key_Suspend2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,     :                       调出界面
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SurfaceCheck1,          %Key_SurfaceCheck1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2, %Key_SurfaceCheck2%||%Key_NormalAttack2%|%Key_ViewControl2%|%Key_Dodging2%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2 Choose%Key_SurfaceCheck2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 
 Gui, Start: Tab, 功能
@@ -209,7 +263,7 @@ Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans,        百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
 Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,        Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
 Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,        版本日志:
-Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.3.+|v0.2.+|v0.1.+
+Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.4.+|v0.3.+|v0.2.+|v0.1.+
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 
 
@@ -256,6 +310,9 @@ SelectVersion:
 GuiControlGet, Version
 Switch Version
 {
+    Case "v0.4.+":
+        FileInstall, GUI\Changelogs\v0.4.+.txt, %Changelog_DIR4%, 1
+        Run, open %Changelog_DIR4%
     Case "v0.3.+":
         FileInstall, GUI\Changelogs\v0.3.+.txt, %Changelog_DIR3%, 1
         Run, open %Changelog_DIR3%
