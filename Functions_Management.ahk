@@ -1,12 +1,16 @@
 ﻿;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;【函数 Function】自动识别
-AutoScale()
+;【函数 Function】屏幕检测
+ScreenDetect()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
+        WinGetPos, X, Y, W, H, ahk_exe BH3.exe
+        ClientUpperLeftCorner_X := X
+        ClientUpperLeftCorner_Y := Y
+        Client_Width := W
+        Client_Height := H
 
         If (Client_Width / Client_Height == 1920 / 1080)
         { ; 默认数值源于1920*1080分辨率下的测试结果
@@ -164,8 +168,16 @@ AutoScale()
             ;MsgBox, 4,, 请检查当前是否为全屏模式或支持的分辨率！
             ;ExitApp
         }
+    }
+}
 
-        ; ScreenScale
+
+;【函数 Function】自动识别
+AutoScale()
+{
+    ScreenDetect()
+    If WinActive("ahk_exe BH3.exe")
+    {
         If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
         {
             If (!Status_CombatIcon)
