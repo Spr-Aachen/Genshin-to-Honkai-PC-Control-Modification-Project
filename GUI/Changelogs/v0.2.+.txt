@@ -1,4 +1,4 @@
-[0.2.9] - 2022-05-08
+﻿[0.2.9] - 2022-05-08
 
 - [Fix] Modified some labels that might cause the occurrence of certain types of interruptions to the custom functions.
 - [Add] New function: After pressing down the activation button, options will pop up to let non-admin users choose whether to run program as administrators.
