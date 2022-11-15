@@ -4,6 +4,21 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+;【常量 Const】对管理屏幕检测功能的全局常量进行赋值
+Global ClientUpperLeftCorner_X
+Global ClientUpperLeftCorner_Y
+Global Client_Width
+Global Client_Height
+Global UpperLeftCorner_X
+Global UpperLeftCorner_Y
+Global LowerRightCorner_X
+Global LowerRightCorner_Y
+Global LowerRightCorner_X2
+Global LowerRightCorner_Y2
+Global UpperLeftCorner_X2
+Global UpperLeftCorner_Y2
+Global Icon
+
 ;【常量 Const】对管理自动控制功能的全局常量进行赋值
 Global Toggle_AutoScale := 0
 Global Timer_AutoScale := 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
