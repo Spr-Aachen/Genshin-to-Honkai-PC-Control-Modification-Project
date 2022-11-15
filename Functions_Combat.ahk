@@ -29,8 +29,15 @@ CoordReset()
     If WinActive("ahk_exe BH3.exe")
     {
         CoordMode, Mouse, Client
-        WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
-        MouseMove, Client_Width/2, Client_Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+        Try
+            MouseMove, Client_Width/2, Client_Height/2, 0 ; [建议保持数值] 使鼠标回正，居中于窗口
+        Catch
+        {
+            WinGetPos, , , W, H, ahk_exe BH3.exe ; 获取崩坏3游戏窗口参数（同样适用于非全屏）
+            Client_Width := W
+            Client_Height := H
+            CoordReset()
+        }
     }
 }
 
@@ -45,15 +52,26 @@ Restriction()
         {
             If (Status_Restriction)
             {
-                WinGetPos, ClientUpperLeftCorner_X, ClientUpperLeftCorner_Y, Client_Width, Client_Height, ahk_exe BH3.exe
-                If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+                Try
                 {
-                    If (Status_Key_ViewControl)
+                    If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
                     {
-                        SendInput, {Click, Up Middle}
-                        Status_Key_ViewControl := !Status_Key_ViewControl
+                        If (Status_Key_ViewControl)
+                        {
+                            SendInput, {Click, Up Middle}
+                            Status_Key_ViewControl := !Status_Key_ViewControl
+                        }
+                        CoordReset()
                     }
-                    CoordReset()
+                }
+                Catch
+                {
+                    WinGetPos, X, Y, W, H, ahk_exe BH3.exe
+                    ClientUpperLeftCorner_X := X
+                    ClientUpperLeftCorner_Y := Y
+                    Client_Width := W
+                    Client_Height := H
+                    Restriction()
                 }
             }
         }
