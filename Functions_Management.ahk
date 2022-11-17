@@ -172,81 +172,138 @@ ScreenDetect()
 }
 
 
-;【函数 Function】自动识别
-AutoScale()
+;【函数 Function】
+TimerControl()
 {
-    ScreenDetect()
-    If WinActive("ahk_exe BH3.exe")
+    If (Toggle_ManualSuspend)
     {
-        If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
+        Try
         {
-            If (!Status_CombatIcon)
-            {
-                Status_CombatIcon := !Status_CombatIcon
-            }
-            If (!Toggle_ManualSuspend)
-            {
-                If(A_IsSuspended)
-                {
-                    If (!Status_Occlusion)
-                        Occlusion(Status_Occlusion := !Status_Occlusion)
-                    If (!Toggle_MouseFunction)
-                    {
-                        Toggle_MouseFunction := !Toggle_MouseFunction
-                        If (!Toggle_Restriction)
-                            CoordReset()
-                        Else If (!Status_Restriction)
-                            Status_Restriction := !Status_Restriction
-                        SetTimer, ViewControl, %Timer_ViewControl%
-                    }
-                    Suspend, Off
-                }
-            }
+            SetTimer, ScreenDetect, Delete
+            SetTimer, TimerControl, Delete
+        }
+        Finally
+            Toggle_TimerControl := 0
+    }
+    Else
+    {
+        If (FirstTime_ScreenDetect)
+        {
+            ScreenDetect()
+            FirstTime_ScreenDetect := !FirstTime_ScreenDetect
         }
         Else
         {
-            If (Status_CombatIcon)
+            SetTimer, ScreenDetect, %Timer_ScreenDetect%
+        }
+    }
+}
+
+
+;【函数 Function】自动识别
+AutoScale()
+{
+    If WinActive("ahk_exe BH3.exe")
+    {
+        Try
+        {
+            /*
+            If (!Toggle_ScreenDetect)
             {
-                Status_CombatIcon := !Status_CombatIcon
+                Toggle_ScreenDetect := !Toggle_ScreenDetect
+                ScreenDetect()
             }
-            If (!A_IsSuspended)
+            Else
             {
-                Suspend, On
-                If (Toggle_MouseFunction)
+                If (Toggle_ManualSuspend)
                 {
-                    If (Status_Restriction)
-                        Status_Restriction := !Status_Restriction
-                    SetTimer, ViewControl, Delete
-                    If GetKeyState(Key_SecondSkill, "P")
-                        BreakFlag_Aim := !BreakFlag_Aim
-                    InputReset()
-                    Toggle_MouseFunction := !Toggle_MouseFunction
-                }
-                If (Status_Occlusion)
-                    Occlusion(Status_Occlusion := !Status_Occlusion)
-            }
-            Else If (!Toggle_ManualSuspend)
-            {
-                If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_LowerRight")
-                {
-                    If (!Toggle_MouseFunction)
-                    {
-                        Toggle_MouseFunction := !Toggle_MouseFunction
-                        CoordReset()
-                        ;If (!Status_Restriction)
-                            ;Status_Restriction := !Status_Restriction
-                        SetTimer, ViewControl, %Timer_ViewControl%
-                    }
+                    Try
+                        SetTimer, ScreenDetect, Delete
+                    Toggle_ScreenDetect := !Toggle_ScreenDetect
                 }
                 Else
+                    SetTimer, ScreenDetect, %Timer_ScreenDetect%
+            }
+            */
+            If (!Toggle_TimerControl)
+            {
+                SetTimer, TimerControl, %TimerControl%
+                Toggle_TimerControl := !Toggle_TimerControl
+            }
+        }
+
+        Finally
+        {
+            If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
+            {
+                If (!Status_CombatIcon)
                 {
+                    Status_CombatIcon := !Status_CombatIcon
+                }
+                If (!Toggle_ManualSuspend)
+                {
+                    If(A_IsSuspended)
+                    {
+                        If (!Status_Occlusion)
+                            Occlusion(Status_Occlusion := !Status_Occlusion)
+                        If (!Toggle_MouseFunction)
+                        {
+                            Toggle_MouseFunction := !Toggle_MouseFunction
+                            If (!Toggle_Restriction)
+                                CoordReset()
+                            Else If (!Status_Restriction)
+                                Status_Restriction := !Status_Restriction
+                            SetTimer, ViewControl, %Timer_ViewControl%
+                        }
+                        Suspend, Off
+                    }
+                }
+            }
+            Else
+            {
+                If (Status_CombatIcon)
+                {
+                    Status_CombatIcon := !Status_CombatIcon
+                }
+                If (!A_IsSuspended)
+                {
+                    Suspend, On
                     If (Toggle_MouseFunction)
                     {
-                        ;If (Status_Restriction)
-                            ;Status_Restriction := !Status_Restriction
+                        If (Status_Restriction)
+                            Status_Restriction := !Status_Restriction
                         SetTimer, ViewControl, Delete
+                        If GetKeyState(Key_SecondSkill, "P")
+                            BreakFlag_Aim := !BreakFlag_Aim
                         InputReset()
                         Toggle_MouseFunction := !Toggle_MouseFunction
+                    }
+                    If (Status_Occlusion)
+                        Occlusion(Status_Occlusion := !Status_Occlusion)
+                }
+                Else If (!Toggle_ManualSuspend)
+                {
+                    If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_LowerRight")
+                    {
+                        If (!Toggle_MouseFunction)
+                        {
+                            Toggle_MouseFunction := !Toggle_MouseFunction
+                            CoordReset()
+                            ;If (!Status_Restriction)
+                                ;Status_Restriction := !Status_Restriction
+                            SetTimer, ViewControl, %Timer_ViewControl%
+                        }
+                    }
+                    Else
+                    {
+                        If (Toggle_MouseFunction)
+                        {
+                            ;If (Status_Restriction)
+                                ;Status_Restriction := !Status_Restriction
+                            SetTimer, ViewControl, Delete
+                            InputReset()
+                            Toggle_MouseFunction := !Toggle_MouseFunction
+                        }
                     }
                 }
             }
@@ -257,6 +314,7 @@ AutoScale()
     {
         InputReset()
     }
+    
     Return "Done"
 }
 
@@ -306,7 +364,7 @@ ManualSuspend()
             SetTimer, AutoScale, %Timer_AutoScale%
             Loop
             {
-                Sleep, 2
+                Sleep, 1
             } Until AutoScale() == "Done"
             If (Status_CombatIcon)
             {
