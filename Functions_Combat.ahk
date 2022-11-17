@@ -194,7 +194,7 @@ AimControl()
             Restriction()
             Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
             MouseGetPos, x2, y2
-            If (x1 != x2 or y1 != y2) ; 采用层级指令覆盖结构
+            If (x1 != x2 or y1 != y2)
             {
                 If (y1 > y2)
                 {
