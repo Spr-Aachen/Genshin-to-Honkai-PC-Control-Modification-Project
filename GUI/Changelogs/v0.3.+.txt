@@ -4,7 +4,7 @@
 - [Add] Tray menu function: Config Delete (Located in the others bar)
 - [Add] Start-up interface function: Automatic Identification Params Tuning (Located in the function bar), please note that this function is still in the pilot phase, parameters can be restored through the 'Config Reset' function if any exception occurs
 - [Add] Start-up interface function: Config Reset (Located in the settings bar)
-- [Improve]  Start-up interface function: Changelog Check (Located in the settings bar)
+- [Improve] Start-up interface function: Changelog Check (Located in the settings bar)
 - [Improve] Dependency library updated
 - [Improve] Code structure reduxed for better operating speed and readability
 >
