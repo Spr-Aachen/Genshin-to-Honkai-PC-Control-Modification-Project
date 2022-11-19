@@ -3,7 +3,9 @@
 - [Fix] Mouse Functions (View Control, Aim Control, Mouse Cursor, et cetera) would'nt be toggled automaticly in combat while the suspending/continuing key (F1 by default) was pressed to resume the suspended program.
 - [Fix] Failed to load key names correctly (also in wrong order) when customizing mouse buttons through combobox.
 - [Fix] Due to the invalid name of some parameters, the Automatic Identification Params Tuning function could't work properly.
+- [Improve] Remastered the "Automatic Identification" function related code structure to raise the speed of program response.
 >
 - [修复] 在战斗界面内按下暂停/启用键以恢复程序运行时视角跟随等功能未自动生效的问题
 - [修复] 在启动界面内使用下拉列表自定义鼠标键时按键名未正常显示以及排序错误的问题
 - [修复] 由部分参数名称错误导致的识别系统调参功能无效化的问题
+- [改进] 重制了识别系统相关的代码结构以提升响应速度
