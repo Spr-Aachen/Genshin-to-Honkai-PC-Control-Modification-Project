@@ -177,13 +177,13 @@ TimerControl()
 {
     If (Toggle_ManualSuspend)
     {
+        SetTimer, ScreenDetect, Delete
+        FirstTime_ScreenDetect := 0
         Try
         {
-            SetTimer, ScreenDetect, Delete
             SetTimer, TimerControl, Delete
-        }
-        Finally
             Toggle_TimerControl := 0
+        }
     }
     Else
     {
