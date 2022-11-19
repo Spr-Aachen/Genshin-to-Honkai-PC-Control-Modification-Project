@@ -251,19 +251,22 @@ Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                           
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage2,           %FaultTolerance_Elysium_Percentage2%
 Gui, Start: Font, s12, 新宋体
 
-
 Gui, Start: Tab, 设置
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H78,                                             配置 Config
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfigReset,                  载入配置预设
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H150,                                            更新 Update
+Gui, Start: Add, GroupBox, W333 H114,                                            更新 Update
+Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                  检查版本更新
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                查看更新日志：
+Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, %A_Space%||v0.4.+|v0.3.+|v0.2.+|v0.1.+
+Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H114,                                            更新（备用） Update (Backup)
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans,        百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
 Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,        Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,        版本日志:
-Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.4.+|v0.3.+|v0.2.+|v0.1.+
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 
 
@@ -305,6 +308,12 @@ Else
 Return
 
 
+;【例程 Gosub】
+UpdateCheck:
+Updater()
+Return
+
+
 ;【例程 Gosub】“版本”选项的执行语句
 SelectVersion:
 GuiControlGet, Version
@@ -322,6 +331,8 @@ Switch Version
     Case "v0.1.+":
         FileInstall, GUI\Changelogs\v0.1.+.txt, %Changelog_DIR1%, 1
         Run, open %Changelog_DIR1%
+    Default :
+        Return
 }
 Return
 
