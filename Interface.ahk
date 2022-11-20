@@ -5,8 +5,8 @@
 Disable( )
 {
     WinGet, id, ID, A
-    menu := DLLCall("user32\GetSystemMenu", "UInt", id, "UInt", 0)
-    DLLCall("user32\DeleteMenu", "UInt", menu, "UInt", 0xF060, "UInt", 0x0)
+    menu := DLLCall("user32/GetSystemMenu", "UInt", id, "UInt", 0)
+    DLLCall("user32/DeleteMenu", "UInt", menu, "UInt", 0xF060, "UInt", 0x0)
     WinGetPos ,x, y, w, h, ahk_id %id%
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h-1
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
@@ -17,17 +17,17 @@ Disable( )
 
 
 ;【位置 Path】设定位置
-Root_DIR = C:\BH3_Hotkey
-;SetWorkingDir, C:\BH3_Hotkey
+Root_DIR = C:/BH3_Hotkey
+;SetWorkingDir, C:/BH3_Hotkey
 
-FileCreateDir, %Root_DIR%\Config
-INI_DIR = %Root_DIR%\Config\BH3_Hotkey.ini ;INI_DIR = %Root_DIR%\Config\BH3_Hotkey_%Version%.ini
+FileCreateDir, %Root_DIR%/Config
+INI_DIR = %Root_DIR%/Config/BH3_Hotkey.ini ;INI_DIR = %Root_DIR%/Config/BH3_Hotkey_%Version%.ini
 
-FileCreateDir, %Root_DIR%\GUI\Changelogs
-Changelog_DIR1 = %Root_DIR%\GUI\Changelogs\v0.1.+.txt
-Changelog_DIR2 = %Root_DIR%\GUI\Changelogs\v0.2.+.txt
-Changelog_DIR3 = %Root_DIR%\GUI\Changelogs\v0.3.+.txt
-Changelog_DIR4 = %Root_DIR%\GUI\Changelogs\v0.4.+.txt
+FileCreateDir, %Root_DIR%/GUI/Changelogs
+Changelog_DIR1 = %Root_DIR%/GUI/Changelogs/v0.1.+.txt
+Changelog_DIR2 = %Root_DIR%/GUI/Changelogs/v0.2.+.txt
+Changelog_DIR3 = %Root_DIR%/GUI/Changelogs/v0.3.+.txt
+Changelog_DIR4 = %Root_DIR%/GUI/Changelogs/v0.4.+.txt
 
 
 ;【配置 INI】创建配置
@@ -42,9 +42,9 @@ Finally
     If (TestString == "ERROR")
     {
         Try
-            RunWait, PowerShell.exe -Command "Get-ChildItem -Path c:\ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
+            RunWait, PowerShell.exe -Command "Get-ChildItem -Path C:/ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
         Catch
-            MsgBox, Failed to run Shell!
+            MsgBox, 16, Warning, Failed to run Shell!
         TestString = 已执行
         IniWrite, %TestString%, %INI_DIR%, Startup, 执行初始化缓存清理
 
@@ -182,7 +182,7 @@ Gui, Start: Font, s12, 新宋体
 Gui, Start: Add, Tab3, , 键位|功能|设置
 
 Gui, Start: Tab, 键位
-;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:\Users\Spr_Aachen\Desktop\p1.jpg
+;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:/Users/Spr_Aachen/Desktop/p1.jpg
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H201,                                                                          战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
@@ -281,7 +281,7 @@ Return
 
 ;【例程 Gosub】
 ConfigReset:
-MsgBox, 4, 询问, 操作将覆盖当前的配置，是否继续？
+MsgBox, 0x24, 询问, 操作将覆盖当前的配置`n是否继续？
 IfMsgBox, Yes
 {
     IfExist, %INI_DIR%
@@ -296,10 +296,10 @@ IfMsgBox, Yes
     Gui, Presets: Add, Button, W33, 载入手柄预设
     /*
     对variable的百分号进行转义后会在compile时报错:
-    FileInstall, Config\Preset_Keyboard\BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
+    FileInstall, Config/Preset_Keyboard/BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
     故不再采用这种命名方式
     */
-    FileInstall, Config\Preset_Keyboard\BH3_Hotkey.ini, %INI_DIR%, 1
+    FileInstall, Config/Preset_Keyboard/BH3_Hotkey.ini, %INI_DIR%, 1
     MsgBox, 0, 提示, 已成功载入预设
     Reload
 }
@@ -320,16 +320,16 @@ GuiControlGet, Version
 Switch Version
 {
     Case "v0.4.+":
-        FileInstall, GUI\Changelogs\v0.4.+.txt, %Changelog_DIR4%, 1
+        FileInstall, GUI/Changelogs/v0.4.+.txt, %Changelog_DIR4%, 1
         Run, open %Changelog_DIR4%
     Case "v0.3.+":
-        FileInstall, GUI\Changelogs\v0.3.+.txt, %Changelog_DIR3%, 1
+        FileInstall, GUI/Changelogs/v0.3.+.txt, %Changelog_DIR3%, 1
         Run, open %Changelog_DIR3%
     Case "v0.2.+":
-        FileInstall, GUI\Changelogs\v0.2.+.txt, %Changelog_DIR2%, 1
+        FileInstall, GUI/Changelogs/v0.2.+.txt, %Changelog_DIR2%, 1
         Run, open %Changelog_DIR2%
     Case "v0.1.+":
-        FileInstall, GUI\Changelogs\v0.1.+.txt, %Changelog_DIR1%, 1
+        FileInstall, GUI/Changelogs/v0.1.+.txt, %Changelog_DIR1%, 1
         Run, open %Changelog_DIR1%
     Default :
         Return
@@ -446,7 +446,7 @@ If (EnableAutoScale)
     }
     Else
     {
-        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
         ExitApp
     }
 }
@@ -458,7 +458,7 @@ If (EnableOcclusion)
     }
     Else
     {
-        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
         ExitApp
     }
 }
@@ -470,7 +470,7 @@ If (EnableRestriction)
     }
     Else
     {
-        MsgBox, 0, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
         ExitApp
     }
 }
@@ -492,13 +492,13 @@ Return
 StartButton退出:
 If WinExist("ahk_exe BH3.exe")
 {
-    MsgBox, 4, 询问, 检测到崩坏3正在运行\(≧□≦)/，真的要退出吗？
+    MsgBox, 0x24, 询问, 检测到崩坏3正在运行`n\(≧□≦)/真的要退出吗？
     IfMsgBox, Yes
         ExitApp
 }
 Else
 {
-    MsgBox, 4, 询问, 是否确认退出当前程序(・-・*)？
+    MsgBox, 0x24, 询问, 是否确认退出当前程序`n(・-・*)？
     IfMsgBox, Yes
         ExitApp
 }
