@@ -21,7 +21,7 @@ If Not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
 
 
 Try
-    RunWait, PowerShell.exe -Command "mv -f ./BH3_Hotkey.exe ../", , Hide
+    RunWait, PowerShell.exe -Command "Move-Item -Path ./BH3_Hotkey.exe -Destination ../ -Force", , Hide
 Catch
 	MsgBox, 16, Warning, Failed to run Shell!
 Finally
