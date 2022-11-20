@@ -4,7 +4,7 @@
 
 
 ;【常量 Const】版本号
-Global Version := 0.4.0
+Global Version := "0.4.0"
 
 ;【常量 Const】对管理屏幕检测功能的全局常量进行赋值
 Global ClientUpperLeftCorner_X
