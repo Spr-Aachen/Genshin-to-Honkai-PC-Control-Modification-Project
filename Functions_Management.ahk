@@ -229,8 +229,8 @@ AutoScale()
             */
             If (!Toggle_ScreenDetectController)
             {
-                SetTimer, ScreenDetectController, %Timer_ScreenDetectController%
                 Toggle_ScreenDetectController := !Toggle_ScreenDetectController
+                SetTimer, ScreenDetectController, %Timer_ScreenDetectController%
             }
         }
 

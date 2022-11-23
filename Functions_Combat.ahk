@@ -81,14 +81,24 @@ Restriction()
 }
 
 
-;【函数 Function】视角跟随
-ViewControl()
+;【函数 Function】光标定位
+MouseDetect()
 {
     If WinActive("ahk_exe BH3.exe")
     {
         Restriction()
         Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
         MouseGetPos, x2, y2
+    }
+}
+
+
+;【函数 Function】视角跟随
+ViewControl()
+{
+    MouseDetect()
+    If WinActive("ahk_exe BH3.exe")
+    {
         If (x1 != x2 or y1 != y2)
         {
             If (!Status_Key_ViewControl)
@@ -112,12 +122,10 @@ ViewControl()
 ;【函数 Function】临时视角跟随
 ViewControlTemp()
 {
+    MouseDetect()
     If WinActive("ahk_exe BH3.exe")
     {
         Threshold := 33 ; [可调校数值 adjustable parameters] 设定切换两种视角跟随模式的像素阈值
-        Restriction()
-        Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
-        MouseGetPos, x2, y2
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
         {
             If (!Status_Key_ViewControl)
@@ -189,13 +197,11 @@ ViewControlTemp()
 ;【函数 Function】准星控制
 AimControl()
 {
+    MouseDetect()
     If WinActive("ahk_exe BH3.exe")
     {
         Loop
         {
-            Restriction()
-            Sleep, 1 ; [可调校数值 adjustable parameters] 设定采集当前光标坐标值的时间间隔(ms)
-            MouseGetPos, x2, y2
             If (x1 != x2 or y1 != y2)
             {
                 If (y1 > y2)
