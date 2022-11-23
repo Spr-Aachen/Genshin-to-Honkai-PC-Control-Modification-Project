@@ -17,6 +17,10 @@ Global Status_Restriction
 Global x1
 Global y1
 
+;【常量 Const】对管理光标定位功能的全局常量进行赋值
+Global x2
+Global y2
+
 ;【常量 Const】对管理鼠标控制功能的全局常量进行赋值
 Global Toggle_MouseFunction := False
 
