@@ -1,0 +1,26 @@
+﻿[0.4.1] - 2022-11-22
+
+- [Fix] Unstable update service due to callback failure
+- [Fix] The iteration speed of Screen Detect Function would sometimes be abnormal.
+- [Add] 
+- [Improve] Revised details of interface (layout adjustment, background image etc.) and code structure.
+>
+- [修复] 回调函数故障导致的升级服务不稳定
+- [修复] 屏幕检测功能的速率有概率出现异常
+- [新增] 
+- [改进] 修改了界面内容与代码结构的一些细节
+
+
+[0.4.0] - 2022-11-11
+
+- [Fix] Mouse Functions (View Control, Aim Control, Mouse Cursor, et cetera) would'nt be toggled automaticly in combat while the suspending/continuing key (F1 by default) was pressed to resume the suspended program.
+- [Fix] Failed to load key names correctly (also in wrong order) when customizing mouse buttons through combobox.
+- [Fix] Due to the invalid name of some parameters, the Automatic Identification Params Tuning function could't work properly.
+- [Add] Start-up interface function: Check for Update (Located in the settings bar). Download and installation would be provided when new version is available.
+- [Improve] Remastered the "Automatic Identification" function related code structure to raise the speed of program response.
+>
+- [修复] 在战斗界面内按下暂停/启用键以恢复程序运行时视角跟随等功能未自动生效的问题
+- [修复] 在启动界面内使用下拉列表自定义鼠标键时按键名未正常显示以及排序错误的问题
+- [修复] 由部分参数名称错误导致的识别系统调参功能无效化的问题
+- [新增] 启动界面功能：检查更新（位于设置栏），当检测到新版本时可直接下载并安装
+- [改进] 重制了识别系统相关的代码结构以提升响应速度

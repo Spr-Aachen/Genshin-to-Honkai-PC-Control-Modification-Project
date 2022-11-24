@@ -1,0 +1,118 @@
+﻿[0.3.9] - 2022-11-03
+
+- [Fix] Cursor would still be restricted in the zone even after the combat.
+- [Add] Tray menu function: Config Delete (Located in the others bar)
+- [Add] Start-up interface function: Automatic Identification Params Tuning (Located in the function bar). Please note that this function is still in the pilot phase, parameters can be restored through the 'Config Reset' function if any exception occurs
+- [Add] Start-up interface function: Config Reset (Located in the settings bar)
+- [Improve] Start-up interface function: Changelog Check (Located in the settings bar)
+- [Improve] Dependency library updated
+- [Improve] Code structure reduxed for better operating speed and readability
+>
+- [修复] 进入非战斗界面时光标限制仍未解除的问题
+- [新增] 托盘菜单功能：删除配置文件（位于其它栏）
+- [新增] 启动界面功能：识别系统调参（位于功能栏），该功能处于试验阶段，若出现异常可以通过载入默认配置来恢复参数
+- [新增] 启动界面功能：载入默认配置（位于设置栏）
+- [改进] 启动界面功能：查看更新日志（位于设置栏）
+- [改进] 更新了依赖库
+- [改进] 重置了代码结构以提升运行速度和可读性
+
+
+[0.3.8] - 2022-10-22
+
+[Fix] The program gives an error while trying to open the configuration file via tray menus.
+[Fix] Issues that the surface cheking key (F3 by default) wouldn't response in combat.
+[Fix] While in combat, the cursor permanently disappeared after releasing LAlt key for the left-click function.
+[Fix] While in combat, the "cursor occlusion" took no effect when the suspending/continuing key (F1 by default) was pressed to resume the program.
+[Fix] Code structure ("Automatic Identification" function related) optimised.
+>
+[修复] 通过托盘菜单打开配置文件时程序报错的问题
+[修复] 在非战斗状态下调出界面键无法生效的问题
+[修复] 在战斗状态下按住Alt键以正常使用鼠标后光标永久消失的问题
+[修复] 在战斗状态下按下暂停/启用键以恢复程序运行时光标无法隐藏的问题
+[修复] 优化了识别系统相关的代码结构
+
+
+[0.3.7] - 2022-10-14
+
+[Fix] Wrong statements and needless functions revised
+[Add] New function: Better Keymap Costumizing. The whole keymap is now availabe for keyboard and mouse key adjustment.
+>
+[修复] 对一些错误语义和无用函数进行修正
+[增添] 新功能：更好的键位自定义。现支持对所有按键操作进行键盘、鼠标键位自定义
+
+
+[0.3.6] - 2022-10-07
+
+- [Fix] The middle mouse button would probabily remained as click-down status after switching out from the game,
+- [Fix] Issues that the mouse key can't be customized and displayed. However, so far the solution is to use combobox to adjust the mouse keys.
+- [Add] New function: better tray menu. By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed.
+>
+- [修复] 切出游戏后鼠标中键按下状态有概率未解除的问题
+- [修复] 鼠标键无法显示和自定义的问题，但目前只能通过下拉栏目切换鼠标键
+- [增添] 新功能：功能化托盘菜单。在系统托盘处对图标右键可以在“其它”栏目中直接打开配置文件
+
+
+[0.3.5] - 2022-10-01
+
+- [Fix] Issues that the charged attack and main skills might get unexpectedly interrupted or toggled.
+- [Fix] The selection result of the option "Occluded Cursor" won't be saved properly after it's checked.
+- [Add] New function: Custom Key Map. To adjust the default key map, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
+- [Warning] Due to the technical problem, some keys may not display in the box. However, it won't affect the usage of those keys.
+>
+- [修复] 蓄力攻击和主技能会被意外打断或触发的问题
+- [修复] 勾选了”可隐藏光标“选项的选择结果无法被正确保存的问题
+- [增添] 新功能：自定义键位。若要更改默认键位，点击框并按下想要的按键即可（按Del键或Backspace键可清空框）
+- [警告] 由于技术原因，部分按键可能无法显示在框中，不过并不影响它们的使用
+
+
+[0.3.4] - 2022-09-18
+
+- [Fix] Some unstable factors caused by the "Automatic Identification" function's parameters.
+- [Add] New function: The "Occluded Cursor". The cursor will automatically hide in combat after this option is toggled, but mind that this funtion would only work under the premise of toggling the "Automatic Identification".
+>
+- [修复] 部分由自动识别功能参数造成的不稳定因素
+- [增添] 新功能：可隐藏光标——启用该项后光标会在战斗场景下自动隐藏，但注意前提是启用了自动识别
+
+
+[0.3.3] - 2022-09-14
+
+- [Fix] Cursor would run out from the safe zone with probabilities.
+- [Fix] More fluent transititon between the normal attack and charge attack to make the operattion become consistent.
+>
+- [修复] 瞄准模式下光标一定概率漂出限制区域的问题
+- [修复] 蓄力攻击和非蓄力普攻之间的衔接流畅度问题
+
+
+[0.3.2] - 2022-09-13
+
+- [Fix] No key response in combat scene under the 2560*1440 resolution.
+- [Add] New resolution supported: 2560*1080.
+- [Add] New function: customizable ini file which is used to save users' configurations of the programm settings. It would be loaded each time after starting the programm.
+>
+- [修复] 2k分辨率下战斗时键位无响应的问题
+- [增添] 新支持的分辨率：2560*1080
+- [增添] 新功能：用于保存用户程序设置的可自定义配置文件（ini），每次启动程序后它都会被加载
+
+
+[0.3.1] - 2022-09-05
+
+- [Fix] The simplified version running isssues.
+- [Fix] No response in specific combat scene while "automatic identification" is toggled.
+- [Add] New function: The "Restricted Cursor". In combat, the cursor would be restricted in safe zone to avoid toggling the UI buttons.
+>
+- [修复] 精简版运行问题
+- [修复] 在部分场景下因识别故障而导致的战斗无响应的问题
+- [增添] 新功能：限制性光标——战斗场景下会将光标限制于安全区域内以避免触发UI
+
+
+[0.3.0] - 2022-08-29
+
+- [Fix] Issues that might occurred after "run as admin" option is chosen.
+- [Add] New function: The "automatic identification". Key maps only take effect in combat scene.
+- [Add] New function: Slacking helper! The game would automaticly pause while switching or rearranging windows by pressing shortcut AltTab or WinTab.
+- [Add] New function: GUI with customizable settings.
+>
+- [修复] 选择以管理员身份运行后可能出现的一些问题
+- [增添] 新功能：自动识别——键位仅在战斗场景生效
+- [增添] 新功能：摸鱼帮手——战斗场景内使用快捷键切换窗口时会自动暂停游戏
+- [增添] 新外观：支持自定义设置的界面
