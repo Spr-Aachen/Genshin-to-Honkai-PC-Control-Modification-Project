@@ -4,7 +4,7 @@
 
 
 ;【常量 Const】版本号
-Global Version := "0.4.0"
+Global Version := "0.4.1"
 
 
 ;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
@@ -26,7 +26,8 @@ Global Toggle_MouseFunction := False
 
 ;【常量 Const】对管理视角跟随功能的全局常量进行赋值
 Global Status_Key_ViewControl := False
-Global Timer_ViewControl := 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+Global Timer_Key_ViewControl_Detect := -10 ; [可调校数值 adjustable parameters] 设定延迟检测命令的每执行时间间隔(ms)
+Global Timer_ViewControl := abs(Timer_Key_ViewControl_Detect) ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
 
 ;【常量 Const】对管理准星跟随功能的全局常量进行赋值
 Global BreakFlag_Aim := False
