@@ -93,6 +93,23 @@ MouseDetect()
 }
 
 
+;【函数 Function】
+Key_ViewControl_Detect()
+{
+    If (!Toggle_ManualSuspend)
+    {
+        If Not GetKeyState("MButton")
+            SendInput, {Click, Down Middle}
+    }
+    Else
+    {
+        If GetKeyState("MButton")
+            SendInput, {Click, Up Middle}
+        Return
+    }
+}
+
+
 ;【函数 Function】视角跟随
 ViewControl()
 {
@@ -105,6 +122,13 @@ ViewControl()
             {
                 Status_Key_ViewControl := !Status_Key_ViewControl
                 SendInput, {Click, Down Middle}
+                Loop, 120
+                {
+                    If (!Toggle_ManualSuspend)
+                        SetTimer, Key_ViewControl_Detect, %Timer_Key_ViewControl_Detect%
+                    Else
+                        Break
+                }
             }
         }
         Else
@@ -379,6 +403,7 @@ InputReset()
         {
             If (Status_Key_ViewControl)
             {
+                SetTimer, Key_ViewControl_Detect, Delete
                 Status_Key_ViewControl := !Status_Key_ViewControl
             }
             SendInput, {Click, Up Middle}
