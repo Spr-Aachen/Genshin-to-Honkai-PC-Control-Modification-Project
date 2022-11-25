@@ -2,13 +2,17 @@
 
 - [Fix] Unstable update service due to callback failure
 - [Fix] The iteration speed of Screen Detect Function would sometimes be abnormal.
+- [Fix] The left-click function might cause an error while in combat.
 - [Add] 
-- [Improve] Revised details of interface (layout adjustment, background image etc.) and code structure.
+- [Improve] View-control function enhanced for smoother camera rotation.
+- [Improve] Revised details of interface (layout adjustment, background image etc.) and code blocks.
 >
 - [修复] 回调函数故障导致的升级服务不稳定
 - [修复] 屏幕检测功能的速率有概率出现异常
+- [修复] 战斗中使用左键点击功能有概率报错
 - [新增] 
-- [改进] 修改了界面内容与代码结构的一些细节
+- [改进] 增强了视角跟随功能以减小镜头顿挫感
+- [改进] 修改了界面内容以及代码块的一些细节
 
 
 [0.4.0] - 2022-11-11
