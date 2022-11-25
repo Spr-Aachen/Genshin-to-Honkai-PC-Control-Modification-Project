@@ -3,9 +3,10 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;【热键 Hotkey】点击自定义键以激活视角跟随
-Key_ViewControl:
-If GetKeyState(Key_ViewControl, "P") ; 通过行为检测防止被部分函数 Function唤醒
+;【热键 Hotkey】点击自定义键以激活鼠标控制
+;Key_ViewControl:
+Key_MouseFunction:
+If GetKeyState(Key_MouseFunction, "P") ; 通过行为检测防止被部分函数 Function唤醒
 {
     Toggle_MouseFunction := !Toggle_MouseFunction
     If (Toggle_MouseFunction)
@@ -103,7 +104,9 @@ Return
 ;【热键 Hotkey】按住键盘左侧ALT以正常使用鼠标左键
  ; ~*!LButton::LButton
 ~LAlt::
-Hotkey, LButton, Off
+Try
+    Hotkey, LButton, Off
+
 If (Toggle_AutoScale)
 {
     If (Toggle_MouseFunction)
@@ -140,7 +143,9 @@ Else If (Toggle_MouseFunction)
 }
 Else
     KeyWait, LAlt
-Hotkey, LButton, On
+
+Try
+    Hotkey, LButton, On
 Return
 
 
