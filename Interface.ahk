@@ -98,8 +98,8 @@ Finally
         IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1
         IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2
         ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-        IniRead, Key_ViewControl1, %INI_DIR%, Key Maps, 管理视角跟随1
-        IniRead, Key_ViewControl2, %INI_DIR%, Key Maps, 管理视角跟随2
+        IniRead, Key_MouseFunction1, %INI_DIR%, Key Maps, 管理视角跟随1
+        IniRead, Key_MouseFunction2, %INI_DIR%, Key Maps, 管理视角跟随2
         IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1
         IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2
         IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1
@@ -136,8 +136,8 @@ Finally
                 Key_Dodging2_DDL := %Counter%
             If (Key_NormalAttack2 == "%Value%")
                 Key_NormalAttack2_DDL := %Counter%
-            If (Key_ViewControl2 == "%Value%")
-                Key_ViewControl2_DDL := %Counter%
+            If (Key_MouseFunction2 == "%Value%")
+                Key_MouseFunction2_DDL := %Counter%
             If (Key_Suspend2 == "%Value%")
                 Key_Suspend2_DDL := %Counter%
             If (Key_SurfaceCheck2 == "%Value%")
@@ -158,8 +158,8 @@ Finally
                 Key_Dodging2_DDL := A_Index
             If (Key_NormalAttack2 == List[A_Index])
                 Key_NormalAttack2_DDL := A_Index
-            If (Key_ViewControl2 == List[A_Index])
-                Key_ViewControl2_DDL := A_Index
+            If (Key_MouseFunction2 == List[A_Index])
+                Key_MouseFunction2_DDL := A_Index
             If (Key_Suspend2 == List[A_Index])
                 Key_Suspend2_DDL := A_Index
             If (Key_SurfaceCheck2 == List[A_Index])
@@ -219,9 +219,9 @@ Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      左Alt      +      左键: 正常点击
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                            %Key_LeftClick%
 Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                       管理视角跟随
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_ViewControl1,                                         %Key_ViewControl1%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                         %Key_MouseFunction1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_ViewControl2 Choose%Key_ViewControl2_DDL%,   LButton|MButton|RButton|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%,   LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       暂停/启用
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                             %Key_Suspend1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
@@ -362,8 +362,8 @@ IniWrite, %Key_Dodging2%, %INI_DIR%, Key Maps, 闪避2
 IniWrite, %Key_NormalAttack1%, %INI_DIR%, Key Maps, 普攻1
 IniWrite, %Key_NormalAttack2%, %INI_DIR%, Key Maps, 普攻2
 ;IniWrite, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-IniWrite, %Key_ViewControl1%, %INI_DIR%, Key Maps, 管理视角跟随1
-IniWrite, %Key_ViewControl2%, %INI_DIR%, Key Maps, 管理视角跟随2
+IniWrite, %Key_MouseFunction1%, %INI_DIR%, Key Maps, 管理视角跟随1
+IniWrite, %Key_MouseFunction2%, %INI_DIR%, Key Maps, 管理视角跟随2
 IniWrite, %Key_Suspend1%, %INI_DIR%, Key Maps, 暂停/启用1
 IniWrite, %Key_Suspend2%, %INI_DIR%, Key Maps, 暂停/启用2
 IniWrite, %Key_SurfaceCheck1%, %INI_DIR%, Key Maps, 调出界面1
@@ -412,10 +412,10 @@ Loop, 2
         Hotkey, %Key_NormalAttack%, Key_NormalAttack
     }
     ;Hotkey, %Key_LeftClick%, Key_LeftClick
-    If (Key_ViewControl%A_Index% != "")
+    If (Key_MouseFunction%A_Index% != "")
     {
-        Key_ViewControl = % Key_ViewControl%A_Index%
-        Hotkey, %Key_ViewControl%, Key_ViewControl
+        Key_MouseFunction = % Key_MouseFunction%A_Index%
+        Hotkey, %Key_MouseFunction%, Key_MouseFunction
     }
     If (Key_Suspend%A_Index% != "")
     {
