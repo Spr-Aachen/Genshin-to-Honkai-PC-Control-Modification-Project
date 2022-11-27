@@ -3,8 +3,12 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;【函数 Function】界面状态栏
-Disable( )
+;【函数 Function】自动检测语言
+LanguageDetect()
+
+
+;【函数 Function】禁用关闭按钮
+DisableButtonX()
 {
     WinGet, id, ID, A
     menu := DLLCall("user32/GetSystemMenu", "UInt", id, "UInt", 0)
@@ -12,6 +16,13 @@ Disable( )
     WinGetPos ,x, y, w, h, ahk_id %id%
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h-1
     WinMove, ahk_id %id%,, %x%, %y%, %w%, % h+1
+}
+
+
+;【函数 Function】对话框自动消失
+AutoFadeMsgbox()
+{
+    DLLCall("AnimateWindow", UInt, WinExist("ahk_class #32770"), Int, 500, UInt, 0x90000)
 }
 
 
@@ -55,67 +66,67 @@ Finally
         TestString = 已执行
         IniWrite, %TestString%, %INI_DIR%, Startup, 执行初始化缓存清理
 
-        IniWrite, Q, %INI_DIR%, Key Maps, 必杀技1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 必杀技2
-        IniWrite, E, %INI_DIR%, Key Maps, 武器技/后崩技1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 武器技/后崩技2
-        IniWrite, Z, %INI_DIR%, Key Maps, 人偶技/月之环1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 人偶技/月之环2
-        IniWrite, LShift, %INI_DIR%, Key Maps, 闪避1
-        IniWrite, RButton, %INI_DIR%, Key Maps, 闪避2
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 普攻1
-        IniWrite, LButton, %INI_DIR%, Key Maps, 普攻2
+        IniWrite, Q, %INI_DIR%, Key Maps, %必杀技%1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %必杀技%2
+        IniWrite, E, %INI_DIR%, Key Maps, %武器技或后崩技%1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %武器技或后崩技%2
+        IniWrite, Z, %INI_DIR%, Key Maps, %人偶技或月之环%1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %人偶技或月之环%2
+        IniWrite, LShift, %INI_DIR%, Key Maps, %闪避%1
+        IniWrite, RButton, %INI_DIR%, Key Maps, %闪避%2
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %普攻%1
+        IniWrite, LButton, %INI_DIR%, Key Maps, %普攻%2
         ;IniWrite, LAlt + LButton, %INI_DIR%, Key Maps, 正常点击
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 管理视角跟随1
-        IniWrite, MButton, %INI_DIR%, Key Maps, 管理视角跟随2
-        IniWrite, F1, %INI_DIR%, Key Maps, 暂停/启用1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 暂停/启用2
-        IniWrite, F3, %INI_DIR%, Key Maps, 调出界面1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, 调出界面2
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %管理鼠标功能%1
+        IniWrite, MButton, %INI_DIR%, Key Maps, %管理鼠标功能%2
+        IniWrite, F1, %INI_DIR%, Key Maps, %暂停或启用%1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %暂停或启用%2
+        IniWrite, F3, %INI_DIR%, Key Maps, %调出界面%1
+        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %调出界面%2
 
-        IniWrite, 1, %INI_DIR%, CheckBox, 管理员权限 ; Checked by default
-        IniWrite, 1, %INI_DIR%, CheckBox, 全自动识别 ; Checked by default
-        IniWrite, 1, %INI_DIR%, CheckBox, 可隐藏光标 ; Checked by default
-        IniWrite, 1, %INI_DIR%, CheckBox, 限制性光标 ; Checked by default
+        IniWrite, 1, %INI_DIR%, CheckBox, %管理员权限% ; Checked by default
+        IniWrite, 1, %INI_DIR%, CheckBox, %全自动识别% ; Checked by default
+        IniWrite, 1, %INI_DIR%, CheckBox, %可隐藏光标% ; Checked by default
+        IniWrite, 1, %INI_DIR%, CheckBox, %限制性光标% ; Checked by default
 
-        IniWrite, 3, %INI_DIR%, Slider, 正常战斗状态识别容错率1
-        IniWrite, 3, %INI_DIR%, Slider, 正常战斗状态识别容错率2
-        IniWrite, 12, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
-        IniWrite, 12, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
-        IniWrite, 1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
-        IniWrite, 1, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
+        IniWrite, 3, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
+        IniWrite, 3, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
+        IniWrite, 12, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
+        IniWrite, 12, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
+        IniWrite, 1, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
+        IniWrite, 1, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
     }
     Try ;IfExist, %INI_DIR%
     {
-        IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, 必杀技1
-        IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, 必杀技2
-        IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, 武器技/后崩技1
-        IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, 武器技/后崩技2
-        IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, 人偶技/月之环1
-        IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, 人偶技/月之环2
-        IniRead, Key_Dodging1, %INI_DIR%, Key Maps, 闪避1
-        IniRead, Key_Dodging2, %INI_DIR%, Key Maps, 闪避2
-        IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, 普攻1
-        IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, 普攻2
+        IniRead, Key_MainSkill1, %INI_DIR%, Key Maps, %必杀技%1
+        IniRead, Key_MainSkill2, %INI_DIR%, Key Maps, %必杀技%2
+        IniRead, Key_SecondSkill1, %INI_DIR%, Key Maps, %武器技或后崩技%1
+        IniRead, Key_SecondSkill2, %INI_DIR%, Key Maps, %武器技或后崩技%2
+        IniRead, Key_DollSkill1, %INI_DIR%, Key Maps, %人偶技或月之环%1
+        IniRead, Key_DollSkill2, %INI_DIR%, Key Maps, %人偶技或月之环%2
+        IniRead, Key_Dodging1, %INI_DIR%, Key Maps, %闪避%1
+        IniRead, Key_Dodging2, %INI_DIR%, Key Maps, %闪避%2
+        IniRead, Key_NormalAttack1, %INI_DIR%, Key Maps, %普攻%1
+        IniRead, Key_NormalAttack2, %INI_DIR%, Key Maps, %普攻%2
         ;IniRead, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-        IniRead, Key_MouseFunction1, %INI_DIR%, Key Maps, 管理视角跟随1
-        IniRead, Key_MouseFunction2, %INI_DIR%, Key Maps, 管理视角跟随2
-        IniRead, Key_Suspend1, %INI_DIR%, Key Maps, 暂停/启用1
-        IniRead, Key_Suspend2, %INI_DIR%, Key Maps, 暂停/启用2
-        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, 调出界面1
-        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, 调出界面2
+        IniRead, Key_MouseFunction1, %INI_DIR%, Key Maps, %管理鼠标功能%1
+        IniRead, Key_MouseFunction2, %INI_DIR%, Key Maps, %管理鼠标功能%2
+        IniRead, Key_Suspend1, %INI_DIR%, Key Maps, %暂停或启用%1
+        IniRead, Key_Suspend2, %INI_DIR%, Key Maps, %暂停或启用%2
+        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, %调出界面%1
+        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, %调出界面%2
 
-        IniRead, RunAsAdmin, %INI_DIR%, CheckBox, 管理员权限
-        IniRead, EnableAutoScale, %INI_DIR%, CheckBox, 全自动识别
-        IniRead, EnableOcclusion, %INI_DIR%, CheckBox, 可隐藏光标
-        IniRead, EnableRestriction, %INI_DIR%, CheckBox, 限制性光标
+        IniRead, RunAsAdmin, %INI_DIR%, CheckBox, %管理员权限%
+        IniRead, EnableAutoScale, %INI_DIR%, CheckBox, %全自动识别%
+        IniRead, EnableOcclusion, %INI_DIR%, CheckBox, %可隐藏光标%
+        IniRead, EnableRestriction, %INI_DIR%, CheckBox, %限制性光标%
 
-        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, 正常战斗状态识别容错率1
-        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, 正常战斗状态识别容错率2
-        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
-        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
-        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
-        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
+        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
+        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
+        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
+        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
+        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
+        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
     }
     Finally
     {
@@ -172,102 +183,102 @@ Finally
 ;【菜单 Menu】托盘菜单
 Menu, Tray, NoStandard ; 删除原有托盘菜单
 
-Menu, Else, Add, 查看配置文件, Config_Check
-Menu, Else, Add, 删除配置文件, Config_Delete
+Menu, Else, Add, %查看配置文件%, Config_Check
+Menu, Else, Add, %删除配置文件%, Config_Delete
 ;Menu, Else, Add, 调试日志, Debug
-Menu, Else, Add, 敬请期待, Nothing
+Menu, Else, Add, %敬请期待%, Nothing
 
-Menu, Tray, Add, 其它, :Else
-Menu, Tray, Add, 重启, Menu_Reload
-Menu, Tray, Add, 退出, Menu_Exit
+Menu, Tray, Add, %其它%, :Else
+Menu, Tray, Add, %重启%, Menu_Reload
+Menu, Tray, Add, %退出%, Menu_Exit
 
 ;【界面 GUI】说明界面
 ;Gui, Start: Color, FFFFFF
 Gui, Start: +LastFound
 WinSet, TransColor, FEFFFF 222 ; WinSet, Transparent, 222
 Gui, Start: Font, s12, 新宋体
-Gui, Start: Add, Tab3, , 键位|功能|设置
+Gui, Start: Add, Tab3, , %键位%|%功能%|%设置%
 
-Gui, Start: Tab, 键位
+Gui, Start: Tab, %键位%
 ;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:/Users/Spr_Aachen/Desktop/p1.jpg
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H201,                                                                          战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                       必杀技
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                       %必杀技%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                           %Key_MainSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,       LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       武器技/后崩技
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %武器技或后崩技%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,                                         %Key_SecondSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,   LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       人偶技/月之环
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %人偶技或月之环%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,                                           %Key_DollSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,       LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       闪避
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %闪避%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,                                             %Key_Dodging1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%,           LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       普攻
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %普攻%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                        %Key_NormalAttack1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H168,                                                                          其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      左Alt      +      左键: 正常点击
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                              %左Alt加左键_正常点击%
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                            %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                       管理视角跟随
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                         %Key_MouseFunction1%
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                       %管理鼠标功能%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                       %Key_MouseFunction1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%,   LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       暂停/启用
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %暂停或启用%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                             %Key_Suspend1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%,           LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       调出界面
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %调出界面%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SurfaceCheck1,                                        %Key_SurfaceCheck1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2 Choose%Key_SurfaceCheck2_DDL%, LButton|MButton|RButton|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
 
-Gui, Start: Tab, 功能
+Gui, Start: Tab, %功能%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H174,                                                                          选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,                          启用管理员权限（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,                启用全自动识别（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,                启用可隐藏光标（推荐）
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%,            启用限制性光标（推荐）
+Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,                          %启用%%管理员权限%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,                %启用%%全自动识别%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,                %启用%%可隐藏光标%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%,            %启用%%限制性光标%%注_推荐%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H222,                                                                          高级 Advance
 Gui, Start: Font, s9, 新宋体
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                                                 正常战斗状态识别容错率1
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                                                 %正常战斗状态识别容错率_目标%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage1,     %FaultTolerance_Combat_Normal_Percentage1%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             正常战斗状态识别容错率2
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %正常战斗状态识别容错率_背景%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage2,     %FaultTolerance_Combat_Normal_Percentage2%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             特殊战斗状态识别容错率1
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_目标%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage1, %FaultTolerance_Combat_Endangered_Percentage1%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             特殊战斗状态识别容错率2
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_背景%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage2, %FaultTolerance_Combat_Endangered_Percentage2%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             往世乐土大厅识别容错率1
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_目标%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage1,           %FaultTolerance_Elysium_Percentage1%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             往世乐土大厅识别容错率2
+Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_背景%
 Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage2,           %FaultTolerance_Elysium_Percentage2%
 Gui, Start: Font, s12, 新宋体
 
-Gui, Start: Tab, 设置
+Gui, Start: Tab, %设置%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H78,                                             配置 Config
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfigReset,                  载入配置预设
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfig_Import,                %载入配置预设%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H114,                                            更新 Update
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                  检查版本更新
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                查看更新日志：
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                  %检查版本更新%
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                %查看更新日志%：
 Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.4.+|v0.3.+|v0.2.+|v0.1.+|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H114,                                            链接 Links
@@ -278,17 +289,17 @@ Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 
 
 Gui, Start: Tab
-Gui, Start: Add, Button, Default W366, 开启
-Gui, Start: Add, Button, W366, 退出
-Gui, Start: Show, xCenter yCenter, 启动界面
-Disable( )
+Gui, Start: Add, Button, Default W366 gClicktoRun, %开启%
+Gui, Start: Add, Button,         W366 gClicktoExit, %退出%
+Gui, Start: Show, xCenter yCenter, %启动界面%
+DisableButtonX()
 Suspend, On
 Return
 
 
-;【例程 Gosub】
-ConfigReset:
-MsgBox, 0x24, 询问, 操作将覆盖当前的配置`n是否继续？
+;【标签 Label】
+Config_Import:
+MsgBox, 0x24, %询问%, %操作将覆盖当前的配置_是否继续%
 IfMsgBox, Yes
 {
     IfExist, %INI_DIR%
@@ -299,15 +310,15 @@ IfMsgBox, Yes
         }
         FileDelete, %INI_DIR%
     }
-    Gui, Presets: Add, Button, W33, 载入键鼠预设
-    Gui, Presets: Add, Button, W33, 载入手柄预设
+    Gui, Presets: Add, Button, W33, %载入键鼠预设%
+    Gui, Presets: Add, Button, W33, %载入手柄预设%
     /*
     对variable的百分号进行转义后会在compile时报错:
     FileInstall, Config/Preset_Keyboard/BH3_Hotkey_`%Version`%.ini, %INI_DIR%, 1
     故不再采用这种命名方式
     */
     FileInstall, Config/Preset_Keyboard/BH3_Hotkey.ini, %INI_DIR%, 1
-    MsgBox, 0, 提示, 已成功载入预设
+    MsgBox, 0, %提示%, %已成功载入预设%
     Reload
 }
 Else
@@ -315,13 +326,13 @@ Else
 Return
 
 
-;【例程 Gosub】
+;【标签 Label】
 UpdateCheck:
 Updater()
 Return
 
 
-;【例程 Gosub】“版本”选项的执行语句
+;【标签 Label】
 SelectVersion:
 GuiControlGet, Version
 Switch Version
@@ -345,41 +356,40 @@ Return
 
 
 ;【标签 Label】“开启”按钮的执行语句
-StartButton开启:
+ClicktoRun: ;StartButton%开启%:
 
-;Gui, Submit
-Gui, Start: Submit
+Gui, Start: Submit ;Gui, Submit
 
 ;【配置 INI】写入配置
-IniWrite, %Key_MainSkill1%, %INI_DIR%, Key Maps, 必杀技1
-IniWrite, %Key_MainSkill2%, %INI_DIR%, Key Maps, 必杀技2
-IniWrite, %Key_SecondSkill1%, %INI_DIR%, Key Maps, 武器技/后崩技1
-IniWrite, %Key_SecondSkill2%, %INI_DIR%, Key Maps, 武器技/后崩技2
-IniWrite, %Key_DollSkill1%, %INI_DIR%, Key Maps, 人偶技/月之环1
-IniWrite, %Key_DollSkill2%, %INI_DIR%, Key Maps, 人偶技/月之环2
-IniWrite, %Key_Dodging1%, %INI_DIR%, Key Maps, 闪避1
-IniWrite, %Key_Dodging2%, %INI_DIR%, Key Maps, 闪避2
-IniWrite, %Key_NormalAttack1%, %INI_DIR%, Key Maps, 普攻1
-IniWrite, %Key_NormalAttack2%, %INI_DIR%, Key Maps, 普攻2
+IniWrite, %Key_MainSkill1%, %INI_DIR%, Key Maps, %必杀技%1
+IniWrite, %Key_MainSkill2%, %INI_DIR%, Key Maps, %必杀技%2
+IniWrite, %Key_SecondSkill1%, %INI_DIR%, Key Maps, %武器技或后崩技%1
+IniWrite, %Key_SecondSkill2%, %INI_DIR%, Key Maps, %武器技或后崩技%2
+IniWrite, %Key_DollSkill1%, %INI_DIR%, Key Maps, %人偶技或月之环%1
+IniWrite, %Key_DollSkill2%, %INI_DIR%, Key Maps, %人偶技或月之环%2
+IniWrite, %Key_Dodging1%, %INI_DIR%, Key Maps, %闪避%1
+IniWrite, %Key_Dodging2%, %INI_DIR%, Key Maps, %闪避%2
+IniWrite, %Key_NormalAttack1%, %INI_DIR%, Key Maps, %普攻%1
+IniWrite, %Key_NormalAttack2%, %INI_DIR%, Key Maps, %普攻%2
 ;IniWrite, Key_LeftClick, %INI_DIR%, Key Maps, 正常点击
-IniWrite, %Key_MouseFunction1%, %INI_DIR%, Key Maps, 管理视角跟随1
-IniWrite, %Key_MouseFunction2%, %INI_DIR%, Key Maps, 管理视角跟随2
-IniWrite, %Key_Suspend1%, %INI_DIR%, Key Maps, 暂停/启用1
-IniWrite, %Key_Suspend2%, %INI_DIR%, Key Maps, 暂停/启用2
-IniWrite, %Key_SurfaceCheck1%, %INI_DIR%, Key Maps, 调出界面1
-IniWrite, %Key_SurfaceCheck2%, %INI_DIR%, Key Maps, 调出界面2
+IniWrite, %Key_MouseFunction1%, %INI_DIR%, Key Maps, %管理鼠标功能%1
+IniWrite, %Key_MouseFunction2%, %INI_DIR%, Key Maps, %管理鼠标功能%2
+IniWrite, %Key_Suspend1%, %INI_DIR%, Key Maps, %暂停或启用%1
+IniWrite, %Key_Suspend2%, %INI_DIR%, Key Maps, %暂停或启用%2
+IniWrite, %Key_SurfaceCheck1%, %INI_DIR%, Key Maps, %调出界面%1
+IniWrite, %Key_SurfaceCheck2%, %INI_DIR%, Key Maps, %调出界面%2
 
-IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, 管理员权限
-IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, 全自动识别
-IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, 可隐藏光标
-IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, 限制性光标
+IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, %管理员权限%
+IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, %全自动识别%
+IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, %可隐藏光标%
+IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, %限制性光标%
 
-IniWrite, %FaultTolerance_Combat_Normal_Percentage1%, %INI_DIR%, Slider, 正常战斗状态识别容错率1
-IniWrite, %FaultTolerance_Combat_Normal_Percentage2%, %INI_DIR%, Slider, 正常战斗状态识别容错率2
-IniWrite, %FaultTolerance_Combat_Endangered_Percentage1%, %INI_DIR%, Slider, 特殊战斗状态识别容错率1
-IniWrite, %FaultTolerance_Combat_Endangered_Percentage2%, %INI_DIR%, Slider, 特殊战斗状态识别容错率2
-IniWrite, %FaultTolerance_Elysium_Percentage1%, %INI_DIR%, Slider, 往世乐土大厅识别容错率1
-IniWrite, %FaultTolerance_Elysium_Percentage2%, %INI_DIR%, Slider, 往世乐土大厅识别容错率2
+IniWrite, %FaultTolerance_Combat_Normal_Percentage1%, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
+IniWrite, %FaultTolerance_Combat_Normal_Percentage2%, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
+IniWrite, %FaultTolerance_Combat_Endangered_Percentage1%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
+IniWrite, %FaultTolerance_Combat_Endangered_Percentage2%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
+IniWrite, %FaultTolerance_Elysium_Percentage1%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
+IniWrite, %FaultTolerance_Elysium_Percentage2%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
 
 Gui, Start: Destroy
 
@@ -453,7 +463,7 @@ If (EnableAutoScale)
     }
     Else
     {
-        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
         ExitApp
     }
 }
@@ -465,7 +475,7 @@ If (EnableOcclusion)
     }
     Else
     {
-        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
         ExitApp
     }
 }
@@ -477,35 +487,29 @@ If (EnableRestriction)
     }
     Else
     {
-        MsgBox, 16, 警告, 检测到参数异常，即将退出程序
+        MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
         ExitApp
     }
 }
 
 SetTimer, AutoFadeMsgbox, -3000 ; [可调校数值 adjustable parameters] 使消息弹窗仅存在一段时间(ms)
-MsgBox, 0, 提示, 程序启动成功(/≧▽≦)/，祝游戏愉快！`n（当前对话框将于3秒后自动消失）
+MsgBox, 0, %提示%, %程序启动成功_祝游戏愉快_当前对话框将于3秒后自动消失%
 SetTimer, AutoFadeMsgbox, Delete
 Suspend, Off
 Return
 
 
-;【标签 Label】让对话框自动消失
-AutoFadeMsgbox:
-DLLCall("AnimateWindow", UInt, WinExist("提示 ahk_class #32770"), Int, 500, UInt, 0x90000)
-Return
-
-
 ;【标签 Label】“退出”按钮的执行语句
-StartButton退出:
+ClicktoExit: ;StartButton%退出%:
 If WinExist("ahk_exe BH3.exe")
 {
-    MsgBox, 0x24, 询问, 检测到崩坏3正在运行`n\(≧□≦)/真的要退出吗？
+    MsgBox, 0x24, %询问%, %检测到崩坏3正在运行_真的要退出吗%
     IfMsgBox, Yes
         ExitApp
 }
 Else
 {
-    MsgBox, 0x24, 询问, 是否确认退出当前程序`n(・-・*)？
+    MsgBox, 0x24, %询问%, %是否确认退出当前程序%
     IfMsgBox, Yes
         ExitApp
 }
@@ -516,7 +520,7 @@ Return
 Config_Check:
 IfNotExist, %INI_DIR%
 {
-    MsgBox, 0, 提示, 未找到配置文件，请先运行程序
+    MsgBox, 0, %提示%, %未找到配置文件_请先运行程序%
 }
 Else
     Run, open %INI_DIR%
@@ -527,7 +531,7 @@ Return
 Config_Delete:
 IfNotExist, %INI_DIR%
 {
-    MsgBox, 0, 提示, 未找到配置文件，请先运行程序
+    MsgBox, 0, %提示%, %未找到配置文件_请先运行程序%
 }
 Else
 {
@@ -536,7 +540,7 @@ Else
         FileSetAttrib, -R, %INI_DIR%
     }
     FileDelete, %INI_DIR%
-    MsgBox, 0, 提示, 已成功移除配置文件
+    MsgBox, 0, %提示%, %已成功移除配置文件%
 }
 Return
 
