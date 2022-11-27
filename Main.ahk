@@ -4,7 +4,7 @@
 
 
 ;【常量 Const】版本号
-Global Version := "0.4.1"
+Global Version := "0.4.2"
 
 
 ;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
@@ -89,20 +89,23 @@ Global ChosenMirror_Tried := Array()
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;【命令 Directive】引用库文件FindText.ahk
-#include <FindText>
+;【命令 Directive】引用库文件
+#Include <FindText>
 
 ;【命令 Directive】
-#include Updater.ahk
+#Include Language.ahk
 
 ;【命令 Directive】
-#include Interface.ahk
+#Include Updater.ahk
 
 ;【命令 Directive】
-#include Functions_Combat.ahk
+#Include Interface.ahk
 
 ;【命令 Directive】
-#include Functions_Management.ahk
+#Include Functions_Combat.ahk
+
+;【命令 Directive】
+#Include Functions_Management.ahk
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,10 +125,10 @@ Global ChosenMirror_Tried := Array()
 
 
 ;【命令 Directive】
-#include Hotkeys_Combat.ahk
+#Include Hotkeys_Combat.ahk
 
 ;【命令 Directive】
-#include Hotkeys_Management.ahk
+#Include Hotkeys_Management.ahk
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
