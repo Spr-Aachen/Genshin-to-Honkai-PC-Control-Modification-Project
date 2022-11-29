@@ -3,6 +3,7 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+;【函数 Function】英文翻译
 English()
 {
     Global
@@ -23,23 +24,23 @@ English()
     闪避 := "Dodging"
     普攻 := "Normal Attack"
     左Alt加左键_正常点击 := "LAlt     +     LButton: Left-Click"
-    管理视角跟随 := "View-Control"
+    管理鼠标功能 := "View-Control"
     暂停或启用 := "Suspend/Continue"
     调出界面 := "Interface Check"
 
     功能 := "Function"
-    启用 := "Enable"
-    管理员权限 := "Auto-Identification"
-    全自动识别 := "Run as Admin"
+    启用 := "Enable "
+    管理员权限 := "Run as Admin"
+    全自动识别 := "Auto-Identification"
     可隐藏光标 := "Occluded Cursor"
     限制性光标 := "Restricted Cursor"
-    注_推荐 := " (Recommended)"
-    正常战斗状态识别容错率_目标 := "Automatic Identification "
-    正常战斗状态识别容错率_背景 := "Automatic Identification "
-    濒危战斗状态识别容错率_目标 := "Automatic Identification "
-    濒危战斗状态识别容错率_背景 := "Automatic Identification "
-    往世乐土大厅识别容错率_目标 := "Automatic Identification "
-    往世乐土大厅识别容错率_背景 := "Automatic Identification "
+    注_推荐 := ""
+    正常战斗状态识别容错率_目标 := "Param Tunning_Combat T"
+    正常战斗状态识别容错率_背景 := "Param Tunning_Combat B"
+    濒危战斗状态识别容错率_目标 := "Param Tunning_Danger T"
+    濒危战斗状态识别容错率_背景 := "Param Tunning_Danger B"
+    往世乐土大厅识别容错率_目标 := "Param Tunning_Elysium T"
+    往世乐土大厅识别容错率_背景 := "Param Tunning_Elysium B"
 
     设置 := "Settings"
     载入配置预设 := "Load Preset"
@@ -64,14 +65,23 @@ English()
 
     程序启动成功_祝游戏愉快_当前对话框将于3秒后自动消失 := "Program successfully started, enjoy!`n（This message will disappear in 3 sec）"
 
-    是否确认退出当前程序 := "Sure you want to quit?"
+    检测到崩坏3正在运行_真的要退出吗 := "Quit the app while Honkai Imapct 3 is still running?"
+
+    是否确认退出当前程序 := "Are you sure to exit?"
 
     未找到配置文件_请先运行程序 := "Can't find the config file, please run the program."
 
     已成功移除配置文件 := "Config successfully removed."
+
+    暂停中 := "Suspended"
+    已启用 := "Continued"
+
+    视角跟随已手动激活 := "View-Control On"
+    视角跟随已手动关闭 := "View-Control Off"
 }
 
 
+;【函数 Function】中文翻译
 Chinese()
 {
     Global
@@ -92,7 +102,7 @@ Chinese()
     闪避 := "闪避"
     普攻 := "普攻"
     左Alt加左键_正常点击 := "左Alt      +      左键: 正常点击"
-    管理视角跟随 := "管理视角跟随"
+    管理鼠标功能 := "管理视角跟随"
     暂停或启用 := "暂停/启用"
     调出界面 := "调出界面"
 
@@ -133,29 +143,38 @@ Chinese()
 
     程序启动成功_祝游戏愉快_当前对话框将于3秒后自动消失 := "程序启动成功(/≧▽≦)/，祝游戏愉快！`n（当前对话框将于3秒后自动消失）"
 
+    检测到崩坏3正在运行_真的要退出吗 := "检测到崩坏3正在运行`n\(≧□≦)/真的要退出吗？"
+
     是否确认退出当前程序 := "是否确认退出当前程序`n(・-・*)？"
 
     未找到配置文件_请先运行程序 := "未找到配置文件，请先运行程序"
 
     已成功移除配置文件 := "已成功移除配置文件"
+
+    暂停中 := "暂停中"
+    已启用 := "已启用"
+
+    视角跟随已手动激活 := "视角跟随已手动激活"
+    视角跟随已手动关闭 := "视角跟随已手动关闭"
 }
 
 
+;【函数 Function】检测语言并选择翻译
 LanguageDetect()
 {
-    If Not A_Language in 0404, 0804, 0c04, 1004, 1404 ; LanguageCode: 0404 "Chinese_Taiwan", 0804 "Chinese_PRC", 0c04 "Chinese_Hong_Kong", 1004 "Chinese_Singapore", 1404 "Chinese_Macau" 
+    If Not A_Language in [0404,0804,0c04,1004,1404] ; LanguageCode: 0404 "Chinese_Taiwan", 0804 "Chinese_PRC", 0c04 "Chinese_Hong_Kong", 1004 "Chinese_Singapore", 1404 "Chinese_Macau" 
     {
-        ;If A_Language in
-        ;{
-        ;    Language := 
-        ;}
-        ;Else
+        If A_Language in []
+        {
+            Language := ""
+        }
+        Else
             Language := "ENG"
     }
+    /*
     Else
-    {
         Language := "CHN"
-    }
+    */
 
     Switch Language
     {
@@ -167,6 +186,13 @@ LanguageDetect()
             Return
     }
 }
+
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+; 运行主程序
+LanguageDetect()
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
