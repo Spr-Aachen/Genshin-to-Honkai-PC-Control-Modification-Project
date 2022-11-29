@@ -96,16 +96,19 @@ MouseDetect()
 ;【函数 Function】
 Key_ViewControl_Detect()
 {
-    If (!Toggle_ManualSuspend)
+    If WinActive("ahk_exe BH3.exe")
     {
-        If Not GetKeyState("MButton")
-            SendInput, {Click, Down Middle}
-    }
-    Else
-    {
-        If GetKeyState("MButton")
-            SendInput, {Click, Up Middle}
-        Return
+        If (!Toggle_ManualSuspend)
+        {
+            If Not GetKeyState("MButton")
+                SendInput, {Click, Down Middle}
+        }
+        Else
+        {
+            If GetKeyState("MButton")
+                SendInput, {Click, Up Middle}
+            Return
+        }
     }
 }
 
