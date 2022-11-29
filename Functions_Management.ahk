@@ -357,7 +357,7 @@ ManualSuspend()
             InputReset()
             Toggle_MouseFunction := !Toggle_MouseFunction
         }
-        ToolTip, 暂停中, 0, 999 ; [可调校数值 adjustable parameters]
+        ToolTip, %暂停中%, 0, 999 ; [可调校数值 adjustable parameters]
     }
     Else ;If GetKeyState(Key_Suspend, "P")
     {
@@ -394,7 +394,7 @@ ManualSuspend()
         }
         Suspend, Off
         Toggle_ManualSuspend := !Toggle_ManualSuspend
-        ToolTip, 已启用, 0, 999 ; [可调校数值 adjustable parameters]
+        ToolTip, %已启用%, 0, 999 ; [可调校数值 adjustable parameters]
         Sleep 210 ; [可调校数值 adjustable parameters]
         ToolTip
     }
