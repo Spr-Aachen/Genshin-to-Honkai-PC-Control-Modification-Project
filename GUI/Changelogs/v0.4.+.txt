@@ -1,4 +1,15 @@
-﻿[0.4.1] - 2022-11-22
+﻿[0.4.2] - 2022-11-28
+
+- [Fix] Update installation failure caused by path access error.
+- [Add] Global function: Language Detect. Automaticly detects system languagecode and provides corresponding translation (Currently supports Chinese and English).
+- [Improve] Interface layout adapted for English version.
+>
+- [修复] 由路径读取错误导致的更新安装失败的问题
+- [新增] 全局功能：检测语言，自动检测当前系统语言并提供相应的翻译（目前支持中文和英文）
+- [改进] 调整了界面布局以适应英文版本
+
+
+[0.4.1] - 2022-11-22
 
 - [Fix] Unstable update service due to callback failure
 - [Fix] The iteration speed of Screen Detect Function would sometimes be abnormal.
@@ -6,9 +17,9 @@
 - [Improve] View-control function enhanced for smoother camera rotation.
 - [Improve] Revised details of interface (layout adjustment, background image etc.) and code blocks.
 >
-- [修复] 回调函数故障导致的升级服务不稳定
-- [修复] 屏幕检测功能的速率有概率出现异常
-- [修复] 战斗中使用左键点击功能有概率报错
+- [修复] 回调函数故障导致的升级服务不稳定的问题
+- [修复] 屏幕检测功能的速率有概率出现异常的问题
+- [修复] 战斗中使用左键点击功能有概率报错的问题
 - [改进] 增强了视角跟随功能以减小镜头顿挫感
 - [改进] 修改了界面内容以及代码块的一些细节
 
