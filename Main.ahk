@@ -7,6 +7,10 @@
 Global Version := "0.4.2"
 
 
+;【常量 Const】默认语言
+Global Language := "CHN"
+
+
 ;【常量 Const】对管理隐藏光标功能的全局常量进行赋值
 Global Toggle_Occlusion := False
 Global Status_Occlusion
