@@ -3,10 +3,6 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;【函数 Function】自动检测语言
-LanguageDetect()
-
-
 ;【函数 Function】禁用关闭按钮
 DisableButtonX()
 {
@@ -202,7 +198,7 @@ Gui, Start: Add, Tab3, , %键位%|%功能%|%设置%
 Gui, Start: Tab, %键位%
 ;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:/Users/Spr_Aachen/Desktop/p1.jpg
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H201,                                                                          战斗 Combat
+Gui, Start: Add, GroupBox, W333 H210,                                                                          战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                       %必杀技%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                           %Key_MainSkill1%
@@ -224,8 +220,8 @@ Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                            
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                        %Key_NormalAttack1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%, LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H168,                                                                          其它 Others
+Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, GroupBox, W333 H177,                                                                          其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                              %左Alt加左键_正常点击%
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                            %Key_LeftClick%
@@ -241,7 +237,7 @@ Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                            
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SurfaceCheck1,                                        %Key_SurfaceCheck1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2 Choose%Key_SurfaceCheck2_DDL%, LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xm+18 Yp+36 +BackgroundTrans ; 控距
+;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 
 Gui, Start: Tab, %功能%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
@@ -275,22 +271,20 @@ Gui, Start: Add, GroupBox, W333 H78,                                            
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfig_Import,                %载入配置预设%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H114,                                            更新 Update
+Gui, Start: Add, GroupBox, W333 H177,                                            更新 Update
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                  %检查版本更新%
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                %查看更新日志%：
+Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] 百度云:           <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
+Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] Github:           <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                %查看更新日志%:
 Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.4.+|v0.3.+|v0.2.+|v0.1.+|%A_Space%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H114,                                            链接 Links
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Link, Xp Yp+15 +BackgroundTrans,        百度云:                 <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
-Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,        Github:                 <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-
+Gui, Start: Add, GroupBox, W333 H111,                                            其它 Others
+;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 
 Gui, Start: Tab
-Gui, Start: Add, Button, Default W366 gClicktoRun, %开启%
-Gui, Start: Add, Button,         W366 gClicktoExit, %退出%
+Gui, Start: Add, Button, Default W366 gClickToRun, %开启%
+Gui, Start: Add, Button,         W366 gClickToExit, %退出%
 Gui, Start: Show, xCenter yCenter, %启动界面%
 DisableButtonX()
 Suspend, On
@@ -356,7 +350,7 @@ Return
 
 
 ;【标签 Label】“开启”按钮的执行语句
-ClicktoRun: ;StartButton%开启%:
+ClickToRun: ;StartButton%开启%:
 
 Gui, Start: Submit ;Gui, Submit
 
@@ -441,8 +435,8 @@ Loop, 2
 
 If (RunAsAdmin)
 {
-    full_command_line := DllCall("GetCommandLine", "str")
-    If Not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
+    FullCommandLine := DllCall("GetCommandLine", "str")
+    If Not (A_IsAdmin or RegExMatch(FullCommandLine, " /restart(?!\S)"))
     {
         Try
         {
@@ -454,6 +448,7 @@ If (RunAsAdmin)
         ExitApp
     }
 }
+
 If (EnableAutoScale)
 {
     If (!Toggle_AutoScale)
@@ -467,6 +462,7 @@ If (EnableAutoScale)
         ExitApp
     }
 }
+
 If (EnableOcclusion)
 {
     If (!Toggle_Occlusion)
@@ -479,6 +475,7 @@ If (EnableOcclusion)
         ExitApp
     }
 }
+
 If (EnableRestriction)
 {
     If (!Toggle_Restriction)
@@ -500,7 +497,7 @@ Return
 
 
 ;【标签 Label】“退出”按钮的执行语句
-ClicktoExit: ;StartButton%退出%:
+ClickToExit: ;StartButton%退出%:
 If WinExist("ahk_exe BH3.exe")
 {
     MsgBox, 0x24, %询问%, %检测到崩坏3正在运行_真的要退出吗%
