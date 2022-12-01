@@ -22,6 +22,15 @@ AutoFadeMsgbox()
 }
 
 
+;【函数 Function】终止进程
+ForceQuit()
+{
+    SplitPath, A_AhkPath, AHK_name
+    exe := A_IsCompiled ? A_ScriptName : AHK_name
+    Run, %ComSpec% /c taskkill /f /IM %exe%, , Hide
+}
+
+
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -46,10 +55,10 @@ Try
 
 ;【配置 INI】创建配置
 Try
-    IniRead, TestString, %INI_DIR%, Startup, 执行初始化缓存清理
+    IniRead, TestString, %INI_DIR%, Startup, %执行初始化缓存清理%
 Catch
 {
-    ExitApp
+    ForceQuit() ;ExitApp
 }
 Finally
 {
@@ -59,26 +68,26 @@ Finally
             RunWait, PowerShell.exe -Command "Get-ChildItem -Path C:/ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
         Catch
             MsgBox, 16, Warning, Failed to run Shell!
-        TestString = 已执行
-        IniWrite, %TestString%, %INI_DIR%, Startup, 执行初始化缓存清理
+        TestString := %已执行%
+        IniWrite, %TestString%, %INI_DIR%, Startup, %执行初始化缓存清理%
 
         IniWrite, Q, %INI_DIR%, Key Maps, %必杀技%1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %必杀技%2
+        IniWrite, %无%, %INI_DIR%, Key Maps, %必杀技%2
         IniWrite, E, %INI_DIR%, Key Maps, %武器技或后崩技%1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %武器技或后崩技%2
+        IniWrite, %无%, %INI_DIR%, Key Maps, %武器技或后崩技%2
         IniWrite, Z, %INI_DIR%, Key Maps, %人偶技或月之环%1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %人偶技或月之环%2
+        IniWrite, %无%, %INI_DIR%, Key Maps, %人偶技或月之环%2
         IniWrite, LShift, %INI_DIR%, Key Maps, %闪避%1
         IniWrite, RButton, %INI_DIR%, Key Maps, %闪避%2
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %普攻%1
+        IniWrite, %无%, %INI_DIR%, Key Maps, %普攻%1
         IniWrite, LButton, %INI_DIR%, Key Maps, %普攻%2
         ;IniWrite, LAlt + LButton, %INI_DIR%, Key Maps, 正常点击
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %管理鼠标功能%1
+        IniWrite, %无%, %INI_DIR%, Key Maps, %管理鼠标功能%1
         IniWrite, MButton, %INI_DIR%, Key Maps, %管理鼠标功能%2
         IniWrite, F1, %INI_DIR%, Key Maps, %暂停或启用%1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %暂停或启用%2
-        IniWrite, F3, %INI_DIR%, Key Maps, %调出界面%1
-        IniWrite, %A_Space%, %INI_DIR%, Key Maps, %调出界面%2
+        IniWrite, %无%, %INI_DIR%, Key Maps, %暂停或启用%2
+        IniWrite, F3, %INI_DIR%, Key Maps, %重启%1
+        IniWrite, %无%, %INI_DIR%, Key Maps, %重启%2
 
         IniWrite, 1, %INI_DIR%, CheckBox, %管理员权限% ; Checked by default
         IniWrite, 1, %INI_DIR%, CheckBox, %全自动识别% ; Checked by default
@@ -109,8 +118,8 @@ Finally
         IniRead, Key_MouseFunction2, %INI_DIR%, Key Maps, %管理鼠标功能%2
         IniRead, Key_Suspend1, %INI_DIR%, Key Maps, %暂停或启用%1
         IniRead, Key_Suspend2, %INI_DIR%, Key Maps, %暂停或启用%2
-        IniRead, Key_SurfaceCheck1, %INI_DIR%, Key Maps, %调出界面%1
-        IniRead, Key_SurfaceCheck2, %INI_DIR%, Key Maps, %调出界面%2
+        IniRead, Key_Reload1, %INI_DIR%, Key Maps, %重启%1
+        IniRead, Key_Reload2, %INI_DIR%, Key Maps, %重启%2
 
         IniRead, RunAsAdmin, %INI_DIR%, CheckBox, %管理员权限%
         IniRead, EnableAutoScale, %INI_DIR%, CheckBox, %全自动识别%
@@ -128,7 +137,7 @@ Finally
     {
     /*
         ; Not working with dict
-        Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": "%A_Space%"}
+        Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": ""}
         Counter := 0
         For Key, Value in Dict
         {
@@ -147,12 +156,12 @@ Finally
                 Key_MouseFunction2_DDL := %Counter%
             If (Key_Suspend2 == "%Value%")
                 Key_Suspend2_DDL := %Counter%
-            If (Key_SurfaceCheck2 == "%Value%")
-                Key_SurfaceCheck2_DDL := %Counter%
+            If (Key_Reload2 == "%Value%")
+                Key_Reload2_DDL := %Counter%
         }
     */
         ; But works with list
-        List := ["LButton", "MButton", "RButton", "%A_Space%"]
+        List := ["LButton", "MButton", "RButton", %无%]
         Loop % List.Length()
         {
             If (Key_MainSkill2 == List[A_Index])
@@ -169,8 +178,8 @@ Finally
                 Key_MouseFunction2_DDL := A_Index
             If (Key_Suspend2 == List[A_Index])
                 Key_Suspend2_DDL := A_Index
-            If (Key_SurfaceCheck2 == List[A_Index])
-                Key_SurfaceCheck2_DDL := A_Index
+            If (Key_Reload2 == List[A_Index])
+                Key_Reload2_DDL := A_Index
         }
     }
 }
@@ -198,57 +207,57 @@ Gui, Start: Add, Tab3, , %键位%|%功能%|%设置%
 Gui, Start: Tab, %键位%
 ;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:/Users/Spr_Aachen/Desktop/p1.jpg
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H210,                                                                          战斗 Combat
+Gui, Start: Add, GroupBox, W333 H210,                                                                            战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                       %必杀技%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                           %Key_MainSkill1%
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                         %必杀技%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                             %Key_MainSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,       LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %武器技或后崩技%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,                                         %Key_SecondSkill1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,         LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %武器技或后崩技%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,                                           %Key_SecondSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,   LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %人偶技或月之环%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,                                           %Key_DollSkill1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,     LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %人偶技或月之环%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,                                             %Key_DollSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,       LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %闪避%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,                                             %Key_Dodging1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,         LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %闪避%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,                                               %Key_Dodging1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%,           LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %普攻%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                        %Key_NormalAttack1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%,             LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %普攻%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                          %Key_NormalAttack1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%, LButton|MButton|RButton|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%,   LButton|MButton|RButton|%无%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H177,                                                                          其它 Others
+Gui, Start: Add, GroupBox, W333 H177,                                                                            其它 Others
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                              %左Alt加左键_正常点击%
-;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                            %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                       %管理鼠标功能%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                       %Key_MouseFunction1%
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                %左Alt加左键_正常点击%
+;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                              %Key_LeftClick%
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                         %管理鼠标功能%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                         %Key_MouseFunction1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%,   LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %暂停或启用%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                             %Key_Suspend1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%, LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %暂停或启用%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                               %Key_Suspend1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%,           LButton|MButton|RButton|%A_Space%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                       %调出界面%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SurfaceCheck1,                                        %Key_SurfaceCheck1%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%,             LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %重启%
+Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Reload1,                                                %Key_Reload1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SurfaceCheck2 Choose%Key_SurfaceCheck2_DDL%, LButton|MButton|RButton|%A_Space%
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Reload2 Choose%Key_Reload2_DDL%,               LButton|MButton|RButton|%无%
 ;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 
 Gui, Start: Tab, %功能%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H174,                                                                          选项 Options
+Gui, Start: Add, GroupBox, W333 H174,                                                                            选项 Options
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,                          %启用%%管理员权限%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,                %启用%%全自动识别%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,                %启用%%可隐藏光标%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%,            %启用%%限制性光标%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,                            %启用%%管理员权限%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,                  %启用%%全自动识别%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,                  %启用%%可隐藏光标%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%,              %启用%%限制性光标%%注_推荐%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H222,                                                                          高级 Advance
+Gui, Start: Add, GroupBox, W333 H222,                                                                            高级 Advance
 Gui, Start: Font, s9, 新宋体
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                                                 %正常战斗状态识别容错率_目标%
@@ -267,19 +276,19 @@ Gui, Start: Font, s12, 新宋体
 
 Gui, Start: Tab, %设置%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H78,                                             配置 Config
+Gui, Start: Add, GroupBox, W333 H78,                                              配置 Config
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfig_Import,                %载入配置预设%
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfig_Import,                 %载入配置预设%
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H177,                                            更新 Update
+Gui, Start: Add, GroupBox, W333 H177,                                             更新 Update
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                  %检查版本更新%
+Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                   %检查版本更新%
 Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] 百度云:           <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
 Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] Github:           <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                %查看更新日志%:
-Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion, v0.4.+|v0.3.+|v0.2.+|v0.1.+|%A_Space%
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                 %查看更新日志%:
+Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion,     %A_Space%||v0.4.+|v0.3.+|v0.2.+|v0.1.+
 Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
-Gui, Start: Add, GroupBox, W333 H111,                                            其它 Others
+Gui, Start: Add, GroupBox, W333 H111,                                             其它 Others
 ;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
 
 Gui, Start: Tab
@@ -343,7 +352,7 @@ Switch Version
     Case "v0.1.+":
         FileInstall, GUI/Changelogs/v0.1.+.txt, %Changelog_DIR1%, 1
         Run, open %Changelog_DIR1%
-    Default :
+    Default : ;Case "":
         Return
 }
 Return
@@ -370,8 +379,8 @@ IniWrite, %Key_MouseFunction1%, %INI_DIR%, Key Maps, %管理鼠标功能%1
 IniWrite, %Key_MouseFunction2%, %INI_DIR%, Key Maps, %管理鼠标功能%2
 IniWrite, %Key_Suspend1%, %INI_DIR%, Key Maps, %暂停或启用%1
 IniWrite, %Key_Suspend2%, %INI_DIR%, Key Maps, %暂停或启用%2
-IniWrite, %Key_SurfaceCheck1%, %INI_DIR%, Key Maps, %调出界面%1
-IniWrite, %Key_SurfaceCheck2%, %INI_DIR%, Key Maps, %调出界面%2
+IniWrite, %Key_Reload1%, %INI_DIR%, Key Maps, %重启%1
+IniWrite, %Key_Reload2%, %INI_DIR%, Key Maps, %重启%2
 
 IniWrite, %RunAsAdmin%, %INI_DIR%, CheckBox, %管理员权限%
 IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, %全自动识别%
@@ -390,46 +399,46 @@ Gui, Start: Destroy
 ;【热键 Hotkey】重定义热键到标签
 Loop, 2
 {
-    If (Key_MainSkill%A_Index% != "")
+    If (Key_MainSkill%A_Index% != %无% && Key_MainSkill%A_Index% != "")
     {
         Key_MainSkill = % Key_MainSkill%A_Index%
         Hotkey, %Key_MainSkill%, Key_MainSkill
     }
-    If (Key_SecondSkill%A_Index% != "")
+    If (Key_SecondSkill%A_Index% != %无% && Key_SecondSkill%A_Index% != "")
     {
         Key_SecondSkill = % Key_SecondSkill%A_Index%
         Hotkey, %Key_SecondSkill%, Key_SecondSkill
     }
-    If (Key_DollSkill%A_Index% != "")
+    If (Key_DollSkill%A_Index% != %无% && Key_DollSkill%A_Index% != "")
     {
         Key_DollSkill = % Key_DollSkill%A_Index%
         Hotkey, %Key_DollSkill%, Key_DollSkill
     }
-    If (Key_Dodging%A_Index% != "")
+    If (Key_Dodging%A_Index% != %无% && Key_ging%A_Index% != "")
     {
         Key_Dodging = % Key_Dodging%A_Index%
         Hotkey, %Key_Dodging%, Key_Dodging
     }
-    If (Key_NormalAttack%A_Index% != "")
+    If (Key_NormalAttack%A_Index% != %无% && Key_NormalAttack%A_Index% != "")
     {
         Key_NormalAttack = % Key_NormalAttack%A_Index%
         Hotkey, %Key_NormalAttack%, Key_NormalAttack
     }
     ;Hotkey, %Key_LeftClick%, Key_LeftClick
-    If (Key_MouseFunction%A_Index% != "")
+    If (Key_MouseFunction%A_Index% != %无% && Key_MouseFunction%A_Index% != "")
     {
         Key_MouseFunction = % Key_MouseFunction%A_Index%
         Hotkey, %Key_MouseFunction%, Key_MouseFunction
     }
-    If (Key_Suspend%A_Index% != "")
+    If (Key_Suspend%A_Index% != %无% && Key_Suspend%A_Index% != "")
     {
         Key_Suspend = % Key_Suspend%A_Index%
         Hotkey, %Key_Suspend%, Key_Suspend
     }
-    If (Key_SurfaceCheck%A_Index% != "")
+    If (Key_Reload%A_Index% != %无% && Key_Reload%A_Index% != "")
     {
-        Key_SurfaceCheck = % Key_SurfaceCheck%A_Index%
-        Hotkey, %Key_SurfaceCheck%, Key_SurfaceCheck
+        Key_Reload = % Key_Reload%A_Index%
+        Hotkey, %Key_Reload%, Key_Reload
     }
 }
 
@@ -445,7 +454,7 @@ If (RunAsAdmin)
             Else
                 Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
         }
-        ExitApp
+        ForceQuit() ;ExitApp
     }
 }
 
@@ -459,7 +468,7 @@ If (EnableAutoScale)
     Else
     {
         MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
-        ExitApp
+        ForceQuit() ;ExitApp
     }
 }
 
@@ -472,7 +481,7 @@ If (EnableOcclusion)
     Else
     {
         MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
-        ExitApp
+        ForceQuit() ;ExitApp
     }
 }
 
@@ -485,7 +494,7 @@ If (EnableRestriction)
     Else
     {
         MsgBox, 16, %警告%, %检测到参数异常_即将退出程序%
-        ExitApp
+        ForceQuit() ;ExitApp
     }
 }
 
@@ -502,13 +511,13 @@ If WinExist("ahk_exe BH3.exe")
 {
     MsgBox, 0x24, %询问%, %检测到崩坏3正在运行_真的要退出吗%
     IfMsgBox, Yes
-        ExitApp
+        ForceQuit() ;ExitApp
 }
 Else
 {
     MsgBox, 0x24, %询问%, %是否确认退出当前程序%
     IfMsgBox, Yes
-        ExitApp
+        ForceQuit() ;ExitApp
 }
 Return
 
@@ -561,9 +570,7 @@ Return
 
 ;【标签 Label】
 Menu_Exit:
-SplitPath, A_AhkPath, AHK_name
-exe := A_IsCompiled ? A_ScriptName : AHK_name
-Run, %ComSpec% /c taskkill /f /IM %exe%, , Hide
+ForceQuit() ;ExitApp
 Return
 
 
