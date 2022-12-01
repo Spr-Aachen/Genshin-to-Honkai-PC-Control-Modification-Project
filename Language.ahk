@@ -8,6 +8,9 @@ English()
 {
     Global
     执行初始化缓存清理 := "Execude Initial-Cache-Cleanup"
+    已执行 := "Done"
+
+    无 := "None"
 
     查看配置文件 := "Config Check"
     删除配置文件 := "Config Delete"
@@ -18,29 +21,29 @@ English()
     退出 := "Exit"
 
     键位 := "Keymap"
-    必杀技 := "Main Skill"
-    武器技或后崩技 := "Weapon Skill"
-    人偶技或月之环 := "Doll Skill"
-    闪避 := "Dodging"
-    普攻 := "Normal Attack"
+    必杀技 := "Main Skill "
+    武器技或后崩技 := "Weapon Skill "
+    人偶技或月之环 := "Doll Skill "
+    闪避 := "Dodging "
+    普攻 := "Normal Attack "
     左Alt加左键_正常点击 := "LAlt     +     LButton: Left-Click"
-    管理鼠标功能 := "View-Control"
-    暂停或启用 := "Suspend/Continue"
-    调出界面 := "Interface Check"
+    管理鼠标功能 := "View-Control "
+    暂停或启用 := "Stop/Begin "
+    重启 := "Restart "
 
     功能 := "Function"
     启用 := "Enable "
     管理员权限 := "Run as Admin"
     全自动识别 := "Auto-Identification"
-    可隐藏光标 := "Occluded Cursor"
-    限制性光标 := "Restricted Cursor"
+    可隐藏光标 := "Cursor Occlusion"
+    限制性光标 := "Cursor Restriction"
     注_推荐 := ""
-    正常战斗状态识别容错率_目标 := "Param Tunning_Combat T"
-    正常战斗状态识别容错率_背景 := "Param Tunning_Combat B"
-    濒危战斗状态识别容错率_目标 := "Param Tunning_Danger T"
-    濒危战斗状态识别容错率_背景 := "Param Tunning_Danger B"
-    往世乐土大厅识别容错率_目标 := "Param Tunning_Elysium T"
-    往世乐土大厅识别容错率_背景 := "Param Tunning_Elysium B"
+    正常战斗状态识别容错率_目标 := "FaultTolerance_Combat T"
+    正常战斗状态识别容错率_背景 := "FaultTolerance_Combat B"
+    濒危战斗状态识别容错率_目标 := "FaultTolerance_Danger T"
+    濒危战斗状态识别容错率_背景 := "FaultTolerance_Danger B"
+    往世乐土大厅识别容错率_目标 := "FaultTolerance_Elysium T"
+    往世乐土大厅识别容错率_背景 := "FaultTolerance_Elysium B"
 
     设置 := "Settings"
     载入配置预设 := "Load Preset"
@@ -73,8 +76,8 @@ English()
 
     已成功移除配置文件 := "Config successfully removed."
 
-    暂停中 := "Suspended"
-    已启用 := "Continued"
+    ;暂停中 := "Suspended"
+    ;已启用 := "Continued"
 
     视角跟随已手动激活 := "View-Control On"
     视角跟随已手动关闭 := "View-Control Off"
@@ -86,6 +89,9 @@ Chinese()
 {
     Global
     执行初始化缓存清理 := "执行初始化缓存清理"
+    已执行 := "已执行"
+
+    无 := "无"
 
     查看配置文件 := "查看配置文件"
     删除配置文件 := "删除配置文件"
@@ -104,7 +110,7 @@ Chinese()
     左Alt加左键_正常点击 := "左Alt      +      左键: 正常点击"
     管理鼠标功能 := "管理视角跟随"
     暂停或启用 := "暂停/启用"
-    调出界面 := "调出界面"
+    重启 := "重启"
 
     功能 := "功能"
     启用 := "启用"
@@ -151,8 +157,8 @@ Chinese()
 
     已成功移除配置文件 := "已成功移除配置文件"
 
-    暂停中 := "暂停中"
-    已启用 := "已启用"
+    ;暂停中 := "暂停中"
+    ;已启用 := "已启用"
 
     视角跟随已手动激活 := "视角跟随已手动激活"
     视角跟随已手动关闭 := "视角跟随已手动关闭"
