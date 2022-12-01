@@ -11,7 +11,7 @@ Return
 
 
 ;【热键 Hotkey】按下自定义键以重启程序（呼出启动界面）
-Key_SurfaceCheck:
+Key_Reload:
 Suspend, Permit
 ManualSuspend()
 Reload
