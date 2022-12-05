@@ -15,11 +15,15 @@ Global Language := "CHN"
 Global Toggle_Occlusion := False
 Global Status_Occlusion
 
+;【常量 Const】对管理定位光标功能的全局常量进行赋值
+Global FirstTime_ZoneDetect := True
+Global IsZoneInteractive
+Global x1
+Global y1
+
 ;【常量 Const】对管理限制光标功能的全局常量进行赋值
 Global Toggle_Restriction := False
 Global Status_Restriction
-Global x1
-Global y1
 
 ;【常量 Const】对管理光标定位功能的全局常量进行赋值
 Global x2
@@ -30,8 +34,10 @@ Global Toggle_MouseFunction := False
 
 ;【常量 Const】对管理视角跟随功能的全局常量进行赋值
 Global Status_Key_ViewControl := False
-Global Timer_Key_ViewControl_Detect := -10 ; [可调校数值 adjustable parameters] 设定延迟检测命令的每执行时间间隔(ms)
-Global Timer_ViewControl := abs(Timer_Key_ViewControl_Detect) ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
+Global BreakFlag_View := False
+;Global Status_ConflictDetect := False
+Global Timer_ConflictDetect := 0 ; [可调校数值 adjustable parameters] 设定冲突检测命令的每执行时间间隔(ms)
+Global Timer_ViewControl := 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
 
 ;【常量 Const】对管理准星跟随功能的全局常量进行赋值
 Global BreakFlag_Aim := False
@@ -120,10 +126,12 @@ Global ChosenMirror_Tried := Array()
 
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
-
-;【命令 Directive】不对以下键盘热键使用钩子（也不要对鼠标热键使用InstallMouseHook）
+/*
+;【命令 Directive】不对以下热键使用钩子
+#InstallKeybdHook
+#InstallMouseHook
 #UseHook, Off
-
+*/
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
