@@ -137,7 +137,7 @@ Finally
     {
     /*
         ; Not working with dict
-        Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": ""}
+        Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": %无%}
         Counter := 0
         For Key, Value in Dict
         {
@@ -209,23 +209,23 @@ Gui, Start: Tab, %键位%
 Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
 Gui, Start: Add, GroupBox, W333 H210,                                                                            战斗 Combat
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                      :                         %必杀技%
+Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                        :                       %必杀技%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                             %Key_MainSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,         LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %武器技或后崩技%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %武器技或后崩技%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,                                           %Key_SecondSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,     LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %人偶技或月之环%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %人偶技或月之环%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,                                             %Key_DollSkill1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,         LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %闪避%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %闪避%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,                                               %Key_Dodging1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%,             LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %普攻%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %普攻%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                          %Key_NormalAttack1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%,   LButton|MButton|RButton|%无%
@@ -234,15 +234,15 @@ Gui, Start: Add, GroupBox, W333 H177,                                           
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                %左Alt加左键_正常点击%
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                              %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                      :                         %管理鼠标功能%
+Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                        :                       %管理鼠标功能%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                         %Key_MouseFunction1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%, LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %暂停或启用%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %暂停或启用%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                               %Key_Suspend1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%,             LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                   :                         %重启%
+Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %重启%
 Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Reload1,                                                %Key_Reload1%
 Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Reload2 Choose%Key_Reload2_DDL%,               LButton|MButton|RButton|%无%
@@ -414,7 +414,7 @@ Loop, 2
         Key_DollSkill = % Key_DollSkill%A_Index%
         Hotkey, %Key_DollSkill%, Key_DollSkill
     }
-    If (Key_Dodging%A_Index% != %无% && Key_ging%A_Index% != "")
+    If (Key_Dodging%A_Index% != %无% && Key_Dodging%A_Index% != "")
     {
         Key_Dodging = % Key_Dodging%A_Index%
         Hotkey, %Key_Dodging%, Key_Dodging
