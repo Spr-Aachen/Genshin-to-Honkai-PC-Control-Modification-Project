@@ -192,11 +192,11 @@ ScreenDetectController()
     Else
     {
         SetTimer, ScreenDetect, Delete
-        FirstTime_ScreenDetect := 0
+        FirstTime_ScreenDetect := False
         Try
         {
             SetTimer, ScreenDetectController, Delete
-            Toggle_ScreenDetectController := 0
+            Toggle_ScreenDetectController := False
         }
     }
 }
