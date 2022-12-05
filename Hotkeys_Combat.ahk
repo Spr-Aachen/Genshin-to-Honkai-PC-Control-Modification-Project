@@ -44,7 +44,7 @@ If GetKeyState(Key_NormalAttack, "P") ; 通过行为检测防止被ViewControlTe
         SetTimer, ViewControl, On
     }
     Else
-        KeyWait, %Key_NormalAttack%
+        KeyWait, %Key_NormalAttack% ;KeyWait, %Key_NormalAttack%, L
     SendInput, {j Up}
 }
 Return
@@ -65,7 +65,7 @@ If GetKeyState(Key_MainSkill, "P") ; 通过行为检测防止被ViewControlTemp�
         SetTimer, ViewControl, On
     }
     Else
-        KeyWait, %Key_MainSkill%
+        KeyWait, %Key_MainSkill% ;KeyWait, %Key_MainSkill%, L
     SendInput, {i Up}
 }
 Return
@@ -79,7 +79,7 @@ If GetKeyState(Key_SecondSkill, "P") ; 通过行为检测防止被ViewControlTem
     If (Toggle_MouseFunction)
         AimControl()
     Else
-        KeyWait, %Key_SecondSkill%
+        KeyWait, %Key_SecondSkill% ;KeyWait, %Key_SecondSkill%, T3
     SendInput, {u Up}
 }
 Return
@@ -88,7 +88,7 @@ Return
 ;【热键 Hotkey】按下自定义键以发动人偶技
 Key_DollSkill:
 SendInput, {l Down}
-KeyWait, %Key_DollSkill%
+KeyWait, %Key_DollSkill% ;KeyWait, %Key_DollSkill%, L
 SendInput, {l Up}
 Return
 
@@ -96,7 +96,7 @@ Return
 ;【热键 Hotkey】按下自定义键以发动闪避/冲刺
 Key_Dodging:
 SendInput, {k Down}
-KeyWait, %Key_Dodging1%
+KeyWait, %Key_Dodging1% ;KeyWait, %Key_Dodging1%, L
 SendInput, {k Up}
 Return
 
