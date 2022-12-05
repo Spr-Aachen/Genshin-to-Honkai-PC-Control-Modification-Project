@@ -1,12 +1,16 @@
 ﻿[0.4.2] - 2022-11-28
 
+- [Fix] The "Cursor Restriction" took no effect after unchecking the "Automatic Idendification" option.
 - [Fix] Update installation failure caused by path access error.
 - [Add] Global function: Language Detect. Automaticly detects system languagecode and provides corresponding translation (Currently supports Chinese and English).
-- [Improve] Interface layout adapted for English version.
+- [Improve] View-control function optimzed to speed up the response time of mouse movement.
+- [Improve] Startup interface layout adapted for English version.
 >
+- [修复] 在关闭全自动识别后无法使用限制性光标功能的问题
 - [修复] 由路径读取错误导致的更新安装失败的问题
 - [新增] 全局功能：检测语言，自动检测当前系统语言并提供相应的翻译（目前支持中文和英文）
-- [改进] 调整了界面布局以适应英文版本
+- [改进] 优化了视角跟随功能以增强对鼠标移动的响应速度
+- [改进] 调整了启动界面布局以适应英文版本
 
 
 [0.4.1] - 2022-11-22
