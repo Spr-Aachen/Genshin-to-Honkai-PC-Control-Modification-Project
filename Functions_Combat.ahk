@@ -25,6 +25,36 @@ Occlusion(Status_Occlusion)
 }
 
 
+;【函数 Function】定位光标
+ZoneDetect()
+{
+    If WinActive("ahk_exe BH3.exe")
+    {
+        If (FirstTime_ZoneDetect)
+        {
+            WinGetPos, X, Y, W, H, ahk_exe BH3.exe
+            ClientUpperLeftCorner_X := X
+            ClientUpperLeftCorner_Y := Y
+            Client_Width := W
+            Client_Height := H
+
+            FirstTime_ZoneDetect := !FirstTime_ZoneDetect
+        }
+        MouseGetPos, x1, y1
+        If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+        {
+            If (!IsZoneInteractive)
+                IsZoneInteractive := True
+        }
+        Else
+        {
+            If (IsZoneInteractive)
+                IsZoneInteractive := False
+        }
+    }
+}
+
+
 ;【函数 Function】重置光标
 CoordReset()
 {
@@ -47,33 +77,21 @@ CoordReset()
 ;【函数 Function】限制光标
 Restriction()
 {
+    ZoneDetect()
     If WinActive("ahk_exe BH3.exe")
     {
-        MouseGetPos, x1, y1
         If (Toggle_Restriction)
         {
             If (Status_Restriction)
             {
-                Try
+                If (IsZoneInteractive)
                 {
-                    If (x1 > (ClientUpperLeftCorner_X + Client_Width / 2 + Client_Width / 4) || x1 < (ClientUpperLeftCorner_X + Client_Width / 2 - Client_Width / 4) || y1 > (ClientUpperLeftCorner_Y + Client_Height / 2 + Client_Height / 4) || y1 < (ClientUpperLeftCorner_Y + Client_Height / 2 - Client_Height / 4))
+                    If (Status_Key_ViewControl)
                     {
-                        If (Status_Key_ViewControl)
-                        {
-                            SendInput, {Click, Up Middle}
-                            Status_Key_ViewControl := !Status_Key_ViewControl
-                        }
-                        CoordReset()
+                        SendInput, {Click, Up Middle}
+                        Status_Key_ViewControl := !Status_Key_ViewControl
                     }
-                }
-                Catch
-                {
-                    WinGetPos, X, Y, W, H, ahk_exe BH3.exe
-                    ClientUpperLeftCorner_X := X
-                    ClientUpperLeftCorner_Y := Y
-                    Client_Width := W
-                    Client_Height := H
-                    Restriction()
+                    CoordReset()
                 }
             }
         }
@@ -93,21 +111,46 @@ MouseDetect()
 }
 
 
-;【函数 Function】
-Key_ViewControl_Detect()
+;【函数 Function】冲突检测
+ConflictDetect()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        If (!Toggle_ManualSuspend)
+        ZoneDetect()
+        If (Status_Key_ViewControl || !IsZoneInteractive)
         {
-            If Not GetKeyState("MButton")
+            If GetKeyState("MButton")
+            {
+                List := ["LButton", "RButton"] ;在光标位于非交互区时，其它鼠标键会打断中键的逻辑状态
+                Loop % List.Length()
+                {
+                    If GetKeyState(List[A_Index])
+                    {
+                        SendInput, {Click, Up Middle} ;SendEvent, MButton
+
+                        ConflictKey := List[A_Index]
+                        KeyWait, %ConflictKey% ;KeyWait, %ConflictKey%, L
+
+                        SendInput, {Click, Down Middle}
+                    }
+                }
+            }
+            Else
                 SendInput, {Click, Down Middle}
         }
         Else
         {
-            If GetKeyState("MButton")
-                SendInput, {Click, Up Middle}
-            Return
+            If (!BreakFlag_View)
+                BreakFlag_View := !BreakFlag_View
+            ;Return
+        }
+    }
+    Else
+    {
+        If (Status_Key_ViewControl)
+        {
+            SendInput, {Click, Up Middle}
+            Status_Key_ViewControl := !Status_Key_ViewControl
         }
     }
 }
@@ -125,13 +168,17 @@ ViewControl()
             {
                 Status_Key_ViewControl := !Status_Key_ViewControl
                 SendInput, {Click, Down Middle}
+                SetTimer, ConflictDetect, %Timer_ConflictDetect%
                 Loop, 120
                 {
-                    If (!Toggle_ManualSuspend)
-                        SetTimer, Key_ViewControl_Detect, %Timer_Key_ViewControl_Detect%
-                    Else
+                    If (BreakFlag_View)
+                    {
+                        BreakFlag_View := !BreakFlag_View
                         Break
+                    }
+                    Sleep, 10
                 }
+                SetTimer, ConflictDetect, Delete
             }
         }
         Else
@@ -406,7 +453,8 @@ InputReset()
         {
             If (Status_Key_ViewControl)
             {
-                SetTimer, Key_ViewControl_Detect, Delete
+                If (!BreakFlag_View)
+                    BreakFlag_View := !BreakFlag_View
                 Status_Key_ViewControl := !Status_Key_ViewControl
             }
             SendInput, {Click, Up Middle}
