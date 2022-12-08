@@ -86,10 +86,10 @@ Restriction()
             {
                 If (IsZoneInteractive)
                 {
-                    If (Status_Key_ViewControl)
+                    If (Status_ViewControl)
                     {
                         SendInput, {Click, Up Middle}
-                        Status_Key_ViewControl := !Status_Key_ViewControl
+                        Status_ViewControl := !Status_ViewControl
                     }
                     CoordReset()
                 }
@@ -117,7 +117,7 @@ ConflictDetect()
     If WinActive("ahk_exe BH3.exe")
     {
         ZoneDetect()
-        If (Status_Key_ViewControl || !IsZoneInteractive)
+        If (Status_ViewControl && !IsZoneInteractive)
         {
             If GetKeyState("MButton")
             {
@@ -147,10 +147,10 @@ ConflictDetect()
     }
     Else
     {
-        If (Status_Key_ViewControl)
+        If (Status_ViewControl)
         {
             SendInput, {Click, Up Middle}
-            Status_Key_ViewControl := !Status_Key_ViewControl
+            Status_ViewControl := !Status_ViewControl
         }
     }
 }
@@ -164,29 +164,39 @@ ViewControl()
     {
         If (x1 != x2 or y1 != y2)
         {
-            If (!Status_Key_ViewControl)
+            If (!Status_ViewControl)
             {
-                Status_Key_ViewControl := !Status_Key_ViewControl
-                SendInput, {Click, Down Middle}
-                SetTimer, ConflictDetect, %Timer_ConflictDetect%
-                Loop, 120
+                Status_ViewControl := !Status_ViewControl
+                ;SendInput, {Click, Down Middle}
+                Switch ViewControl_Mod
                 {
-                    If (BreakFlag_View)
-                    {
-                        BreakFlag_View := !BreakFlag_View
-                        Break
-                    }
-                    Sleep, 10
+                    Case "Mod1":
+                        ConflictDetect()
+
+                    Case "Mod2":
+                        SetTimer, ConflictDetect, %Timer_ConflictDetect%
+                        Loop, 120
+                        {
+                            If (BreakFlag_View)
+                            {
+                                BreakFlag_View := !BreakFlag_View
+                                Break
+                            }
+                            Sleep, 10
+                        }
+                        SetTimer, ConflictDetect, Delete
+                    
+                    Default :
+                        ;ConflictDetect()
                 }
-                SetTimer, ConflictDetect, Delete
             }
         }
         Else
         {
-            If (Status_Key_ViewControl)
+            If (Status_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_Key_ViewControl := !Status_Key_ViewControl
+                Status_ViewControl := !Status_ViewControl
             }
         }
     }
@@ -202,10 +212,11 @@ ViewControlTemp()
         Threshold := 33 ; [可调校数值 adjustable parameters] 设定切换两种视角跟随模式的像素阈值
         If (abs(x1 - x2) > Threshold or abs(y1 - y2) > Threshold)
         {
-            If (!Status_Key_ViewControl)
+            If (!Status_ViewControl)
             {
-                Status_Key_ViewControl := !Status_Key_ViewControl
-                SendInput, {Click, Down Middle}
+                Status_ViewControl := !Status_ViewControl
+                ;SendInput, {Click, Down Middle}
+                ConflictDetect()
             }
         }
         Else If (y1 > y2)
@@ -258,10 +269,10 @@ ViewControlTemp()
         }
         Else
         {
-            If (Status_Key_ViewControl)
+            If (Status_ViewControl)
             {
                 SendInput, {Click, Up Middle}
-                Status_Key_ViewControl := !Status_Key_ViewControl
+                Status_ViewControl := !Status_ViewControl
             }
         }
     }
@@ -451,11 +462,11 @@ InputReset()
     {
         If GetKeyState("MButton")
         {
-            If (Status_Key_ViewControl)
+            If (Status_ViewControl)
             {
                 If (!BreakFlag_View)
                     BreakFlag_View := !BreakFlag_View
-                Status_Key_ViewControl := !Status_Key_ViewControl
+                Status_ViewControl := !Status_ViewControl
             }
             SendInput, {Click, Up Middle}
         }
