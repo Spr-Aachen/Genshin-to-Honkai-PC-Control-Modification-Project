@@ -3,7 +3,7 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Global Test := False ; Turn it to "True" for download testing.
+Global IsTesting := False ; Turn it to "True" for download testing.
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ Updater()
 {
 	IsRequestDone := False
 	Random, ChosenMirror, 1, MirrorList.Length()
-	If (Test)
+	If (IsTesting)
 		Request.Open("GET", MirrorList[ChosenMirror] "/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases/download/v0.4.0-beta/Version.txt", True)
 	Else
 		Request.Open("GET", MirrorList[ChosenMirror] "/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases/latest/download/Version.txt", True) ; 打开启用异步的请求，获取最新版本号记录
@@ -44,7 +44,7 @@ Ready()
 						Try
 						{
 							FileCreateDir, ./Temp
-							If (Test)
+							If (IsTesting)
 								UrlDownloadToFile, % MirrorList[ChosenMirror] "/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases/download/v0.4.0-beta/BH3_Hotkey.exe", ./Temp/BH3_Hotkey.exe
 							Else
 								UrlDownloadToFile, % MirrorList[ChosenMirror] "/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases/latest/download/BH3_Hotkey.exe", ./Temp/BH3_Hotkey.exe
