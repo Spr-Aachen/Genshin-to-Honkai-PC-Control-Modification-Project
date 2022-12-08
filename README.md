@@ -7,8 +7,8 @@
 
 </div>
 
-本项目以AHK为基础语言进行编译。这仅是个半成品且完全为爱发电，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
-<br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I make it totally out of my love for the game, so I hope you guys won't push me too hard. Cheers!
+本项目以AHK为基础语言进行编译。由于这仅是一个出自编程菜鸟之手的半成品，是故望乞诸位海涵。干杯！ - ( ゜- ゜)つロ
+<br>The project is basicly built with AutoHotkey. Please remind that this is a WIP (work in progress) stuff and I'm totally a noob in coding. So... hope you guys won't push me too hard. Cheers!
 
 
 ## 【注意 Caution】
