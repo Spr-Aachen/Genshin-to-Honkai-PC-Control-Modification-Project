@@ -255,6 +255,7 @@ AutoScale()
                                 CoordReset()
                             Else If (!Status_Restriction)
                                 Status_Restriction := !Status_Restriction
+                            ViewControl_Mod := "Mod1"
                             SetTimer, ViewControl, %Timer_ViewControl%
                         }
                         Suspend, Off
@@ -293,6 +294,7 @@ AutoScale()
                             CoordReset()
                             ;If (!Status_Restriction)
                                 ;Status_Restriction := !Status_Restriction
+                            ViewControl_Mod := "Mod2"
                             SetTimer, ViewControl, %Timer_ViewControl%
                         }
                     }
@@ -379,6 +381,7 @@ ManualSuspend()
                         CoordReset()
                     Else If (!Status_Restriction)
                         Status_Restriction := !Status_Restriction
+                    ViewControl_Mod := "Mod1"
                     SetTimer, ViewControl, %Timer_ViewControl%
                 }
             }
@@ -390,6 +393,7 @@ ManualSuspend()
                 CoordReset()
             Else If (!Status_Restriction)
                 Status_Restriction := !Status_Restriction
+            ViewControl_Mod := "Mod1"
             SetTimer, ViewControl, %Timer_ViewControl%
         }
         Suspend, Off
