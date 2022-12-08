@@ -3,6 +3,12 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+Global ForceToOverwrite := False ; Turn it to "True" for config overwriting.
+
+
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 ;【函数 Function】禁用关闭按钮
 DisableButtonX()
 {
@@ -58,11 +64,11 @@ Try
     IniRead, TestString, %INI_DIR%, Startup, %执行初始化缓存清理%
 Catch
 {
-    ForceQuit() ;ExitApp
+    Reload
 }
 Finally
 {
-    If (TestString == "ERROR")
+    If (TestString == "ERROR" || ForceToOverwrite == True)
     {
         Try
             RunWait, PowerShell.exe -Command "Get-ChildItem -Path C:/ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
