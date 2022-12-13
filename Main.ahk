@@ -75,12 +75,12 @@ Global Timer_ScreenDetectController := 1
 Global Toggle_AutoScale := False
 Global Status_CombatIcon := False
 Global Status_ElysiumIcon := False
-Global FaultTolerance_Combat_Normal1 := 0.00001 * %FaultTolerance_Combat_Normal1_Percentage1%
-Global FaultTolerance_Combat_Normal2 := 0.00001 * %FaultTolerance_Combat_Normal1_Percentage2%
-Global FaultTolerance_Combat_Endangered1 := 0.01 * %FaultTolerance_Combat_Endangered1_Percentage1%
-Global FaultTolerance_Combat_Endangered2 := 0.01 * %FaultTolerance_Combat_Endangered1_Percentage2%
-Global FaultTolerance_Elysium1 := 0.01 * %FaultTolerance_Elysium1%
-Global FaultTolerance_Elysium2 := 0.01 * %FaultTolerance_Elysium2%
+Global FaultTolerance_Combat_Normal_T := 0.01 * %FaultTolerance_Combat_Normal_T_Percentage% * 0.01
+Global FaultTolerance_Combat_Normal_B := 0.01 * %FaultTolerance_Combat_Normal_B_Percentage% * 0.01
+Global FaultTolerance_Combat_Endangered_T := 0.01 * %FaultTolerance_Combat_Endangered_T_Percentage%
+Global FaultTolerance_Combat_Endangered_B := 0.01 * %FaultTolerance_Combat_Endangered_B_Percentage%
+Global FaultTolerance_Elysium_T := 0.01 * %FaultTolerance_Elysium_T_Percentage%
+Global FaultTolerance_Elysium_B := 0.01 * %FaultTolerance_Elysium_B_Percentage%
 Global Timer_AutoScale := 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
 
 
