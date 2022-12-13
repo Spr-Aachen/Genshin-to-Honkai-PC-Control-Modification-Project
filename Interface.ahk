@@ -132,12 +132,12 @@ Finally
         IniRead, EnableOcclusion, %INI_DIR%, CheckBox, %可隐藏光标%
         IniRead, EnableRestriction, %INI_DIR%, CheckBox, %限制性光标%
 
-        IniRead, FaultTolerance_Combat_Normal_Percentage1, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
-        IniRead, FaultTolerance_Combat_Normal_Percentage2, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
-        IniRead, FaultTolerance_Combat_Endangered_Percentage1, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
-        IniRead, FaultTolerance_Combat_Endangered_Percentage2, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
-        IniRead, FaultTolerance_Elysium_Percentage1, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
-        IniRead, FaultTolerance_Elysium_Percentage2, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
+        IniRead, FaultTolerance_Combat_Normal_T_Percentage, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
+        IniRead, FaultTolerance_Combat_Normal_B_Percentage, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
+        IniRead, FaultTolerance_Combat_Endangered_T_Percentage, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
+        IniRead, FaultTolerance_Combat_Endangered_B_Percentage, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
+        IniRead, FaultTolerance_Elysium_T_Percentage, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
+        IniRead, FaultTolerance_Elysium_B_Percentage, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
     }
     Finally
     {
@@ -267,17 +267,17 @@ Gui, Start: Add, GroupBox, W333 H222,                                           
 Gui, Start: Font, s9, 新宋体
 Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
 Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                                                 %正常战斗状态识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage1,     %FaultTolerance_Combat_Normal_Percentage1%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_T_Percentage,     %FaultTolerance_Combat_Normal_T_Percentage%
 Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %正常战斗状态识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_Percentage2,     %FaultTolerance_Combat_Normal_Percentage2%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Normal_B_Percentage,     %FaultTolerance_Combat_Normal_B_Percentage%
 Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage1, %FaultTolerance_Combat_Endangered_Percentage1%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_T_Percentage, %FaultTolerance_Combat_Endangered_T_Percentage%
 Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_Percentage2, %FaultTolerance_Combat_Endangered_Percentage2%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Combat_Endangered_B_Percentage, %FaultTolerance_Combat_Endangered_B_Percentage%
 Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage1,           %FaultTolerance_Elysium_Percentage1%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_T_Percentage,           %FaultTolerance_Elysium_T_Percentage%
 Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_Percentage2,           %FaultTolerance_Elysium_Percentage2%
+Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_Elysium_B_Percentage,           %FaultTolerance_Elysium_B_Percentage%
 Gui, Start: Font, s12, 新宋体
 
 Gui, Start: Tab, %设置%
@@ -393,12 +393,12 @@ IniWrite, %EnableAutoScale%, %INI_DIR%, CheckBox, %全自动识别%
 IniWrite, %EnableOcclusion%, %INI_DIR%, CheckBox, %可隐藏光标%
 IniWrite, %EnableRestriction%, %INI_DIR%, CheckBox, %限制性光标%
 
-IniWrite, %FaultTolerance_Combat_Normal_Percentage1%, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
-IniWrite, %FaultTolerance_Combat_Normal_Percentage2%, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
-IniWrite, %FaultTolerance_Combat_Endangered_Percentage1%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
-IniWrite, %FaultTolerance_Combat_Endangered_Percentage2%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
-IniWrite, %FaultTolerance_Elysium_Percentage1%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
-IniWrite, %FaultTolerance_Elysium_Percentage2%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
+IniWrite, %FaultTolerance_Combat_Normal_T_Percentage%, %INI_DIR%, Slider, %正常战斗状态识别容错率_目标%
+IniWrite, %FaultTolerance_Combat_Normal_B_Percentage%, %INI_DIR%, Slider, %正常战斗状态识别容错率_背景%
+IniWrite, %FaultTolerance_Combat_Endangered_T_Percentage%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_目标%
+IniWrite, %FaultTolerance_Combat_Endangered_B_Percentage%, %INI_DIR%, Slider, %濒危战斗状态识别容错率_背景%
+IniWrite, %FaultTolerance_Elysium_T_Percentage%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_目标%
+IniWrite, %FaultTolerance_Elysium_B_Percentage%, %INI_DIR%, Slider, %往世乐土大厅识别容错率_背景%
 
 Gui, Start: Destroy
 
