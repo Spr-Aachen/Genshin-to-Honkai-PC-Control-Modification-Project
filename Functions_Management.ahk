@@ -236,7 +236,7 @@ AutoScale()
 
         Finally
         {
-            If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal1%, %FaultTolerance_Combat_Normal2%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
+            If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal_T%, %FaultTolerance_Combat_Normal_B%, Icon)[1].id == "CombatIcon_WithTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered_T%, %FaultTolerance_Combat_Endangered_B%, Icon)[1].id == "CombatIcon_WithTips_Endangered" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Normal_T%, %FaultTolerance_Combat_Normal_B%, Icon)[1].id == "CombatIcon_WithoutTips_Normal" || FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Combat_Endangered1%, %FaultTolerance_Combat_Endangered2%, Icon)[1].id == "CombatIcon_WithoutTips_Endangered")
             {
                 If (!Status_CombatIcon)
                 {
@@ -286,7 +286,7 @@ AutoScale()
                 }
                 Else If (!Toggle_ManualSuspend)
                 {
-                    If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, %FaultTolerance_Elysium1%, %FaultTolerance_Elysium2%, Icon)[1].id == "ElysiumIcon_LowerRight")
+                    If (FindText(X, Y, UpperLeftCorner_X, UpperLeftCorner_Y, LowerRightCorner_X, LowerRightCorner_Y, %FaultTolerance_Elysium_T%, %FaultTolerance_Elysium_B%, Icon)[1].id == "ElysiumIcon_UpperLeft" && FindText(X, Y, UpperLeftCorner_X2, UpperLeftCorner_Y2, LowerRightCorner_X2, LowerRightCorner_Y2, %FaultTolerance_Elysium_T%, %FaultTolerance_Elysium_B%, Icon)[1].id == "ElysiumIcon_LowerRight")
                     {
                         If (!Toggle_MouseFunction)
                         {
