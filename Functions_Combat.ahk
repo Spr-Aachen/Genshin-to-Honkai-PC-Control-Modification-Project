@@ -116,8 +116,7 @@ ConflictDetect()
 {
     If WinActive("ahk_exe BH3.exe")
     {
-        ZoneDetect()
-        If (Status_ViewControl && !IsZoneInteractive)
+        If (Status_ViewControl)
         {
             If GetKeyState("MButton")
             {
@@ -131,7 +130,11 @@ ConflictDetect()
                         ConflictKey := List[A_Index]
                         KeyWait, %ConflictKey% ;KeyWait, %ConflictKey%, L
 
-                        SendInput, {Click, Down Middle}
+                        ZoneDetect()
+                        If (!IsZoneInteractive)
+                            SendInput, {Click, Down Middle}
+                        Else
+                            Break
                     }
                 }
             }
