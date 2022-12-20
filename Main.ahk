@@ -35,8 +35,7 @@ Global Toggle_MouseFunction := False
 ;【变量 Variable】对管理视角跟随功能的全局变量进行赋值
 Global Status_ViewControl := False
 Global ViewControl_Mod := "Mod1"
-;Global Status_ConflictDetect := False
-Global Timer_ConflictDetect := 0 ; [可调校数值 adjustable parameters] 设定冲突检测命令的每执行时间间隔(ms)
+Global Timer_ConflictDetect := 0
 Global BreakFlag_View := False
 Global Timer_ViewControl := 10 ; [可调校数值 adjustable parameters] 设定视角跟随命令的每执行时间间隔(ms)
 
@@ -75,8 +74,8 @@ Global Timer_ScreenDetectController := 1
 Global Toggle_AutoScale := False
 Global Status_CombatIcon := False
 Global Status_ElysiumIcon := False
-Global FaultTolerance_Combat_Normal_T := 0.01 * %FaultTolerance_Combat_Normal_T_Percentage% * 0.01
-Global FaultTolerance_Combat_Normal_B := 0.01 * %FaultTolerance_Combat_Normal_B_Percentage% * 0.01
+Global FaultTolerance_Combat_Normal_T := 0.01 * %FaultTolerance_Combat_Normal_T_Percentage% ;* 0.001
+Global FaultTolerance_Combat_Normal_B := 0.01 * %FaultTolerance_Combat_Normal_B_Percentage% ;* 0.001
 Global FaultTolerance_Combat_Endangered_T := 0.01 * %FaultTolerance_Combat_Endangered_T_Percentage%
 Global FaultTolerance_Combat_Endangered_B := 0.01 * %FaultTolerance_Combat_Endangered_B_Percentage%
 Global FaultTolerance_Elysium_T := 0.01 * %FaultTolerance_Elysium_T_Percentage%
@@ -111,12 +110,6 @@ Global ChosenMirror_Tried := Array()
 ;【命令 Directive】
 #Include Interface.ahk
 
-;【命令 Directive】
-#Include Functions_Combat.ahk
-
-;【命令 Directive】
-#Include Functions_Management.ahk
-
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -127,14 +120,24 @@ Global ChosenMirror_Tried := Array()
 ;【命令 Directive】修改AHK的默认掩饰键
 #MenuMaskKey vkE8  ; vkE8尚未映射
 
-;【命令 Directive】安装且不对以下热键使用钩子
-#InstallKeybdHook
-#InstallMouseHook
-#UseHook, Off
+;【命令 Directive】安装并对以下热键使用钩子
+;#InstallKeybdHook
+;#InstallMouseHook
+;#UseHook, On
+SendMode, InputThenPlay
 
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+;【命令 Directive】
+;#Include KeyList.ahk
+
+;【命令 Directive】
+#Include Functions_Combat.ahk
+
+;【命令 Directive】
+#Include Functions_Management.ahk
 
 ;【命令 Directive】
 #Include Hotkeys_Combat.ahk
