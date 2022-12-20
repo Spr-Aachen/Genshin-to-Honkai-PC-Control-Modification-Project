@@ -121,13 +121,22 @@ ConflictDetect()
             If GetKeyState("MButton")
             {
                 List := ["LButton", "RButton"] ;在光标位于非交互区时，其它鼠标键会打断中键的逻辑状态
-                Loop % List.Length()
+                LEN := List.Length()
+                IsConflictDetected := False
+                While (Status_ViewControl)
                 {
-                    If GetKeyState(List[A_Index])
+                    If (A_Index <= LEN)
+                        NUM := A_Index
+                    Else
+                        NUM := abs(Mod(A_Index, LEN) - LEN)
+
+                    If GetKeyState(List[NUM])
                     {
+                        If (!IsConflictDetected)
+                            IsConflictDetected := True
                         SendInput, {Click, Up Middle} ;SendEvent, MButton
 
-                        ConflictKey := List[A_Index]
+                        ConflictKey := List[NUM]
                         KeyWait, %ConflictKey% ;KeyWait, %ConflictKey%, L
 
                         ZoneDetect()
@@ -136,6 +145,8 @@ ConflictDetect()
                         Else
                             Break
                     }
+                    Else If (!IsConflictDetected && NUM == LEN)
+                        Break
                 }
             }
             Else
