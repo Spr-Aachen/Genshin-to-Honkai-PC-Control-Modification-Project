@@ -74,12 +74,12 @@ Global Timer_ScreenDetectController := 1
 Global Toggle_AutoScale := False
 Global Status_CombatIcon := False
 Global Status_ElysiumIcon := False
-Global FaultTolerance_Combat_Normal_T := 0.01 * %FaultTolerance_Combat_Normal_T_Percentage% ;* 0.001
-Global FaultTolerance_Combat_Normal_B := 0.01 * %FaultTolerance_Combat_Normal_B_Percentage% ;* 0.001
-Global FaultTolerance_Combat_Endangered_T := 0.01 * %FaultTolerance_Combat_Endangered_T_Percentage%
-Global FaultTolerance_Combat_Endangered_B := 0.01 * %FaultTolerance_Combat_Endangered_B_Percentage%
-Global FaultTolerance_Elysium_T := 0.01 * %FaultTolerance_Elysium_T_Percentage%
-Global FaultTolerance_Elysium_B := 0.01 * %FaultTolerance_Elysium_B_Percentage%
+Global FaultTolerance_CombatScene_Normal_T := 0.01 * %FaultTolerance_CombatScene_Normal_T_Percentage% ;* 0.001
+Global FaultTolerance_CombatScene_Normal_B := 0.01 * %FaultTolerance_CombatScene_Normal_B_Percentage% ;* 0.001
+Global FaultTolerance_CombatScene_LowHealth_T := 0.01 * %FaultTolerance_CombatScene_LowHealth_T_Percentage%
+Global FaultTolerance_CombatScene_LowHealth_B := 0.01 * %FaultTolerance_CombatScene_LowHealth_B_Percentage%
+Global FaultTolerance_ElysiumLobby_T := 0.01 * %FaultTolerance_ElysiumLobby_T_Percentage%
+Global FaultTolerance_ElysiumLobby_B := 0.01 * %FaultTolerance_ElysiumLobby_B_Percentage%
 Global Timer_AutoScale := 81 ; [可调校数值 adjustable parameters] 设定自动识别命令的每执行时间间隔(ms)，如果值过小可能不好使
 
 
