@@ -48,87 +48,138 @@
 
 ## 【设定 Configurations】
 
-**默认键位设定 - 战斗<br>Default Keymap Configurations- Combat**
+### 键位 - 预设<br>Keymaps - Preset
 
-键位会在战斗状态下生效。且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
-<br>Keymaps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
+以下键位会在战斗状态下生效且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
+<br>The following keymaps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
 ***Q键发动主技能（大招） Q key for main skill***
-<br>使用方法：点按或长按Q[可改]
+<br>使用方法：点按或长按`Q键`[可改]
 <br>Usage: Press or long press `Q key`[Adjustable]
 
 ***E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill***
-<br>使用方法：点按或长按E[可改]
+<br>使用方法：点按或长按`E键`[可改]
 <br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
 <br>Usage: Press or long press `E key`[Adjustable]
 <br>Extra: After entering the aiming mode by long pressing `E key`, cross hair can be controled by the mouse-movement
 
 ***Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat***
-<br>使用方法：按下Z键[可改]
+<br>使用方法：按下`Z键`[可改]
 <br>Usage: Press down (Long press) `Z key`[Adjustable]
 
 ***左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing***
-<br>使用方法：点击或长按左侧Shift键/鼠标右键[可改]
+<br>使用方法：点击或长按左侧`Shift键`/`鼠标右键`[可改]
 <br>Usage: Press (Click) or long press `LShift`/`RButton`[Adjustable]
 
 ***鼠标左键发动普攻 LButton for normal attack***
-<br>使用方法：点击或长按鼠标左键[可改]
+<br>使用方法：点击或长按`鼠标左键`[可改]
 <br>Usage: Press (Click) or long press `LButton`[Adjustable]
 
-**默认键位设定 - 控制<br>Default Keymap Configurations- Control**
-
-尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以进行手动控制
-<br>Although the combat scene can be automaticly identified, manual control is still needed especially when exceptions occured
+尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以通过以下键位进行手动控制
+<br>Although the combat scene can be automaticly identified, the following keys can still be needed for manual control especially when exceptions occured
 
 ***左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function***
-<br>使用方法：按住左侧Alt键后点击鼠标左键[不可改]
+<br>使用方法：按住`左侧Alt键`后点击`鼠标左键`[不可改]
 <br>Usage: Press down (Long press) `LAlt` and then click `LButton`[Unadjustable]
 
 ***鼠标中键管理视角跟随功能 MButton for view-control function management***
-<br>使用方法：点击鼠标中键[可改]
+<br>使用方法：点击`鼠标中键`[可改]
 <br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
 <br>Usage: Click `MButton`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
 
 ***F1键暂停/启用程序 F1 key for program suspending/continuing***
-<br>使用方法：按下F1键[可改]
+<br>使用方法：按下`F1键`[可改]
 <br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
 <br>Usage: Press down (Long press) `F1 key`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
 
 ***F3键重启程序 F3 key for program reloading***
-<br>使用方法：按下F3键[可改]
+<br>使用方法：按下`F3键`[可改]
 <br>Usage: Press down (Long press) `F3 key`[Adjustable]
 
-若要更改默认键位，点击框并按下想要的按键即可（按Del键或Backspace键可清空框）
-<br>To adjust the default Keymap, just click the box and press down the key you want (pressing Del or Backspace would set the box to empty).
+### 键位 - 更改 <br>Keymaps - Customization
 
-**附加设定<br>Addition**
+启动界面的`键位栏`中允许手动更改默认键位且不同控制器的设置如下：
+<br>The `Keymap Bar` which located in the startup interface allows users to customize the default keymap, different controllers should be set up as follows:
 
-1. 启动界面的功能栏中允许手动选择是否启用以下选项：
-<br>   全自动识别（默认启用）
-<br>   管理员权限（默认启用）
-<br>   可隐藏光标（默认启用）
-<br>   限制性光标（默认启用）
-<br>   The function bar which located in the start-up interface allows users to choose whether toggle the following options:
-<br>   `Automatic Identification` (Toggled by default)
-<br>   `Run as Admin` (Toggled by default)
-<br>   `Cursor Occlusion` (Toggled by default)
-<br>   `Cursor Restriction` (Toggled by default)
+***键盘 Keyboard***
+<br>点击框并按下想要的键盘按键（按Del键或Backspace键可清空框）
+<br>Click the box and press down the keyboard key you want (pressing Del or Backspace would set the box to empty)
 
-2. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
+***鼠标 Mouse***
+<br>点击下拉栏目切换到想要的鼠标按键（选择“无”可置空栏目）
+<br>Click the combobox to switch to the mouse button you want (choosing `None` would set the combobox to null)
+
+***手柄 GamePad***
+<br>暂不支持
+<br>Temporarily not supported
+
+### 功能 - 选项<br>Functions - Option
+
+启动界面的`功能栏`中允许手动选择是否启用以下辅助性选项：
+<br>The `Function Bar` which located in the startup interface allows users to choose whether toggle the following options:
+
+***`管理员权限`（默认启用） `Run as Admin` (Toggled by default)***
+<br>以管理员身份运行程序
+<br>Run program as administrator
+
+***`全自动识别`（默认启用） `Automatic Identification` (Toggled by default)***
+<br>使键位仅在战斗场景生效
+<br>Let the keymaps only take effect in combat scene
+
+***`可隐藏光标`（默认启用） `Cursor Occlusion` (Toggled by default)***
+<br>光标会在战斗场景下自动隐藏，但注意前提是启用了自动识别
+<br>Hide cursor automatically while in combat, but mind that this funtion would only work under the premise of toggling the "Automatic Identification"
+
+***`限制性光标`（默认启用） `Cursor Restriction` (Toggled by default)***
+<br>战斗场景下会将光标限制于安全区域内以避免触发UI
+<br>Restrict cursor in a "safe zone" to avoid toggling the UI buttons
+
+### 功能 - 调参<br>Functions - Tuning
+
+启动界面的`功能栏`中允许手动调节自动识别系统的以下参数：
+<br>The `Function Bar` which located in the startup interface allows users to adjust the following params of Automatic Identification:
+
+***`正常战斗识别容错率-目标` `FT_NormalCombat_Target`***
+<br>在战斗场景中处于高血量状态时的识别区目标的容错百分率
+<br>Fault tolerance percentage of target in combat scene without low health alert
+
+***`正常战斗识别容错率-背景` `FT_NormalCombat_Background`***
+<br>在战斗场景中处于高血量状态时的识别区背景的容错百分率
+<br>Fault tolerance percentage of background in combat scene without low health alert
+
+***`濒危战斗识别容错率-目标` `FT_DangerCombat_Target`***
+<br>在战斗场景中处于低血量状态时的识别区目标的容错百分率
+<br>Fault tolerance percentage of target in combat scene with low health alert
+
+***`濒危战斗识别容错率-背景` `FT_DangerCombat_Background`***
+<br>在战斗场景中处于低血量状态时的识别区背景的容错百分率
+<br>Fault tolerance percentage of background in combat scene with low health alert
+
+***`乐土大厅识别容错率-目标` `FT_ElysiumLobby_Target`***
+<br>在往事乐土大厅场景中时的识别区目标的容错百分率
+<br>Fault tolerance percentage of target in Elysium Lobby scene
+
+***`乐土大厅识别容错率-背景` `FT_ElysiumLobby_Background`***
+<br>在往事乐土大厅场景中时的识别区背景的容错百分率
+<br>Fault tolerance percentage of background in Elysium Lobby scene
+
+### 附加设定<br>Addition
+
+1. 战斗场景内使用快捷键AltTab、WinTab进行窗口切换时会自动暂停游戏，按下F1、F3时也是同理（以启用全自动识别为前提）。需要注意的是，为节省资源占用和提高容错率，在执行快速切换后程序亦会自动暂停，故在切回游戏界面后需手动按下F1键以恢复程序运行。
 <br>   While switching or rearranging windows by pressing shortcut AltTab or WinTab, the game would automaticly pause, so as the `F1 key` and `F3 key` (Under the premise of toggling the `Automatic Identification`). Notably, the programm would also suspend automaticly after doing quick switch or arrangement in order to lower the usage of system resources. Therefore, to resume the program manually, you need to press F1 key after switching back to the game.
 
-3. 新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）
-<br>   New scene supported: Elysium Lobby (Under the premise of toggling the `Automatic Identification`)
+2. ~~新增对往世乐土大厅场景的识别支持（以启用全自动识别为前提）~~
+<br>   ~~New scene supported: Elysium Lobby (Under the premise of toggling the `Automatic Identification`)~~
 
-4. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
+3. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
 <br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
-5. 启动界面的设置栏中可以直接重置当前配置
+4. 启动界面的设置栏中可以直接重置当前配置
 <br>   Current configuration can be reset from the settings bar which located in the start-up interface.
 
-6. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
+5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
 <br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed or deleted.
 
 
@@ -173,4 +224,4 @@
 [![QQ](https://img.shields.io/badge/QQ-2835946988-brightgreen?style=flat-square&logo=tencent-qq&logoColor=white)]()
 
 倘若大伙儿有什么好的建议欢迎随时叨扰哦~
-<br>Please feel free to contact me at any time, any advice would be appreciated:)
+<br>Please feel free to contact me at any time, any comments and suggestions will be appreciated:)
