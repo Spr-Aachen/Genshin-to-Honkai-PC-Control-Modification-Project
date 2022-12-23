@@ -7,7 +7,7 @@
 English()
 {
     Global
-    执行初始化缓存清理 := "Execude Initial-Cache-Cleanup"
+    执行初始化进程 := "Execude Initial-Setup"
     已执行 := "Done"
 
     无 := "None"
@@ -20,7 +20,7 @@ English()
     重启 := "Reload"
     退出 := "Exit"
 
-    键位 := "Keymap"
+    键位 := "Keymaps"
     必杀技 := "Main Skill "
     武器技或后崩技 := "Weapon Skill "
     人偶技或月之环 := "Doll Skill "
@@ -31,19 +31,19 @@ English()
     暂停或启用 := "Stop/Begin "
     重启 := "Restart "
 
-    功能 := "Function"
+    功能 := "Functions"
     启用 := "Enable "
     管理员权限 := "Run as Admin"
     全自动识别 := "Auto-Identification"
     可隐藏光标 := "Cursor Occlusion"
     限制性光标 := "Cursor Restriction"
     注_推荐 := ""
-    正常战斗状态识别容错率_目标 := "FaultTolerance_Combat T"
-    正常战斗状态识别容错率_背景 := "FaultTolerance_Combat B"
-    濒危战斗状态识别容错率_目标 := "FaultTolerance_Danger T"
-    濒危战斗状态识别容错率_背景 := "FaultTolerance_Danger B"
-    往世乐土大厅识别容错率_目标 := "FaultTolerance_Elysium T"
-    往世乐土大厅识别容错率_背景 := "FaultTolerance_Elysium B"
+    正常战斗状态识别容错率_目标 := "FT_NormalCombat_Target"
+    正常战斗状态识别容错率_背景 := "FT_NormalCombat_Background"
+    濒危战斗状态识别容错率_目标 := "FT_DangerCombat_Target"
+    濒危战斗状态识别容错率_背景 := "FT_DangerCombat_Background"
+    往世乐土大厅识别容错率_目标 := "FT_ElysiumLobby_Target"
+    往世乐土大厅识别容错率_背景 := "FT_ElysiumLobby_Background"
 
     设置 := "Settings"
     载入配置预设 := "Load Preset"
@@ -88,7 +88,7 @@ English()
 Chinese()
 {
     Global
-    执行初始化缓存清理 := "执行初始化缓存清理"
+    执行初始化进程 := "执行初始化进程"
     已执行 := "已执行"
 
     无 := "无"
@@ -119,12 +119,12 @@ Chinese()
     可隐藏光标 := "可隐藏光标"
     限制性光标 := "限制性光标"
     注_推荐 := "（推荐）"
-    正常战斗状态识别容错率_目标 := "正常战斗状态识别容错率1"
-    正常战斗状态识别容错率_背景 := "正常战斗状态识别容错率2"
-    濒危战斗状态识别容错率_目标 := "濒危战斗状态识别容错率1"
-    濒危战斗状态识别容错率_背景 := "濒危战斗状态识别容错率2"
-    往世乐土大厅识别容错率_目标 := "往世乐土大厅识别容错率1"
-    往世乐土大厅识别容错率_背景 := "往世乐土大厅识别容错率2"
+    正常战斗状态识别容错率_目标 := "正常战斗识别容错率-目标"
+    正常战斗状态识别容错率_背景 := "正常战斗识别容错率-背景"
+    濒危战斗状态识别容错率_目标 := "濒危战斗识别容错率-目标"
+    濒危战斗状态识别容错率_背景 := "濒危战斗识别容错率-背景"
+    往世乐土大厅识别容错率_目标 := "乐土大厅识别容错率-目标"
+    往世乐土大厅识别容错率_背景 := "乐土大厅识别容错率-背景"
 
     设置 := "设置"
     载入配置预设 := "载入配置预设"
