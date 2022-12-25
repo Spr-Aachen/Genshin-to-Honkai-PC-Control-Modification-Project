@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-## 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
+# 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
 [![Releases](https://img.shields.io/github/v/release/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project?color=green&label=Release&logo=Github&logoColor=white&style=flat-square)](https://github.com/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases)
 [![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://www.bilibili.com/video/BV1DY4y1T7aS)
@@ -53,48 +53,48 @@
 以下键位会在战斗状态下生效且和原神PC端的默认键位设置较为相近（但注意瞄准模式的设定有所不同）
 <br>The following keymaps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
-***Q键发动主技能（大招） Q key for main skill***
+**Q键发动主技能（大招） Q key for main skill**
 <br>使用方法：点按或长按`Q键`[可改]
 <br>Usage: Press or long press `Q key`[Adjustable]
 
-***E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill***
+**E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill**
 <br>使用方法：点按或长按`E键`[可改]
 <br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
 <br>Usage: Press or long press `E key`[Adjustable]
 <br>Extra: After entering the aiming mode by long pressing `E key`, cross hair can be controled by the mouse-movement
 
-***Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat***
+**Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat**
 <br>使用方法：按下`Z键`[可改]
 <br>Usage: Press down (Long press) `Z key`[Adjustable]
 
-***左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing***
+**左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing**
 <br>使用方法：点击或长按左侧`Shift键`/`鼠标右键`[可改]
 <br>Usage: Press (Click) or long press `LShift`/`RButton`[Adjustable]
 
-***鼠标左键发动普攻 LButton for normal attack***
+**鼠标左键发动普攻 LButton for normal attack**
 <br>使用方法：点击或长按`鼠标左键`[可改]
 <br>Usage: Press (Click) or long press `LButton`[Adjustable]
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以通过以下键位进行手动控制
 <br>Although the combat scene can be automaticly identified, the following keys can still be needed for manual control especially when exceptions occured
 
-***左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function***
+**左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
 <br>使用方法：按住`左侧Alt键`后点击`鼠标左键`[不可改]
 <br>Usage: Press down (Long press) `LAlt` and then click `LButton`[Unadjustable]
 
-***鼠标中键管理视角跟随功能 MButton for view-control function management***
+**鼠标中键管理视角跟随功能 MButton for view-control function management**
 <br>使用方法：点击`鼠标中键`[可改]
 <br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
 <br>Usage: Click `MButton`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
 
-***F1键暂停/启用程序 F1 key for program suspending/continuing***
+**F1键暂停/启用程序 F1 key for program suspending/continuing**
 <br>使用方法：按下`F1键`[可改]
 <br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
 <br>Usage: Press down (Long press) `F1 key`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
 
-***F3键重启程序 F3 key for program reloading***
+**F3键重启程序 F3 key for program reloading**
 <br>使用方法：按下`F3键`[可改]
 <br>Usage: Press down (Long press) `F3 key`[Adjustable]
 
@@ -103,15 +103,15 @@
 启动界面的`键位栏`中允许手动更改默认键位且不同控制器的设置如下：
 <br>The `Keymap Bar` which located in the startup interface allows users to customize the default keymap, different controllers should be set up as follows:
 
-***键盘 Keyboard***
-<br>点击框并按下想要的键盘按键（按Del键或Backspace键可清空框）
-<br>Click the box and press down the keyboard key you want (pressing Del or Backspace would set the box to empty)
+**键盘 Keyboard**
+<br>点击`框`并按下想要的键盘按键（按Del键或Backspace键可清空框）
+<br>Click the `box` and press down the keyboard key you want (pressing `Delete` or `Backspace` would set the box to empty)
 
-***鼠标 Mouse***
-<br>点击下拉栏目切换到想要的鼠标按键（选择“无”可置空栏目）
-<br>Click the combobox to switch to the mouse button you want (choosing `None` would set the combobox to null)
+**鼠标 Mouse**
+<br>点击`下拉栏目`切换到想要的鼠标按键（选择“无”可置空栏目）
+<br>Click the `combobox` to switch to the mouse button you want (choosing `None` would set the combobox to null)
 
-***手柄 GamePad***
+**手柄 GamePad**
 <br>暂不支持
 <br>Temporarily not supported
 
@@ -120,19 +120,19 @@
 启动界面的`功能栏`中允许手动选择是否启用以下辅助性选项：
 <br>The `Function Bar` which located in the startup interface allows users to choose whether toggle the following options:
 
-***`管理员权限`（默认启用） `Run as Admin` (Toggled by default)***
+**管理员权限（默认启用） Run as Admin (Toggled by default)**
 <br>以管理员身份运行程序
 <br>Run program as administrator
 
-***`全自动识别`（默认启用） `Automatic Identification` (Toggled by default)***
+**全自动识别（默认启用） Automatic Identification (Toggled by default)**
 <br>使键位仅在战斗场景生效
 <br>Let the keymaps only take effect in combat scene
 
-***`可隐藏光标`（默认启用） `Cursor Occlusion` (Toggled by default)***
+**可隐藏光标（默认启用） Cursor Occlusion (Toggled by default)**
 <br>光标会在战斗场景下自动隐藏，但注意前提是启用了自动识别
 <br>Hide cursor automatically while in combat, but mind that this funtion would only work under the premise of toggling the "Automatic Identification"
 
-***`限制性光标`（默认启用） `Cursor Restriction` (Toggled by default)***
+**限制性光标（默认启用） Cursor Restriction (Toggled by default)**
 <br>战斗场景下会将光标限制于安全区域内以避免触发UI
 <br>Restrict cursor in a "safe zone" to avoid toggling the UI buttons
 
@@ -141,27 +141,27 @@
 启动界面的`功能栏`中允许手动调节自动识别系统的以下参数：
 <br>The `Function Bar` which located in the startup interface allows users to adjust the following params of Automatic Identification:
 
-***`正常战斗识别容错率-目标` `FT_NormalCombat_Target`***
+**正常战斗识别容错率-目标 FT_NormalCombat_Target**
 <br>在战斗场景中处于高血量状态时的识别区目标的容错百分率
 <br>Fault tolerance percentage of target in combat scene without low health alert
 
-***`正常战斗识别容错率-背景` `FT_NormalCombat_Background`***
+**正常战斗识别容错率-背景 FT_NormalCombat_Background**
 <br>在战斗场景中处于高血量状态时的识别区背景的容错百分率
 <br>Fault tolerance percentage of background in combat scene without low health alert
 
-***`濒危战斗识别容错率-目标` `FT_DangerCombat_Target`***
+**濒危战斗识别容错率-目标 FT_DangerCombat_Target**
 <br>在战斗场景中处于低血量状态时的识别区目标的容错百分率
 <br>Fault tolerance percentage of target in combat scene with low health alert
 
-***`濒危战斗识别容错率-背景` `FT_DangerCombat_Background`***
+**濒危战斗识别容错率-背景 FT_DangerCombat_Background**
 <br>在战斗场景中处于低血量状态时的识别区背景的容错百分率
 <br>Fault tolerance percentage of background in combat scene with low health alert
 
-***`乐土大厅识别容错率-目标` `FT_ElysiumLobby_Target`***
+**乐土大厅识别容错率-目标 FT_ElysiumLobby_Target**
 <br>在往事乐土大厅场景中时的识别区目标的容错百分率
 <br>Fault tolerance percentage of target in Elysium Lobby scene
 
-***`乐土大厅识别容错率-背景` `FT_ElysiumLobby_Background`***
+**乐土大厅识别容错率-背景 FT_ElysiumLobby_Background**
 <br>在往事乐土大厅场景中时的识别区背景的容错百分率
 <br>Fault tolerance percentage of background in Elysium Lobby scene
 
@@ -209,7 +209,7 @@
 - CPU：i5-10300H
 - RAM：16G
 - Sys：Win10
-- Res：<=`1920`*`1080`
+- Res：<=1920*1080
 
 **2. (Waiting to add other devices)**
 
