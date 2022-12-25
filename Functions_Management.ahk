@@ -174,34 +174,6 @@ ScreenDetect()
 }
 
 
-;【函数 Function】
-ScreenDetectController()
-{
-    If (!Toggle_ManualSuspend)
-    {
-        If (FirstTime_ScreenDetect)
-        {
-            ScreenDetect()
-            FirstTime_ScreenDetect := !FirstTime_ScreenDetect
-        }
-        Else
-        {
-            SetTimer, ScreenDetect, %Timer_ScreenDetect%
-        }
-    }
-    Else
-    {
-        SetTimer, ScreenDetect, Delete
-        FirstTime_ScreenDetect := False
-        Try
-        {
-            SetTimer, ScreenDetectController, Delete
-            Toggle_ScreenDetectController := False
-        }
-    }
-}
-
-
 ;【函数 Function】自动控制
 AutoScale()
 {
@@ -209,28 +181,11 @@ AutoScale()
     {
         Try
         {
-            /*
             If (!Toggle_ScreenDetect)
             {
                 Toggle_ScreenDetect := !Toggle_ScreenDetect
-                ScreenDetect()
-            }
-            Else
-            {
-                If (Toggle_ManualSuspend)
-                {
-                    Try
-                        SetTimer, ScreenDetect, Delete
-                    Toggle_ScreenDetect := !Toggle_ScreenDetect
-                }
-                Else
-                    SetTimer, ScreenDetect, %Timer_ScreenDetect%
-            }
-            */
-            If (!Toggle_ScreenDetectController)
-            {
-                Toggle_ScreenDetectController := !Toggle_ScreenDetectController
-                SetTimer, ScreenDetectController, %Timer_ScreenDetectController%
+                ;ScreenDetect()
+                SetTimer, ScreenDetect, %Timer_ScreenDetect%
             }
         }
 
@@ -333,6 +288,11 @@ ManualSuspend()
         If (Toggle_AutoScale)
         {
             SetTimer, AutoScale, Delete
+            Try
+            {
+                SetTimer, ScreenDetect, Delete
+                Toggle_ScreenDetect := False
+            }
             If (Toggle_MouseFunction)
             {
                 If (Status_Restriction)
