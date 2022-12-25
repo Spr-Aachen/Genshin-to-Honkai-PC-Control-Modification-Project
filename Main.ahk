@@ -64,11 +64,8 @@ Global UpperLeftCorner_Y2
 Global Icon
 
 ;【变量 Variable】对管理屏幕检测功能的全局变量进行赋值
-;Global Toggle_ScreenDetect := False
-Global FirstTime_ScreenDetect := True
+Global Toggle_ScreenDetect := False
 Global Timer_ScreenDetect := 2100
-Global Toggle_ScreenDetectController := False
-Global Timer_ScreenDetectController := 1
 
 ;【变量 Variable】对管理自动控制功能的全局变量进行赋值
 Global Toggle_AutoScale := False
