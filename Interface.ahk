@@ -100,8 +100,8 @@ Finally
         IniWrite, 1, %INI_DIR%, Options, %可隐藏光标% ; Checked by default
         IniWrite, 1, %INI_DIR%, Options, %限制性光标% ; Checked by default
 
-        IniWrite, 3, %INI_DIR%, Params, %正常战斗状态识别容错率_目标%
-        IniWrite, 3, %INI_DIR%, Params, %正常战斗状态识别容错率_背景%
+        IniWrite, 0, %INI_DIR%, Params, %正常战斗状态识别容错率_目标%
+        IniWrite, 0, %INI_DIR%, Params, %正常战斗状态识别容错率_背景%
         IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_目标%
         IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_背景%
         IniWrite, 1, %INI_DIR%, Params, %往世乐土大厅识别容错率_目标%
@@ -211,91 +211,93 @@ Gui, Start: Font, s12, 新宋体
 Gui, Start: Add, Tab3, , %键位%|%功能%|%设置%
 
 Gui, Start: Tab, %键位%
-;Gui, Start: Add, Picture,Xm+18 Ym+18 W333 H-1, C:/Users/Spr_Aachen/Desktop/p1.jpg
-Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H210,                                                                            战斗 Combat
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                        :                       %必杀技%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MainSkill1,                                             %Key_MainSkill1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,         LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %武器技或后崩技%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_SecondSkill1,                                           %Key_SecondSkill1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,     LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %人偶技或月之环%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_DollSkill1,                                             %Key_DollSkill1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,         LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %闪避%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Dodging1,                                               %Key_Dodging1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Dodging2 Choose%Key_Dodging2_DDL%,             LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %普攻%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_NormalAttack1,                                          %Key_NormalAttack1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%,   LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15,                                        :                       %必杀技%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_MainSkill1,                                             %Key_MainSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_MainSkill2 Choose%Key_MainSkill2_DDL%,         LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %武器技或后崩技%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_SecondSkill1,                                           %Key_SecondSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_SecondSkill2 Choose%Key_SecondSkill2_DDL%,     LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %人偶技或月之环%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_DollSkill1,                                             %Key_DollSkill1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_DollSkill2 Choose%Key_DollSkill2_DDL%,         LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %闪避%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Dodging1,                                               %Key_Dodging1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Dodging2 Choose%Key_Dodging2_DDL%,             LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %普攻%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_NormalAttack1,                                          %Key_NormalAttack1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_NormalAttack2 Choose%Key_NormalAttack2_DDL%,   LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H177,                                                                            其它 Others
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                %左Alt加左键_正常点击%
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15,                                                                %左Alt加左键_正常点击%
 ;Gui, Start: Add, Hotkey, Xp Yp W84 vKey_LeftClick,                                                              %Key_LeftClick%
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                        :                       %管理鼠标功能%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_MouseFunction1,                                         %Key_MouseFunction1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%, LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %暂停或启用%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Suspend1,                                               %Key_Suspend1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Suspend2 Choose%Key_Suspend2_DDL%,             LButton|MButton|RButton|%无%
-Gui, Start: Add, Text, Xp-99 Yp+33 +BackgroundTrans,                                     :                       %重启%
-Gui, Start: Add, Hotkey, Xp Yp W84 +BackgroundTrans vKey_Reload1,                                                %Key_Reload1%
-Gui, Start: Add, Text, Xp+87 Yp +BackgroundTrans, /
-Gui, Start: Add, DropDownList, Xp+12 Yp W84 +BackgroundTrans vKey_Reload2 Choose%Key_Reload2_DDL%,               LButton|MButton|RButton|%无%
-;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xp Yp+33,                                        :                       %管理鼠标功能%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_MouseFunction1,                                         %Key_MouseFunction1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_MouseFunction2 Choose%Key_MouseFunction2_DDL%, LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %暂停或启用%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Suspend1,                                               %Key_Suspend1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Suspend2 Choose%Key_Suspend2_DDL%,             LButton|MButton|RButton|%无%
+Gui, Start: Add, Text, Xp-99 Yp+33,                                     :                       %重启%
+Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Reload1,                                                %Key_Reload1%
+Gui, Start: Add, Text, Xp+87 Yp, /
+Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Reload2 Choose%Key_Reload2_DDL%,               LButton|MButton|RButton|%无%
+;Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
+Gui, Start: Add, Picture, Xm+63 Ym+72 W234 H351 +BackgroundTrans, GUI/Images/1.png
 
 Gui, Start: Tab, %功能%
-Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H174,                                                                            选项 Options
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, CheckBox, Xp Yp+15 +BackgroundTrans vRunAsAdmin Checked%RunAsAdmin%,                            %启用%%管理员权限%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableAutoScale Checked%EnableAutoScale%,                  %启用%%全自动识别%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableOcclusion Checked%EnableOcclusion%,                  %启用%%可隐藏光标%%注_推荐%
-Gui, Start: Add, CheckBox, Xp Yp+33 +BackgroundTrans vEnableRestriction Checked%EnableRestriction%,              %启用%%限制性光标%%注_推荐%
-Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, CheckBox, Xp Yp+15 vRunAsAdmin Checked%RunAsAdmin%,                            %启用%%管理员权限%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableAutoScale Checked%EnableAutoScale%,                  %启用%%全自动识别%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableOcclusion Checked%EnableOcclusion%,                  %启用%%可隐藏光标%%注_推荐%
+Gui, Start: Add, CheckBox, Xp Yp+33 vEnableRestriction Checked%EnableRestriction%,              %启用%%限制性光标%%注_推荐%
+Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H222,                                                                            高级 Advance
 Gui, Start: Font, s9, 新宋体
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Text, Xp Yp+15 +BackgroundTrans,                                                                                                 %正常战斗状态识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_Normal_T_Percentage,     %FaultTolerance_CombatScene_Normal_T_Percentage%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %正常战斗状态识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_Normal_B_Percentage,     %FaultTolerance_CombatScene_Normal_B_Percentage%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_LowHealth_T_Percentage, %FaultTolerance_CombatScene_LowHealth_T_Percentage%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %濒危战斗状态识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_LowHealth_B_Percentage, %FaultTolerance_CombatScene_LowHealth_B_Percentage%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_目标%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_ElysiumLobby_T_Percentage,           %FaultTolerance_ElysiumLobby_T_Percentage%
-Gui, Start: Add, Text, Xp-159 Yp+33 +BackgroundTrans,                                                                                             %往世乐土大厅识别容错率_背景%
-Gui, Start: Add, Slider, Xp+159 Yp +BackgroundTrans Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_ElysiumLobby_B_Percentage,           %FaultTolerance_ElysiumLobby_B_Percentage%
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, Text, Xp Yp+15,                                                                                                 %正常战斗状态识别容错率_目标%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_Normal_T_Percentage,     %FaultTolerance_CombatScene_Normal_T_Percentage%
+Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %正常战斗状态识别容错率_背景%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_Normal_B_Percentage,     %FaultTolerance_CombatScene_Normal_B_Percentage%
+Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %濒危战斗状态识别容错率_目标%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_LowHealth_T_Percentage, %FaultTolerance_CombatScene_LowHealth_T_Percentage%
+Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %濒危战斗状态识别容错率_背景%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_CombatScene_LowHealth_B_Percentage, %FaultTolerance_CombatScene_LowHealth_B_Percentage%
+Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %往世乐土大厅识别容错率_目标%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_ElysiumLobby_T_Percentage,           %FaultTolerance_ElysiumLobby_T_Percentage%
+Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %往世乐土大厅识别容错率_背景%
+Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_ElysiumLobby_B_Percentage,           %FaultTolerance_ElysiumLobby_B_Percentage%
 Gui, Start: Font, s12, 新宋体
+Gui, Start: Add, Picture, Xm+57 Ym+72 W258 H351 +BackgroundTrans, GUI/Images/2.png
 
 Gui, Start: Tab, %设置%
-Gui, Start: Add, Text, Xm+18 Ym+18 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
 Gui, Start: Add, GroupBox, W333 H78,                                              配置 Config
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gConfig_Import,                 %载入配置预设%
-Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, Radio, Xp Yp+15 gConfig_Import,                 %载入配置预设%
+Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H177,                                             更新 Update
-Gui, Start: Add, Text, Xp+18 Yp+18 +BackgroundTrans ; 集体缩进
-Gui, Start: Add, Radio, Xp Yp+15 +BackgroundTrans gUpdateCheck,                   %检查版本更新%
-Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] 百度云:           <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
-Gui, Start: Add, Link, Xp Yp+33 +BackgroundTrans,         [URL] Github:           <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
-Gui, Start: Add, Text, Xp Yp+33 +BackgroundTrans,                                 %查看更新日志%:
-Gui, Start: Add, DDL, Xp+192 Yp W87 +BackgroundTrans gSelectVersion vVersion,     %A_Space%||v0.4.+|v0.3.+|v0.2.+|v0.1.+
-Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+Gui, Start: Add, Text, Xp+18 Yp+18 ; 集体缩进
+Gui, Start: Add, Radio, Xp Yp+15 gUpdateCheck,                   %检查版本更新%
+Gui, Start: Add, Link, Xp Yp+33,         [URL] 百度云:           <a href="https://pan.baidu.com/s/1KK1B-r-hx_s3yTRl_h_oOg">提取码:2022</a>
+Gui, Start: Add, Link, Xp Yp+33,         [URL] Github:           <a href="https://github.com/Spartan711/Genshin-to-Honkai-PC-Control-Project/releases">New Release</a>
+Gui, Start: Add, Text, Xp Yp+33,                                 %查看更新日志%:
+Gui, Start: Add, DDL, Xp+192 Yp W87 gSelectVersion vVersion,     %A_Space%||v0.4.+|v0.3.+|v0.2.+|v0.1.+
+Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H111,                                             其它 Others
-;Gui, Start: Add, Text, Xm+18 Yp+39 +BackgroundTrans ; 控距
+;Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
+Gui, Start: Add, Picture, Xm+72 Ym+72 W204 H351 +BackgroundTrans, GUI/Images/3.png
 
 Gui, Start: Tab
 Gui, Start: Add, Button, Default W366 gClickToRun, %开启%
