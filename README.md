@@ -101,7 +101,7 @@
 ### 键位 - 更改 <br>Keymaps - Customization
 
 启动界面的`键位栏`中允许手动更改默认键位且不同控制器的设置如下：
-<br>The `Keymap Bar` which located in the startup interface allows users to customize the default keymap, different controllers should be set up as follows:
+<br>The `Keymap Tab` which located in the startup interface allows users to customize the default keymap, different controllers should be set up as follows:
 
 **键盘 Keyboard**
 <br>点击`框`并按下想要的键盘按键（按Del键或Backspace键可清空框）
@@ -118,7 +118,7 @@
 ### 功能 - 选项<br>Functions - Option
 
 启动界面的`功能栏`中允许手动选择是否启用以下辅助性选项：
-<br>The `Function Bar` which located in the startup interface allows users to choose whether toggle the following options:
+<br>The `Function Tab` which located in the startup interface allows users to choose whether toggle the following options:
 
 **管理员权限（默认启用） Run as Admin (Toggled by default)**
 <br>以管理员身份运行程序
@@ -139,7 +139,7 @@
 ### 功能 - 调参<br>Functions - Tuning
 
 启动界面的`功能栏`中允许手动调节自动识别系统的以下参数：
-<br>The `Function Bar` which located in the startup interface allows users to adjust the following params of Automatic Identification:
+<br>The `Function Tab` which located in the startup interface allows users to adjust the following params of Automatic Identification:
 
 **正常战斗识别容错率-目标 FT_NormalCombat_Target**
 <br>在战斗场景中处于高血量状态时的识别区目标的容错百分率
@@ -176,8 +176,8 @@
 3. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
 <br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
-4. 启动界面的设置栏中可以直接重置当前配置
-<br>   Current configuration can be reset from the settings bar which located in the start-up interface.
+4. 启动界面的`设置栏`中可以直接重置当前配置
+<br>   Current configuration can be reset from the `Settings Tab` which located in the start-up interface.
 
 5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
 <br>   By right-clicking on the tray icon and move to the "Else" section, can the configuration file be directly accessed or deleted.
