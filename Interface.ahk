@@ -56,6 +56,14 @@ Try
     Changelog_DIR2 = %RootDIR%/GUI/Changelogs/v0.2.+.txt
     Changelog_DIR3 = %RootDIR%/GUI/Changelogs/v0.3.+.txt
     Changelog_DIR4 = %RootDIR%/GUI/Changelogs/v0.4.+.txt
+
+    FileCreateDir, %RootDIR%/GUI/Images
+    Image_DIR1 = %RootDIR%/GUI/Images/1.png
+    Image_DIR2 = %RootDIR%/GUI/Images/2.png
+    Image_DIR3 = %RootDIR%/GUI/Images/3.png
+    FileInstall, GUI/Images/1.png, %Image_DIR1%, 1
+    FileInstall, GUI/Images/2.png, %Image_DIR2%, 1
+    FileInstall, GUI/Images/3.png, %Image_DIR3%, 1
 }
 
 
@@ -100,8 +108,8 @@ Finally
         IniWrite, 1, %INI_DIR%, Options, %可隐藏光标% ; Checked by default
         IniWrite, 1, %INI_DIR%, Options, %限制性光标% ; Checked by default
 
-        IniWrite, 0, %INI_DIR%, Params, %正常战斗状态识别容错率_目标%
-        IniWrite, 0, %INI_DIR%, Params, %正常战斗状态识别容错率_背景%
+        IniWrite, 1, %INI_DIR%, Params, %正常战斗状态识别容错率_目标%
+        IniWrite, 1, %INI_DIR%, Params, %正常战斗状态识别容错率_背景%
         IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_目标%
         IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_背景%
         IniWrite, 1, %INI_DIR%, Params, %往世乐土大厅识别容错率_目标%
@@ -252,7 +260,7 @@ Gui, Start: Add, Hotkey, Xp Yp W84 vKey_Reload1,                                
 Gui, Start: Add, Text, Xp+87 Yp, /
 Gui, Start: Add, DropDownList, Xp+12 Yp W84 vKey_Reload2 Choose%Key_Reload2_DDL%,               LButton|MButton|RButton|%无%
 ;Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
-Gui, Start: Add, Picture, Xm+63 Ym+72 W234 H351 +BackgroundTrans, GUI/Images/1.png
+Gui, Start: Add, Picture, Xm+63 Ym+72 W234 H351 +BackgroundTrans, %Image_DIR1%
 
 Gui, Start: Tab, %功能%
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
@@ -279,7 +287,7 @@ Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRigh
 Gui, Start: Add, Text, Xp-159 Yp+33,                                                                                             %往世乐土大厅识别容错率_背景%
 Gui, Start: Add, Slider, Xp+159 Yp Range0-100 Thick9 TickInterval100 ToolTipRight vFaultTolerance_ElysiumLobby_B_Percentage,           %FaultTolerance_ElysiumLobby_B_Percentage%
 Gui, Start: Font, s12, 新宋体
-Gui, Start: Add, Picture, Xm+57 Ym+72 W258 H351 +BackgroundTrans, GUI/Images/2.png
+Gui, Start: Add, Picture, Xm+57 Ym+72 W258 H351 +BackgroundTrans, %Image_DIR2%
 
 Gui, Start: Tab, %设置%
 Gui, Start: Add, Text, Xm+18 Ym+18 ; 控距
@@ -297,7 +305,7 @@ Gui, Start: Add, DDL, Xp+192 Yp W87 gSelectVersion vVersion,     %A_Space%||v0.4
 Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
 Gui, Start: Add, GroupBox, W333 H111,                                             其它 Others
 ;Gui, Start: Add, Text, Xm+18 Yp+39 ; 控距
-Gui, Start: Add, Picture, Xm+72 Ym+72 W204 H351 +BackgroundTrans, GUI/Images/3.png
+Gui, Start: Add, Picture, Xm+72 Ym+72 W204 H351 +BackgroundTrans, %Image_DIR3%
 
 Gui, Start: Tab
 Gui, Start: Add, Button, Default W366 gClickToRun, %开启%
