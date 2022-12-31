@@ -54,61 +54,61 @@
 <br>The following keymaps would take effect in combat, and they're pretty much close to the default settings from Genshin Impact (but mind that there's a little difference between those two's aiming mode)
 
 **Q键发动主技能（大招） Q key for main skill**
-<br>使用方法：点按或长按`Q键`[可改]
+<br>使用方法：点按或长按Q键[可改]
 <br>Usage: Press or long press `Q key`[Adjustable]
 
 **E键发动副技能（武器技）/后崩坏书主技能（大招） E key for second skill(weapon skill)/APHO(A Post-Honkai Odyssey) main skill**
-<br>使用方法：点按或长按`E键`[可改]
+<br>使用方法：点按或长按E键[可改]
 <br>特殊设定：在长按E键进入瞄准模式后，可通过移动鼠标来操控准星
 <br>Usage: Press or long press `E key`[Adjustable]
 <br>Extra: After entering the aiming mode by long pressing `E key`, cross hair can be controled by the mouse-movement
 
 **Z键发动人偶技能/后崩坏书白热化状态（月之环） Z key for doll skill/APHO(A Post-Honkai Odyssey) white heat**
-<br>使用方法：按下`Z键`[可改]
+<br>使用方法：按下Z键[可改]
 <br>Usage: Press down (Long press) `Z key`[Adjustable]
 
 **左侧Shift键或鼠标右键发动闪避/冲刺 LShift or RButton for dodging/dashing**
-<br>使用方法：点击或长按左侧`Shift键`/`鼠标右键`[可改]
+<br>使用方法：点击或长按左侧Shift键/鼠标右键[可改]
 <br>Usage: Press (Click) or long press `LShift`/`RButton`[Adjustable]
 
 **鼠标左键发动普攻 LButton for normal attack**
-<br>使用方法：点击或长按`鼠标左键`[可改]
+<br>使用方法：点击或长按鼠标左键[可改]
 <br>Usage: Press (Click) or long press `LButton`[Adjustable]
 
 尽管已经能自动分辨战斗与其它场景，但在出现意外情况时仍可以通过以下键位进行手动控制
 <br>Although the combat scene can be automaticly identified, the following keys can still be needed for manual control especially when exceptions occured
 
 **左侧Alt键+鼠标左键以正常使用点击功能 LAlt+LButton for left-click function**
-<br>使用方法：按住`左侧Alt键`后点击`鼠标左键`[不可改]
+<br>使用方法：按住左侧Alt键后点击鼠标左键[不可改]
 <br>Usage: Press down (Long press) `LAlt` and then click `LButton`[Unadjustable]
 
 **鼠标中键管理视角跟随功能 MButton for view-control function management**
-<br>使用方法：点击`鼠标中键`[可改]
+<br>使用方法：点击鼠标中键[可改]
 <br>特殊设定：关闭/激活时屏幕左下角有状态栏提示
 <br>Usage: Click `MButton`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when turning off/turning on the function
 
 **F1键暂停/启用程序 F1 key for program suspending/continuing**
-<br>使用方法：按下`F1键`[可改]
+<br>使用方法：按下F1键[可改]
 <br>特殊设定：暂停/启用时屏幕左下角有状态栏提示
 <br>Usage: Press down (Long press) `F1 key`[Adjustable]
 <br>Extra: Tooltips will show up in the left lower corner of the screen when suspending/continuing the program
 
 **F3键重启程序 F3 key for program reloading**
-<br>使用方法：按下`F3键`[可改]
+<br>使用方法：按下F3键[可改]
 <br>Usage: Press down (Long press) `F3 key`[Adjustable]
 
 ### 键位 - 更改 <br>Keymaps - Customization
 
-启动界面的`键位栏`中允许手动更改默认键位且不同控制器的设置如下：
+启动界面的键位栏中允许手动更改默认键位且不同控制器的设置如下：
 <br>The `Keymap Tab` which located in the startup interface allows users to customize the default keymap, different controllers should be set up as follows:
 
 **键盘 Keyboard**
-<br>点击`框`并按下想要的键盘按键（按Del键或Backspace键可清空框）
+<br>点击框并按下想要的键盘按键（按Del键或Backspace键可清空框）
 <br>Click the `box` and press down the keyboard key you want (pressing `Delete` or `Backspace` would set the box to empty)
 
 **鼠标 Mouse**
-<br>点击`下拉栏目`切换到想要的鼠标按键（选择“无”可置空栏目）
+<br>点击下拉栏目切换到想要的鼠标按键（选择“无”可置空栏目）
 <br>Click the `combobox` to switch to the mouse button you want (choosing `None` would set the combobox to null)
 
 **手柄 GamePad**
@@ -117,7 +117,7 @@
 
 ### 功能 - 选项<br>Functions - Option
 
-启动界面的`功能栏`中允许手动选择是否启用以下辅助性选项：
+启动界面的功能栏中允许手动选择是否启用以下辅助性选项：
 <br>The `Function Tab` which located in the startup interface allows users to choose whether toggle the following options:
 
 **管理员权限（默认启用） Run as Admin (Toggled by default)**
@@ -138,7 +138,7 @@
 
 ### 功能 - 调参<br>Functions - Tuning
 
-启动界面的`功能栏`中允许手动调节自动识别系统的以下参数：
+启动界面的功能栏中允许手动调节自动识别系统的以下参数：
 <br>The `Function Tab` which located in the startup interface allows users to adjust the following params of Automatic Identification:
 
 **正常战斗识别容错率-目标 FT_NormalCombat_Target**
@@ -176,7 +176,7 @@
 3. ~~精简版去掉了除左键（普攻）外的所有战斗键位~~
 <br>   ~~The simplified version removed all the combat keymaps except LButton (which is for normal attack).~~
 
-4. 启动界面的`设置栏`中可以直接重置当前配置
+4. 启动界面的设置栏中可以直接重置当前配置
 <br>   Current configuration can be reset from the `Settings Tab` which located in the start-up interface.
 
 5. 在系统托盘处对图标右键可以在“其它”栏目中直接打开或删除配置文件
@@ -195,7 +195,7 @@
 <br>   Some Windows 11 system users reported that the programm won't work properly. Unfortunately I can't find out the problem.
 
 4. 全自动识别功能对于硬件性能要求稍高，现已对其进行了数次优化
-<br>   The `Automatic Identification` has a little high demand of hardware performance, though it has been optimized for several times.
+<br>   The Automatic Identification has a little high demand of hardware performance, though it has been optimized for several times.
 
 5. 灵敏度（鼠标DPI）无法通过程序调节。虽然通过调教各函数的响应时间参数能够达到类似的效果，但是需要大量的数据采集和调试，这将是个漫长的过程。
 <br>   Mouse DPI can't be simply adjusted through programm. Luckily a similar effect can be achieved by tuning each function's time response parameters, but large amount of data and debugging are needed, should be a long way to go.
