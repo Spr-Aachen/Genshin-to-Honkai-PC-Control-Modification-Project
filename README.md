@@ -4,6 +4,7 @@
 
 [![Releases](https://img.shields.io/github/v/release/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project?color=green&label=Release&logo=Github&logoColor=white&style=flat-square)](https://github.com/Spr-Aachen/Genshin-to-Honkai-PC-Control-Modification-Project/releases)
 [![Bilibili](https://img.shields.io/badge/Bilibili-v0.3.0%20Intro-blue?logo=Bilibili&style=flat-square)](https://www.bilibili.com/video/BV1DY4y1T7aS)
+[![YouTube](https://img.shields.io/badge/YouTube-v0.4.3%20Intro-red?logo=YouTube&style=flat-square)](https://www.youtube.com/watch?v=_Z7MmzOzj2c)
 
 </div>
 
