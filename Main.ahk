@@ -4,7 +4,7 @@
 
 
 ;【变量 Variable】版本号
-Global Version := "0.4.3"
+Global Version := "0.4.4"
 
 
 ;【变量 Variable】默认语言
