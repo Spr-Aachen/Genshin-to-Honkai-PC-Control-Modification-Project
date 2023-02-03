@@ -28,12 +28,12 @@ ScreenDetect()
             UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(DetectionPerPixel_Height * Client_Height)
             Switch Client_Height
             {
-                Case "720": ; [未测试 untested]（ +  +  + 颜色相似二值化100% + ）
-                    Icon := 
-                    Icon .= 
-                    Icon .= 
+                Case "720": ; [已测试 tested]（颜色相似二值化100% + 颜色相似二值化96% + 颜色相似二值化96% + 颜色相似二值化100% + 颜色相似二值化90%）
+                    Icon := "|<CombatSceneIcon_Normal>0x313131@1.00$20.C077k3tw0yzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTrk3tw0yC078"
+                    Icon .= "|<CombatSceneIcon_LowHealth1>0x422A2A@0.96$20.4027k3tw0yzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zT0Dbk3sM0MU"
+                    Icon .= "|<CombatSceneIcon_LowHealth2>0x522323@0.95$20.6067k3ty1yzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zzUTzs7zy1zTUTbk3sM0MU"
                     Icon .= "|<ElysiumLobbyIcon_UpperLeft>0xFFFFFF@1.00$15.0080300s0D03s0z0Ds3v0y8DU3s0y0DU3s0y07k0T01w07k0T01w07l0T81z07s0T01s0700M01U"
-                    Icon .= 
+                    Icon .= "|<ElysiumLobbyIcon_LowerRight>0x5B5B5B@0.90$1.w"
 
                 Case "900": ; [已测试 tested]（颜色相似二值化100% + 颜色相似二值化96% + 颜色相似二值化96% + 颜色相似二值化100% + ）
                     Icon := "|<CombatSceneIcon_Normal>0x313131@1.00$25.200810043s0DXy0Dtz07xzk7zzs3zzw1zzy0zzz0TzzUDzzk7zzs3zzw1zzy0zzz0TzzUDzzk7zzs3zzw1zzy0zzz0TzzUDzzk7zzs3zzw1zrw0Tny0Dsy03s400EU"
