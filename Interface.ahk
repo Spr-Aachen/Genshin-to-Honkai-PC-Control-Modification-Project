@@ -82,6 +82,7 @@ Finally
             RunWait, PowerShell.exe -Command "Get-ChildItem -Path C:/ -Recurse -Filter '*BH3_Hotkey*.ini' | Remove-Item -Force" -Command "Exit", , Hide
         Catch
             MsgBox, 16, Warning, Failed to run Shell!
+        /*
         TestString := %已执行%
         IniWrite, %TestString%, %INI_DIR%, Initial, %执行初始化进程%
 
@@ -110,10 +111,12 @@ Finally
 
         IniWrite, 1, %INI_DIR%, Params, %正常战斗状态识别容错率_目标%
         IniWrite, 1, %INI_DIR%, Params, %正常战斗状态识别容错率_背景%
-        IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_目标%
-        IniWrite, 12, %INI_DIR%, Params, %濒危战斗状态识别容错率_背景%
+        IniWrite, 3, %INI_DIR%, Params, %濒危战斗状态识别容错率_目标%
+        IniWrite, 3, %INI_DIR%, Params, %濒危战斗状态识别容错率_背景%
         IniWrite, 1, %INI_DIR%, Params, %往世乐土大厅识别容错率_目标%
         IniWrite, 1, %INI_DIR%, Params, %往世乐土大厅识别容错率_背景%
+        */
+        FileInstall, Config/Preset_Keyboard/BH3_Hotkey.ini, %INI_DIR%, 1
     }
     Try ;IfExist, %INI_DIR%
     {
@@ -149,8 +152,8 @@ Finally
     }
     Finally
     {
-    /*
         ; Not working with dict
+        /*
         Dict := {"MouseKey1": "LButton", "MouseKey2": "MButton", "MouseKey3": "RButton", "MouseKey4": %无%}
         Counter := 0
         For Key, Value in Dict
@@ -173,7 +176,7 @@ Finally
             If (Key_Reload2 == "%Value%")
                 Key_Reload2_DDL := %Counter%
         }
-    */
+        */
         ; But works with list
         List := ["LButton", "MButton", "RButton", %无%]
         Loop % List.Length()
