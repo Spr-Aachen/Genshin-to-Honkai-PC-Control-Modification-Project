@@ -156,12 +156,37 @@ ScreenDetect()
             { 
                 Case "":
 
-                Default:     ; [已测试 tested]（颜色相似二值化100% + 颜色相似二值化90% + 颜色相似二值化100% + 颜色相似二值化90% + [待重测]颜色相似二值化99% + 颜色相似二值化100%）
+                Default:     ; [已测试 tested]（颜色相似二值化100% + 颜色相似二值化96% + 颜色相似二值化96% + 颜色相似二值化100% + 颜色相似二值化100%）
                     Icon := "|<CombatSceneIcon_Normal>0x313131@1.00$31.7k01w7y01z3z00zVzU0Tvzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0DzDw03z7y01z1y00TUy00DW"
                     Icon .= "|<CombatSceneIcon_LowHealth1>0x412A2A@0.96$31.1U00s1k00Q3z00zVzU0Ttzs0Txzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1ztzU0zszk0DwTs07w3U00sE"
                     Icon .= "|<CombatSceneIcon_LowHealth2>0x4B2626@0.96$31.1U00s1k00Q3z00zVzU0Ttzs0Txzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zzzk0zzzs0Tzzw0Dzzy07zzz03zzzU1zvzU0zszk0DwTs07w3U00sE"
                     Icon .= "|<ElysiumLobbyIcon_UpperLeft>0xFFFFFF@1.00$22.0004000k003000w007k00T007w00zk03z00yA07UE0S107k00w003k00y007U00S007k00w003k00z000w003k007k007U00S000y000w003k007k007UE0S100y400zk03z007w007k00T000w000k0030006"
                     Icon .= "|<ElysiumLobbyIcon_LowerRight>0xD4D4D4@1.00$11.ztzk000000001zzzs00000000k1U3060A0NznzU38"
+            }
+        }
+
+        Else If (Client_Width / Client_Height == 2560 / 1600)
+        { ; 默认数值源于2560*1080分辨率下的测试结果
+            DetectionPerPixel_Width := 66 * 2 / 2560 ;
+            DetectionPerPixel_Height := 50 * 2 / 1600
+            UpperLeftCorner_X := ClientUpperLeftCorner_X
+            UpperLeftCorner_Y := ClientUpperLeftCorner_Y
+            LowerRightCorner_X := UpperLeftCorner_X + Round(DetectionPerPixel_Width * Client_Width)
+            LowerRightCorner_Y := UpperLeftCorner_Y + Round(DetectionPerPixel_Height * Client_Height)
+            LowerRightCorner_X2 := ClientUpperLeftCorner_X + Client_Width
+            LowerRightCorner_Y2 := ClientUpperLeftCorner_Y + Client_Height
+            UpperLeftCorner_X2 := LowerRightCorner_X2 - Round(DetectionPerPixel_Width * Client_Width)
+            UpperLeftCorner_Y2 := LowerRightCorner_Y2 - Round(DetectionPerPixel_Height * Client_Height)
+            Switch Client_Height
+            { 
+                Case "":
+
+                Default:     ; [未测试 untested]（颜色相似二值化100% + 颜色相似二值化96% + 颜色相似二值化96% + 颜色相似二值化100% + 颜色相似二值化100%）
+                    Icon := "|<CombatSceneIcon_Normal>0x313131@1.00$41.0E000007w001z0Ts007y1zs00Ty3zk00zw7zU01zszzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zznzk00zw7zU01zsDz003zk7w001z0Ds003y4"
+                    Icon .= "|<CombatSceneIcon_LowHealth1>0x432929@0.96$41.0s000S07s001y0zw00Dz1zs00Ty3zs00zyTzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zyTz007zkzw00Dz1zs00Ty0T0007U0Q000D0U"
+                    Icon .= "|<CombatSceneIcon_LowHealth2>0x512323@0.96$41.0s000S07s001y0zw00Dz1zw00Tz3zs00zyTzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zzzzU0Dzzzz00Tzzzy00zzzzw01zzzzs03zzzzk07zyTz007zkzw00Dz1zs00Ty0T0007k0w000D0U"
+                    Icon .= "|<ElysiumLobbyIcon_UpperLeft>0xFFFFFF@1.00$29.00002000040000s0001k000DU000T0003y0007w000zs001zk00DzU00Tz003wC007sQ00z0801y0E0Dk000TU003w0007s000z0001y000Dk000TU003w0007s000z0001y000Dw000Ts000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk000TU000Dk200TU400Dk800TUE00DzU00Tz000Dy000Tw000Ds000Tk000DU000T0000C0000Q000080000M"
+                    Icon .= "|<ElysiumLobbyIcon_LowerRight>0xABABAB@1.00$1.y"
             }
         }
 
