@@ -13,7 +13,7 @@ If GetKeyState(Key_MouseFunction, "P") ; 通过行为检测防止被部分函数
     {
         CoordReset()
         SetTimer, ViewControl, %Timer_ViewControl%
-        ToolTip, %视角跟随已手动激活%, 0, 999 ; [可调校数值 adjustable parameters]
+        ToolTip, %Var_View_Control_On%, 0, 999 ; [可调校数值 adjustable parameters]
         Sleep 999 ; [可调校数值 adjustable parameters]
         ToolTip
     }
@@ -21,7 +21,7 @@ If GetKeyState(Key_MouseFunction, "P") ; 通过行为检测防止被部分函数
     {
         SetTimer, ViewControl, Delete
         InputReset()
-        ToolTip, %视角跟随已手动关闭%, 0, 999 ; [可调校数值 adjustable parameters]
+        ToolTip, %Var_View_Control_Off%, 0, 999 ; [可调校数值 adjustable parameters]
         Sleep 999 ; [可调校数值 adjustable parameters]
         ToolTip
     }
