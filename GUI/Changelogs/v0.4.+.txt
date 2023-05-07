@@ -1,4 +1,21 @@
-﻿[0.4.2] - 2022-11-28
+﻿[0.4.4] - 2023-02-03
+
+- [Fix] The Automatic Identification can't handle remapping properly while in low health status in combat scene
+- [Fix] The issue that the "FT_DangerCombat_" slider for param tuning took no effect
+- [Fix] Programm failure caused by invalid variables
+- [Add] Resolution support : 3840 x 2160 (tested), 2560 x 1600 (untested)
+- [Improve] Speed up program loading at first startup
+- [Improve] Brand new icon (self-made)
+>
+- [修复] 低血量战斗状态下由自动识别功能误判而导致的操作无响应的问题
+- [修复] “濒危战斗识别容错率”调参滑条失效的问题
+- [修复] 不合法参数导致的程序报错
+- [新增] 分辨率支持：3840 x 2160（已测试）、2560 x 1600（未测试）
+- [改进] 提升初次加载速度
+- [改进] 新的图标（自制）
+
+
+[0.4.3] - 2022-11-28
 
 - [Fix] The "Cursor Restriction" took no effect after unchecking the "Automatic Idendification" option.
 - [Fix] Update installation failure caused by path access error.
