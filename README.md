@@ -1,4 +1,14 @@
-﻿<div align="center">
+﻿﻿<div align="center">
+
+# 📢 这个项目已停止维护 📢<br>This repo is no longer maintained
+
+</div>
+
+本项目永久停止更新维护，感谢大家一直以来的支持和鼓励！<br>
+This repository is no longer maintained. I would like to thank the people who supported me all the time. Thank you all.<br>
+
+
+<div align="center">
 
 # 崩坏3仿原神PC端键鼠操控<br>Genshin to Honkai PC Control Modification Project
 
